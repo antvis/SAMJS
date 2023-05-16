@@ -1,7 +1,7 @@
 {
   "name": "sam.js",
   "version": "0.0.1",
-  "description": "A react library developed with dumi",
+  "description": "JS SDK for SAM",
   "license": "MIT",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -11,6 +11,7 @@
   "scripts": {
     "build": "father build",
     "build:watch": "father dev",
+    "deploy": "dumi build && gh-pages -d docs-dist",
     "dev": "dumi dev",
     "docs:build": "dumi build",
     "doctor": "father doctor",
@@ -50,6 +51,7 @@
   },
   "devDependencies": {
     "@antv/l7": "^2.15.4",
+    "@antv/l7-draw": "^3.0.25",
     "@commitlint/cli": "^17.1.2",
     "@commitlint/config-conventional": "^17.1.0",
     "@types/react": "^18.0.0",
@@ -61,6 +63,7 @@
     "eslint": "^8.23.0",
     "father": "^4.1.0",
     "friendly-errors-webpack-plugin": "^1.7.0",
+    "gh-pages": "^5.0.0",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
     "npyjs": "^0.4.0",

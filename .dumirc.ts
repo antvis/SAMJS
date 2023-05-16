@@ -3,12 +3,7 @@ import { defineConfig } from 'dumi';
 const CopyPlugin = require('copy-webpack-plugin');
 export default defineConfig({
   outputPath: 'docs-dist',
-  //   copy:[
-  //   {
-  //     from: "docs/model",
-  //     to: "model",
-  //   }
-  // ],
+
   chainWebpack(memo, { env, webpack }) {
     // 设置 alias
 
@@ -31,5 +26,9 @@ export default defineConfig({
   mfsu: false,
   themeConfig: {
     name: 'SAM.js',
+    nav: [
+      { title: 'demo', link: '/demos' },
+      { title: 'API', link: '/api' },
+    ],
   },
 });

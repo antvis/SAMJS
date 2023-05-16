@@ -27,7 +27,7 @@ export function arrayToImageData(input: any, width: number, height: number) {
   }
   // const res = getImageDataByRegion(minx, miny, maxx, maxy, input);
 
-  return new ImageData(arr, height, width);
+  return new ImageData(arr, width, height);
 }
 
 function getImageExtent(
@@ -36,9 +36,9 @@ function getImageExtent(
   height: number,
   pad: number = 15,
 ) {
-  let minx = height;
+  let minx = width;
   let maxx = 0;
-  let miny = width;
+  let miny = height;
   let maxy = 0;
   for (let i = 0; i < input.length; i++) {
     // Threshold the onnx model mask prediction at 0.0
@@ -46,8 +46,8 @@ function getImageExtent(
     // in python
 
     if (input[i] > 0.0) {
-      let x = i % height;
-      let y = Math.floor(i / height);
+      let x = i % width;
+      let y = Math.floor(i / width);
       minx = Math.min(minx, x);
       maxx = Math.max(maxx, x);
       miny = Math.min(miny, y);
@@ -64,13 +64,12 @@ function getImageDataByRegion(
   maxy: number,
   imageData: number[],
   width: number,
-  height: number,
 ) {
   const data = [];
   let destIndex = 0;
   for (let y = miny; y < maxy; y++) {
     for (let x = minx; x < maxx; x++) {
-      const sourceIndex = y * height + x;
+      const sourceIndex = y * width + x;
       data[destIndex++] = imageData[sourceIndex] > 0 ? 1 : -1;
     }
   }
@@ -97,27 +96,18 @@ export function imageDataToImage(imageData: ImageData) {
   return image;
 }
 
-export function drawLines(
+export function simplifyLine(
   points: number[][],
-  width: number,
-  height: number,
   minX: number,
   minY: number,
+  tolerance: number = 5,
 ): any {
-  const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d')!;
-  canvas.width = width * 10;
-  canvas.height = height * 10;
-  ctx.beginPath();
-  ctx.strokeStyle = '#00f';
-  ctx.lineWidth = 4;
-  const simplifyData = simplify(
-    points.map((p) => {
-      return { x: p[0] + minX, y: p[1] + minY };
-    }),
-    5,
-    true,
-  );
+  // 局部坐标转全局坐标
+  const pointArray = points.map((p) => {
+    return { x: p[0] + minX, y: p[1] + minY };
+  });
+  if (tolerance === 0) return pointArray;
+  const simplifyData = simplify(pointArray, tolerance, true);
 
   return simplifyData;
 }
@@ -136,17 +126,25 @@ export function onnxMaskToImage(
   width: number,
   height: number,
 ): any {
+  return imageDataToImage(arrayToImageData(input, width, height));
+}
+
+// 裁剪后的Mask
+export function onnxMaskClip(input: any, width: number, height: number) {
   const [minx, maxx, miny, maxy] = getImageExtent(input, width, height);
-  const bboxData = getImageDataByRegion(
-    minx,
-    miny,
-    maxx,
-    maxy,
-    input,
-    width,
-    height,
-  );
-  // console.log(bboxData)
+  const bboxData = getImageDataByRegion(minx, miny, maxx, maxy, input, width);
+  const imageData = arrayToImageData(bboxData, maxx - minx, maxy - miny);
+  return imageDataToImage(imageData);
+}
+// Mask 转为 矢量多边形
+export function onnxMaskToPolygon(
+  input: any,
+  width: number,
+  height: number,
+  simplifyThreshold: number = 5,
+) {
+  const [minx, maxx, miny, maxy] = getImageExtent(input, width, height);
+  const bboxData = getImageDataByRegion(minx, miny, maxx, maxy, input, width);
 
   const bboxWidth = maxx - minx;
   const bboxHeight = maxy - miny;
@@ -156,12 +154,83 @@ export function onnxMaskToImage(
     .smooth(false)
     .thresholds(2);
   const lines = contours(bboxData);
-  return drawLines(
+  return simplifyLine(
     lines[1].coordinates[0][0],
-    bboxWidth,
-    bboxHeight,
     minx,
     miny,
+    simplifyThreshold,
   );
-  // return imageDataToImage(arrayToImageData(input, width, height));
+}
+
+// 获取 Mask 后的数据
+export function getImageByMask(
+  imageData: ImageData,
+  input: any,
+  flag: boolean = true,
+) {
+  for (let i = 0; i < input.length; i++) {
+    // Threshold the onnx model mask prediction at 0.0
+    // This is equivalent to thresholding the mask using predictor.model.mask_threshold
+    // in python
+
+    if (flag ? input[i] <= 0.0 : input[i] > 0.0) {
+      imageData.data[4 * i + 0] = 0;
+      imageData.data[4 * i + 1] = 0;
+      imageData.data[4 * i + 2] = 0;
+      imageData.data[4 * i + 3] = 0;
+    }
+  }
+
+  return imageDataToImage(imageData);
+}
+
+export function getImageByMaskClip(
+  imageData: ImageData,
+  maskData: any,
+  width: number,
+  height: number,
+) {
+  const [minx, maxx, miny, maxy] = getImageExtent(maskData, width, height);
+  const data = new Uint8ClampedArray(4 * (maxx - minx) * (maxy - miny)).fill(0);
+  let destIndex = 0;
+  for (let y = miny; y < maxy; y++) {
+    for (let x = minx; x < maxx; x++) {
+      const sourceIndex = y * width + x;
+      if (maskData[sourceIndex] > 0) {
+        data[destIndex * 4] = imageData.data[sourceIndex * 4];
+        data[destIndex * 4 + 1] = imageData.data[sourceIndex * 4 + 1];
+        data[destIndex * 4 + 2] = imageData.data[sourceIndex * 4 + 2];
+        data[destIndex * 4 + 3] = imageData.data[sourceIndex * 4 + 3];
+      }
+      destIndex++;
+    }
+  }
+  const res = new ImageData(data, maxx - minx, maxy - miny);
+
+  return imageDataToImage(res);
+}
+
+export function downLoadImage(image: any) {
+  const a = document.createElement('a');
+  a.href = image.src;
+  a.download = 'image';
+  a.click();
+}
+export function downLoadCanvas(canvas: any) {
+  const a = document.createElement('a');
+  a.href = canvas.toDataURL('image/png');
+  a.download = 'image';
+  a.click();
+}
+
+// Image 转 imageData
+export function imageToImageData(
+  image: HTMLImageElement,
+): ImageData | undefined {
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = image.width;
+  canvas.height = image.height;
+  ctx?.drawImage(image, 0, 0);
+  return ctx?.getImageData(0, 0, image.width, image.height);
 }

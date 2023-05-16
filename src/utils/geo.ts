@@ -10,7 +10,7 @@ export class TileHelper {
     this.initialResolution = (2 * Math.PI * 6378137) / this.tileSize;
     this.originShift = (2 * Math.PI * 6378137) / 2.0;
   }
-  lngLatToMeters(lon: number, lat: number) {
+  lngLatToMeters(lon: number, lat: number): [number, number] {
     // "Converts given lat/lon in WGS84 Datum to XY in Spherical Mercator EPSG:3857"
     let mx = (lon * this.originShift) / 180.0;
     let my =
@@ -20,7 +20,7 @@ export class TileHelper {
   }
 
   // "Converts XY point from Spherical Mercator EPSG:3857 to lat/lon in WGS84 Datum"
-  metersToLatLon(mx: number, my: number) {
+  metersToLngLat(mx: number, my: number) {
     let lon = (mx / this.originShift) * 180.0;
     let lat = (my / this.originShift) * 180.0;
 
@@ -58,6 +58,11 @@ export class TileHelper {
     return this.pixelsToMeters(tx * this.tileSize, ty * this.tileSize, zoom);
   }
 
+  tileToLngLat(tx: number, ty: number, zoom: number) {
+    const [minx, miny] = this.tileToMeters(tx, ty, zoom);
+    return this.metersToLngLat(minx, miny);
+  }
+
   // "Returns a tile covering region in given pixel coordinates"
 
   pixelsToTile(px: number, py: number) {
@@ -90,8 +95,8 @@ export class TileHelper {
   // "Returns bounds of the given tile in latitude/longitude using WGS84 datum"
   tileLatLonBounds(tx: number, ty: number, zoom: number) {
     const bounds = this.tileBounds(tx, ty, zoom);
-    const [minLat, minLon] = this.metersToLatLon(bounds[0], bounds[1]);
-    const [maxLat, maxLon] = this.metersToLatLon(bounds[2], bounds[3]);
+    const [minLat, minLon] = this.metersToLngLat(bounds[0], bounds[1]);
+    const [maxLat, maxLon] = this.metersToLngLat(bounds[2], bounds[3]);
 
     return [minLat, minLon, maxLat, maxLon];
   }
@@ -107,7 +112,7 @@ export class TileHelper {
   }
   pixelsTolngLat(px: number, py: number, zoom: number) {
     const meters = this.pixelsToMeters(px, py, zoom);
-    return this.metersToLatLon(meters[0], meters[1]);
+    return this.metersToLngLat(meters[0], meters[1]);
   }
 
   lngLatToTile(lon: number, lat: number, zoom: number) {

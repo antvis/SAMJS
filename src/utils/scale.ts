@@ -4,6 +4,12 @@
 // This source code is licensed under the license found in the
 // LICENSE file in the root directory of this source tree.
 
+export interface IHandleScale {
+  height: number;
+  width: number;
+  samScale: number;
+}
+
 // Helper function for handling image scaling needed for SAM
 const handleImageScale = (image: HTMLImageElement) => {
   // Input images to SAM must be resized so the longest side is 1024

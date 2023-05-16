@@ -1,9 +1,7 @@
-# sam.js
+# sam.js JS SDK for SAM
 
 [![NPM version](https://img.shields.io/npm/v/sam.js.svg?style=flat)](https://npmjs.org/package/sam.js)
 [![NPM downloads](http://img.shields.io/npm/dm/sam.js.svg?style=flat)](https://npmjs.org/package/sam.js)
-
-A react library developed with dumi
 
 ## Usage
 

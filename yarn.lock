@@ -117,6 +117,19 @@
     reflect-metadata "^0.1.13"
     viewport-mercator-project "^6.2.1"
 
+"@antv/l7-draw@^3.0.25":
+  version "3.0.25"
+  resolved "https://registry.npm.alibaba-inc.com/@antv/l7-draw/download/@antv/l7-draw-3.0.25.tgz#930f15c5d82f6256d2b92beae2827fdb636ee568"
+  integrity sha512-u6swhuP88ph7JZ3fEpgp2P5KIvNrI/40DV5xwHTuVa2K6D2iftG7XLaDiiLSqoHe1cYR5wtGVkl+a7MphLL1ZA==
+  dependencies:
+    "@turf/turf" "^6.5.0"
+    eventemitter3 "^4.0.7"
+    lodash "^4.17.21"
+    mousetrap "^1.6.5"
+    next-tick "^1.1.0"
+    react "^16.12.0 || ^17.0.0"
+    tippy.js "^6.3.7"
+
 "@antv/l7-layers@2.15.4":
   version "2.15.4"
   resolved "https://registry.npm.alibaba-inc.com/@antv/l7-layers/download/@antv/l7-layers-2.15.4.tgz#38baccae30db8ab0020de185523eafe68c144114"
@@ -1575,6 +1588,11 @@
     schema-utils "^3.0.0"
     source-map "^0.7.3"
 
+"@popperjs/core@^2.9.0":
+  version "2.11.7"
+  resolved "https://registry.npm.alibaba-inc.com/@popperjs/core/download/@popperjs/core-2.11.7.tgz#ccab5c8f7dc557a52ca3288c10075c9ccd37fff7"
+  integrity sha512-Cr4OjIkipTtcXKjAsm8agyleBuDHvxzeBoa1v543lbv1YaIwQjESsVcmjiWiPEbC1FIeHOG/Op9kdCmAmiS3Kw==
+
 "@protobufjs/aspromise@^1.1.1", "@protobufjs/aspromise@^1.1.2":
   version "1.1.2"
   resolved "https://registry.npm.alibaba-inc.com/@protobufjs/aspromise/download/@protobufjs/aspromise-1.1.2.tgz#9b8b0cc663d669a7d8f6f5d0893a14d348f30fbf"
@@ -1924,6 +1942,43 @@
   resolved "https://registry.npm.alibaba-inc.com/@tsconfig/node16/download/@tsconfig/node16-1.0.3.tgz#472eaab5f15c1ffdd7f8628bd4c4f753995ec79e"
   integrity sha512-yOlFc+7UtL/89t2ZhjPvvB/DeAr3r+Dq58IgzsFkOAvVC6NMJXmCGjbptdXdR9qsX7pKcTL+s87FtYREi2dEEQ==
 
+"@turf/along@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/along/download/@turf/along-6.5.0.tgz#ab12eec58a14de60fe243a62d31a474f415c8fef"
+  integrity sha1-qxLuxYoU3mD+JDpi0xpHT0Fcj+8=
+  dependencies:
+    "@turf/bearing" "^6.5.0"
+    "@turf/destination" "^6.5.0"
+    "@turf/distance" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+
+"@turf/angle@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/angle/download/@turf/angle-6.5.0.tgz#985934171284e109d41e19ed48ad91cf9709a928"
+  integrity sha1-mFk0FxKE4QnUHhntSK2Rz5cJqSg=
+  dependencies:
+    "@turf/bearing" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/rhumb-bearing" "^6.5.0"
+
+"@turf/area@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/area/download/@turf/area-6.5.0.tgz#1d0d7aee01d8a4a3d4c91663ed35cc615f36ad56"
+  integrity sha1-HQ167gHYpKPUyRZj7TXMYV82rVY=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+
+"@turf/bbox-clip@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/bbox-clip/download/@turf/bbox-clip-6.5.0.tgz#8e07d51ef8c875f9490d5c8699a2e51918587c94"
+  integrity sha1-jgfVHvjIdflJDVyGmaLlGRhYfJQ=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+
 "@turf/bbox-polygon@^6.5.0":
   version "6.5.0"
   resolved "https://registry.npm.alibaba-inc.com/@turf/bbox-polygon/download/@turf/bbox-polygon-6.5.0.tgz#f18128b012eedfa860a521d8f2b3779cc0801032"
@@ -1931,13 +1986,214 @@
   dependencies:
     "@turf/helpers" "^6.5.0"
 
-"@turf/bbox@^6.5.0":
+"@turf/bbox@*", "@turf/bbox@^6.5.0":
   version "6.5.0"
   resolved "https://registry.npm.alibaba-inc.com/@turf/bbox/download/@turf/bbox-6.5.0.tgz#bec30a744019eae420dac9ea46fb75caa44d8dc5"
   integrity sha1-vsMKdEAZ6uQg2snqRvt1yqRNjcU=
   dependencies:
     "@turf/helpers" "^6.5.0"
     "@turf/meta" "^6.5.0"
+
+"@turf/bearing@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/bearing/download/@turf/bearing-6.5.0.tgz#462a053c6c644434bdb636b39f8f43fb0cd857b0"
+  integrity sha1-RioFPGxkRDS9tjazn49D+wzYV7A=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+
+"@turf/bezier-spline@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/bezier-spline/download/@turf/bezier-spline-6.5.0.tgz#d1b1764948b0fa3d9aa6e4895aebeba24048b11f"
+  integrity sha1-0bF2SUiw+j2apuSJWuvrokBIsR8=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+
+"@turf/boolean-clockwise@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/boolean-clockwise/download/@turf/boolean-clockwise-6.5.0.tgz#34573ecc18f900080f00e4ff364631a8b1135794"
+  integrity sha1-NFc+zBj5AAgPAOT/NkYxqLETV5Q=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+
+"@turf/boolean-contains@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/boolean-contains/download/@turf/boolean-contains-6.5.0.tgz#f802e7432fb53109242d5bf57393ef2f53849bbf"
+  integrity sha1-+ALnQy+1MQkkLVv1c5PvL1OEm78=
+  dependencies:
+    "@turf/bbox" "^6.5.0"
+    "@turf/boolean-point-in-polygon" "^6.5.0"
+    "@turf/boolean-point-on-line" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+
+"@turf/boolean-crosses@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/boolean-crosses/download/@turf/boolean-crosses-6.5.0.tgz#4a1981475b9d6e23b25721f9fb8ef20696ff1648"
+  integrity sha1-ShmBR1udbiOyVyH5+47yBpb/Fkg=
+  dependencies:
+    "@turf/boolean-point-in-polygon" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/line-intersect" "^6.5.0"
+    "@turf/polygon-to-line" "^6.5.0"
+
+"@turf/boolean-disjoint@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/boolean-disjoint/download/@turf/boolean-disjoint-6.5.0.tgz#e291d8f8f8cce7f7bb3c11e23059156a49afc5e4"
+  integrity sha1-4pHY+PjM5/e7PBHiMFkVakmvxeQ=
+  dependencies:
+    "@turf/boolean-point-in-polygon" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/line-intersect" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    "@turf/polygon-to-line" "^6.5.0"
+
+"@turf/boolean-equal@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/boolean-equal/download/@turf/boolean-equal-6.5.0.tgz#b1c0ce14e9d9fb7778cddcf22558c9f523fe9141"
+  integrity sha1-scDOFOnZ+3d4zdzyJVjJ9SP+kUE=
+  dependencies:
+    "@turf/clean-coords" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    geojson-equality "0.1.6"
+
+"@turf/boolean-intersects@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/boolean-intersects/download/@turf/boolean-intersects-6.5.0.tgz#df2b831ea31a4574af6b2fefe391f097a926b9d6"
+  integrity sha1-3yuDHqMaRXSvay/v45Hwl6kmudY=
+  dependencies:
+    "@turf/boolean-disjoint" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+
+"@turf/boolean-overlap@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/boolean-overlap/download/@turf/boolean-overlap-6.5.0.tgz#f27c85888c3665d42d613a91a83adf1657cd1385"
+  integrity sha1-8nyFiIw2ZdQtYTqRqDrfFlfNE4U=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/line-intersect" "^6.5.0"
+    "@turf/line-overlap" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    geojson-equality "0.1.6"
+
+"@turf/boolean-parallel@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/boolean-parallel/download/@turf/boolean-parallel-6.5.0.tgz#4e8a9dafdccaf18aca95f1265a5eade3f330173f"
+  integrity sha1-Toqdr9zK8YrKlfEmWl6t4/MwFz8=
+  dependencies:
+    "@turf/clean-coords" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/line-segment" "^6.5.0"
+    "@turf/rhumb-bearing" "^6.5.0"
+
+"@turf/boolean-point-in-polygon@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/boolean-point-in-polygon/download/@turf/boolean-point-in-polygon-6.5.0.tgz#6d2e9c89de4cd2e4365004c1e51490b7795a63cf"
+  integrity sha1-bS6cid5M0uQ2UATB5RSQt3laY88=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+
+"@turf/boolean-point-on-line@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/boolean-point-on-line/download/@turf/boolean-point-on-line-6.5.0.tgz#a8efa7bad88760676f395afb9980746bc5b376e9"
+  integrity sha1-qO+nutiHYGdvOVr7mYB0a8Wzduk=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+
+"@turf/boolean-within@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/boolean-within/download/@turf/boolean-within-6.5.0.tgz#31a749d3be51065da8c470a1e5613f4d2efdee06"
+  integrity sha1-MadJ075RBl2oxHCh5WE/TS797gY=
+  dependencies:
+    "@turf/bbox" "^6.5.0"
+    "@turf/boolean-point-in-polygon" "^6.5.0"
+    "@turf/boolean-point-on-line" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+
+"@turf/buffer@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/buffer/download/@turf/buffer-6.5.0.tgz#22bd0d05b4e1e73eaebc69b8f574a410ff704842"
+  integrity sha1-Ir0NBbTh5z6uvGm49XSkEP9wSEI=
+  dependencies:
+    "@turf/bbox" "^6.5.0"
+    "@turf/center" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    "@turf/projection" "^6.5.0"
+    d3-geo "1.7.1"
+    turf-jsts "*"
+
+"@turf/center-mean@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/center-mean/download/@turf/center-mean-6.5.0.tgz#2dc329c003f8012ba9ae7812a61b5647e1ae86a2"
+  integrity sha1-LcMpwAP4ASuprngSphtWR+GuhqI=
+  dependencies:
+    "@turf/bbox" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+
+"@turf/center-median@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/center-median/download/@turf/center-median-6.5.0.tgz#1b68e3f288af47f76c247d6bf671f30d8c25c974"
+  integrity sha1-G2jj8oivR/dsJH1r9nHzDYwlyXQ=
+  dependencies:
+    "@turf/center-mean" "^6.5.0"
+    "@turf/centroid" "^6.5.0"
+    "@turf/distance" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+
+"@turf/center-of-mass@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/center-of-mass/download/@turf/center-of-mass-6.5.0.tgz#f9e6988bc296b7f763a0137ad6095f54843cf06a"
+  integrity sha1-+eaYi8KWt/djoBN61glfVIQ88Go=
+  dependencies:
+    "@turf/centroid" "^6.5.0"
+    "@turf/convex" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+
+"@turf/center@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/center/download/@turf/center-6.5.0.tgz#3bcb6bffcb8ba147430cfea84aabaed5dbdd4f07"
+  integrity sha1-O8tr/8uLoUdDDP6oSquu1dvdTwc=
+  dependencies:
+    "@turf/bbox" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+
+"@turf/centroid@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/centroid/download/@turf/centroid-6.5.0.tgz#ecaa365412e5a4d595bb448e7dcdacfb49eb0009"
+  integrity sha1-7Ko2VBLlpNWVu0SOfc2s+0nrAAk=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+
+"@turf/circle@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/circle/download/@turf/circle-6.5.0.tgz#dc017d8c0131d1d212b7c06f76510c22bbeb093c"
+  integrity sha1-3AF9jAEx0dISt8BvdlEMIrvrCTw=
+  dependencies:
+    "@turf/destination" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+
+"@turf/clean-coords@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/clean-coords/download/@turf/clean-coords-6.5.0.tgz#6690adf764ec4b649710a8a20dab7005efbea53f"
+  integrity sha1-ZpCt92TsS2SXEKiiDatwBe++pT8=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
 
 "@turf/clone@^6.5.0":
   version "6.5.0"
@@ -1946,10 +2202,214 @@
   dependencies:
     "@turf/helpers" "^6.5.0"
 
-"@turf/helpers@^6.1.4", "@turf/helpers@^6.5.0":
+"@turf/clusters-dbscan@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/clusters-dbscan/download/@turf/clusters-dbscan-6.5.0.tgz#e01f854d24fac4899009fc6811854424ea8f0985"
+  integrity sha1-4B+FTST6xImQCfxoEYVEJOqPCYU=
+  dependencies:
+    "@turf/clone" "^6.5.0"
+    "@turf/distance" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    density-clustering "1.3.0"
+
+"@turf/clusters-kmeans@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/clusters-kmeans/download/@turf/clusters-kmeans-6.5.0.tgz#aca6f66858af6476b7352a2bbbb392f9ddb7f5b4"
+  integrity sha1-rKb2aFivZHa3NSoru7OS+d239bQ=
+  dependencies:
+    "@turf/clone" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    skmeans "0.9.7"
+
+"@turf/clusters@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/clusters/download/@turf/clusters-6.5.0.tgz#a5ee7b62cdf345db2f1eafe2eb382adc186163e1"
+  integrity sha1-pe57Ys3zRdsvHq/i6zgq3BhhY+E=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+
+"@turf/collect@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/collect/download/@turf/collect-6.5.0.tgz#3749ca7d4b91fbcbe1b9b8858ed70df8b6290910"
+  integrity sha1-N0nKfUuR+8vhubiFjtcN+LYpCRA=
+  dependencies:
+    "@turf/bbox" "^6.5.0"
+    "@turf/boolean-point-in-polygon" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    rbush "2.x"
+
+"@turf/combine@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/combine/download/@turf/combine-6.5.0.tgz#e0f3468ac9c09c24fa7184ebbd8a79d2e595ef81"
+  integrity sha1-4PNGisnAnCT6cYTrvYp50uWV74E=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+
+"@turf/concave@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/concave/download/@turf/concave-6.5.0.tgz#19ab1a3f04087c478cebc5e631293f3eeb2e7ce4"
+  integrity sha1-GasaPwQIfEeM68XmMSk/PusufOQ=
+  dependencies:
+    "@turf/clone" "^6.5.0"
+    "@turf/distance" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    "@turf/tin" "^6.5.0"
+    topojson-client "3.x"
+    topojson-server "3.x"
+
+"@turf/convex@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/convex/download/@turf/convex-6.5.0.tgz#a7613e0d3795e2f5b9ce79a39271e86f54a3d354"
+  integrity sha1-p2E+DTeV4vW5znmjknHob1Sj01Q=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    concaveman "*"
+
+"@turf/destination@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/destination/download/@turf/destination-6.5.0.tgz#30a84702f9677d076130e0440d3223ae503fdae1"
+  integrity sha1-MKhHAvlnfQdhMOBEDTIjrlA/2uE=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+
+"@turf/difference@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/difference/download/@turf/difference-6.5.0.tgz#677b0d5641a93bba2e82f2c683f0d880105b3197"
+  integrity sha1-Z3sNVkGpO7ougvLGg/DYgBBbMZc=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    polygon-clipping "^0.15.3"
+
+"@turf/dissolve@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/dissolve/download/@turf/dissolve-6.5.0.tgz#65debed7ef185087d842b450ebd01e81cc2e80f6"
+  integrity sha1-Zd6+1+8YUIfYQrRQ69AegcwugPY=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    polygon-clipping "^0.15.3"
+
+"@turf/distance-weight@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/distance-weight/download/@turf/distance-weight-6.5.0.tgz#fe1fb45b5ae5ca4e09a898cb0a15c6c79ed0849e"
+  integrity sha1-/h+0W1rlyk4JqJjLChXGx57QhJ4=
+  dependencies:
+    "@turf/centroid" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+
+"@turf/distance@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/distance/download/@turf/distance-6.5.0.tgz#21f04d5f86e864d54e2abde16f35c15b4f36149a"
+  integrity sha1-IfBNX4boZNVOKr3hbzXBW082FJo=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+
+"@turf/ellipse@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/ellipse/download/@turf/ellipse-6.5.0.tgz#1e20cc9eb968f35ab891572892a0bffcef5e552a"
+  integrity sha1-HiDMnrlo81q4kVcokqC//O9eVSo=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/rhumb-destination" "^6.5.0"
+    "@turf/transform-rotate" "^6.5.0"
+
+"@turf/envelope@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/envelope/download/@turf/envelope-6.5.0.tgz#73e81b9b7ed519bd8a614d36322d6f9fbeeb0579"
+  integrity sha1-c+gbm37VGb2KYU02Mi1vn77rBXk=
+  dependencies:
+    "@turf/bbox" "^6.5.0"
+    "@turf/bbox-polygon" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+
+"@turf/explode@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/explode/download/@turf/explode-6.5.0.tgz#02c292cc143dd629643da5b70bb5b19b9f0f1c6b"
+  integrity sha1-AsKSzBQ91ilkPaW3C7Wxm58PHGs=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+
+"@turf/flatten@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/flatten/download/@turf/flatten-6.5.0.tgz#0bd26161f4f1759bbad6ba9485e8ee65f3fa72a7"
+  integrity sha1-C9JhYfTxdZu61rqUhejuZfP6cqc=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+
+"@turf/flip@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/flip/download/@turf/flip-6.5.0.tgz#04b38eae8a78f2cf9240140b25401b16b37d20e2"
+  integrity sha1-BLOOrop48s+SQBQLJUAbFrN9IOI=
+  dependencies:
+    "@turf/clone" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+
+"@turf/great-circle@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/great-circle/download/@turf/great-circle-6.5.0.tgz#2daccbdd1c609a13b00d566ea0ad95457cfc87c2"
+  integrity sha1-LazL3RxgmhOwDVZuoK2VRXz8h8I=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+
+"@turf/helpers@6.x", "@turf/helpers@^6.1.4", "@turf/helpers@^6.5.0":
   version "6.5.0"
   resolved "https://registry.npm.alibaba-inc.com/@turf/helpers/download/@turf/helpers-6.5.0.tgz#f79af094bd6b8ce7ed2bd3e089a8493ee6cae82e"
   integrity sha1-95rwlL1rjOftK9PgiahJPubK6C4=
+
+"@turf/hex-grid@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/hex-grid/download/@turf/hex-grid-6.5.0.tgz#aa5ee46e291839d4405db74b7516c6da89ee56f7"
+  integrity sha1-ql7kbikYOdRAXbdLdRbG2onuVvc=
+  dependencies:
+    "@turf/distance" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/intersect" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+
+"@turf/interpolate@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/interpolate/download/@turf/interpolate-6.5.0.tgz#9120def5d4498dd7b7d5e92a263aac3e1fd92886"
+  integrity sha1-kSDe9dRJjde31ekqJjqsPh/ZKIY=
+  dependencies:
+    "@turf/bbox" "^6.5.0"
+    "@turf/centroid" "^6.5.0"
+    "@turf/clone" "^6.5.0"
+    "@turf/distance" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/hex-grid" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    "@turf/point-grid" "^6.5.0"
+    "@turf/square-grid" "^6.5.0"
+    "@turf/triangle-grid" "^6.5.0"
+
+"@turf/intersect@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/intersect/download/@turf/intersect-6.5.0.tgz#a14e161ddd0264d0f07ac4e325553c70c421f9e6"
+  integrity sha1-oU4WHd0CZNDwesTjJVU8cMQh+eY=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    polygon-clipping "^0.15.3"
 
 "@turf/invariant@^6.1.2", "@turf/invariant@^6.5.0":
   version "6.5.0"
@@ -1958,12 +2418,293 @@
   dependencies:
     "@turf/helpers" "^6.5.0"
 
-"@turf/meta@^6.0.2", "@turf/meta@^6.5.0":
+"@turf/isobands@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/isobands/download/@turf/isobands-6.5.0.tgz#5e0929d9d8d53147074a5cfe4533768782e2a2ce"
+  integrity sha1-Xgkp2djVMUcHSlz+RTN2h4Lios4=
+  dependencies:
+    "@turf/area" "^6.5.0"
+    "@turf/bbox" "^6.5.0"
+    "@turf/boolean-point-in-polygon" "^6.5.0"
+    "@turf/explode" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    object-assign "*"
+
+"@turf/isolines@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/isolines/download/@turf/isolines-6.5.0.tgz#3435c7cb5a79411207a5657aa4095357cfd35831"
+  integrity sha1-NDXHy1p5QRIHpWV6pAlTV8/TWDE=
+  dependencies:
+    "@turf/bbox" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    object-assign "*"
+
+"@turf/kinks@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/kinks/download/@turf/kinks-6.5.0.tgz#80e7456367535365012f658cf1a988b39a2c920b"
+  integrity sha1-gOdFY2dTU2UBL2WM8amIs5oskgs=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+
+"@turf/length@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/length/download/@turf/length-6.5.0.tgz#ff4e9072d5f997e1c32a1311d214d184463f83fa"
+  integrity sha1-/06QctX5l+HDKhMR0hTRhEY/g/o=
+  dependencies:
+    "@turf/distance" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+
+"@turf/line-arc@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/line-arc/download/@turf/line-arc-6.5.0.tgz#5ca35516ccf1f3a01149889d9facb39a77b07431"
+  integrity sha1-XKNVFszx86ARSYidn6yzmnewdDE=
+  dependencies:
+    "@turf/circle" "^6.5.0"
+    "@turf/destination" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+
+"@turf/line-chunk@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/line-chunk/download/@turf/line-chunk-6.5.0.tgz#02cefa74564b9cf533a3ac8a5109c97cb7170d10"
+  integrity sha1-As76dFZLnPUzo6yKUQnJfLcXDRA=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/length" "^6.5.0"
+    "@turf/line-slice-along" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+
+"@turf/line-intersect@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/line-intersect/download/@turf/line-intersect-6.5.0.tgz#dea48348b30c093715d2195d2dd7524aee4cf020"
+  integrity sha1-3qSDSLMMCTcV0hldLddSSu5M8CA=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/line-segment" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    geojson-rbush "3.x"
+
+"@turf/line-offset@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/line-offset/download/@turf/line-offset-6.5.0.tgz#2bbd8fcf9ff82009b72890863da444b190e53689"
+  integrity sha1-K72Pz5/4IAm3KJCGPaREsZDlNok=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+
+"@turf/line-overlap@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/line-overlap/download/@turf/line-overlap-6.5.0.tgz#10ebb805c2d047463379fc1f997785fa8f3f4cc1"
+  integrity sha1-EOu4BcLQR0YzefwfmXeF+o8/TME=
+  dependencies:
+    "@turf/boolean-point-on-line" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/line-segment" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    "@turf/nearest-point-on-line" "^6.5.0"
+    deep-equal "1.x"
+    geojson-rbush "3.x"
+
+"@turf/line-segment@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/line-segment/download/@turf/line-segment-6.5.0.tgz#ee73f3ffcb7c956203b64ed966d96af380a4dd65"
+  integrity sha1-7nPz/8t8lWIDtk7ZZtlq84Ck3WU=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+
+"@turf/line-slice-along@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/line-slice-along/download/@turf/line-slice-along-6.5.0.tgz#6e7a861d72c6f80caba2c4418b69a776f0292953"
+  integrity sha1-bnqGHXLG+AyrosRBi2mndvApKVM=
+  dependencies:
+    "@turf/bearing" "^6.5.0"
+    "@turf/destination" "^6.5.0"
+    "@turf/distance" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+
+"@turf/line-slice@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/line-slice/download/@turf/line-slice-6.5.0.tgz#7b6e0c8e8e93fdb4e65c3b9a123a2ec93a21bdb0"
+  integrity sha1-e24Mjo6T/bTmXDuaEjouyTohvbA=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/nearest-point-on-line" "^6.5.0"
+
+"@turf/line-split@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/line-split/download/@turf/line-split-6.5.0.tgz#116d7fbf714457878225187f5820ef98db7b02c2"
+  integrity sha1-EW1/v3FEV4eCJRh/WCDvmNt7AsI=
+  dependencies:
+    "@turf/bbox" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/line-intersect" "^6.5.0"
+    "@turf/line-segment" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    "@turf/nearest-point-on-line" "^6.5.0"
+    "@turf/square" "^6.5.0"
+    "@turf/truncate" "^6.5.0"
+    geojson-rbush "3.x"
+
+"@turf/line-to-polygon@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/line-to-polygon/download/@turf/line-to-polygon-6.5.0.tgz#c919a03064a1cd5cef4c4e4d98dc786e12ffbc89"
+  integrity sha1-yRmgMGShzVzvTE5NmNx4bhL/vIk=
+  dependencies:
+    "@turf/bbox" "^6.5.0"
+    "@turf/clone" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+
+"@turf/mask@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/mask/download/@turf/mask-6.5.0.tgz#a97f355ee071ac60d8d3782ae39e5bb4b4e26857"
+  integrity sha1-qX81XuBxrGDY03gq455btLTiaFc=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    polygon-clipping "^0.15.3"
+
+"@turf/meta@6.x", "@turf/meta@^6.0.2", "@turf/meta@^6.5.0":
   version "6.5.0"
   resolved "https://registry.npm.alibaba-inc.com/@turf/meta/download/@turf/meta-6.5.0.tgz#b725c3653c9f432133eaa04d3421f7e51e0418ca"
   integrity sha1-tyXDZTyfQyEz6qBNNCH35R4EGMo=
   dependencies:
     "@turf/helpers" "^6.5.0"
+
+"@turf/midpoint@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/midpoint/download/@turf/midpoint-6.5.0.tgz#5f9428959309feccaf3f55873a8de70d4121bdce"
+  integrity sha1-X5QolZMJ/syvP1WHOo3nDUEhvc4=
+  dependencies:
+    "@turf/bearing" "^6.5.0"
+    "@turf/destination" "^6.5.0"
+    "@turf/distance" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+
+"@turf/moran-index@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/moran-index/download/@turf/moran-index-6.5.0.tgz#456264bfb014a7b5f527807c9dcf25df3c6b2efd"
+  integrity sha1-RWJkv7AUp7X1J4B8nc8l3zxrLv0=
+  dependencies:
+    "@turf/distance-weight" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+
+"@turf/nearest-point-on-line@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/nearest-point-on-line/download/@turf/nearest-point-on-line-6.5.0.tgz#8e1cd2cdc0b5acaf4c8d8b3b33bb008d3cb99e7b"
+  integrity sha1-jhzSzcC1rK9MjYs7M7sAjTy5nns=
+  dependencies:
+    "@turf/bearing" "^6.5.0"
+    "@turf/destination" "^6.5.0"
+    "@turf/distance" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/line-intersect" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+
+"@turf/nearest-point-to-line@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/nearest-point-to-line/download/@turf/nearest-point-to-line-6.5.0.tgz#5549b48690d523f9af4765fe64a3cbebfbc6bb75"
+  integrity sha1-VUm0hpDVI/mvR2X+ZKPL6/vGu3U=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    "@turf/point-to-line-distance" "^6.5.0"
+    object-assign "*"
+
+"@turf/nearest-point@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/nearest-point/download/@turf/nearest-point-6.5.0.tgz#2f1781c26ff3f054005d4ff352042973318b92f1"
+  integrity sha1-LxeBwm/z8FQAXU/zUgQpczGLkvE=
+  dependencies:
+    "@turf/clone" "^6.5.0"
+    "@turf/distance" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+
+"@turf/planepoint@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/planepoint/download/@turf/planepoint-6.5.0.tgz#5cb788670c31a6b064ae464180d51b4d550d87de"
+  integrity sha1-XLeIZwwxprBkrkZBgNUbTVUNh94=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+
+"@turf/point-grid@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/point-grid/download/@turf/point-grid-6.5.0.tgz#f628d30afe29d60dcbf54b195e46eab48a4fbfaa"
+  integrity sha1-9ijTCv4p1g3L9UsZXkbqtIpPv6o=
+  dependencies:
+    "@turf/boolean-within" "^6.5.0"
+    "@turf/distance" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+
+"@turf/point-on-feature@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/point-on-feature/download/@turf/point-on-feature-6.5.0.tgz#37d07afeb31896e53c0833aa404993ba7d500f0c"
+  integrity sha1-N9B6/rMYluU8CDOqQEmTun1QDww=
+  dependencies:
+    "@turf/boolean-point-in-polygon" "^6.5.0"
+    "@turf/center" "^6.5.0"
+    "@turf/explode" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/nearest-point" "^6.5.0"
+
+"@turf/point-to-line-distance@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/point-to-line-distance/download/@turf/point-to-line-distance-6.5.0.tgz#bc46fe09ea630aaf73f13c40b38a7df79050fff8"
+  integrity sha1-vEb+CepjCq9z8TxAs4p995BQ//g=
+  dependencies:
+    "@turf/bearing" "^6.5.0"
+    "@turf/distance" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    "@turf/projection" "^6.5.0"
+    "@turf/rhumb-bearing" "^6.5.0"
+    "@turf/rhumb-distance" "^6.5.0"
+
+"@turf/points-within-polygon@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/points-within-polygon/download/@turf/points-within-polygon-6.5.0.tgz#d49f4d7cf19b7a440bf1e06f771ff4e1df13107f"
+  integrity sha1-1J9NfPGbekQL8eBvdx/04d8TEH8=
+  dependencies:
+    "@turf/boolean-point-in-polygon" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+
+"@turf/polygon-smooth@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/polygon-smooth/download/@turf/polygon-smooth-6.5.0.tgz#00ca366871cb6ea3bee44ff3ea870aaf75711733"
+  integrity sha1-AMo2aHHLbqO+5E/z6ocKr3VxFzM=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+
+"@turf/polygon-tangents@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/polygon-tangents/download/@turf/polygon-tangents-6.5.0.tgz#dc025202727ba2f3347baa95dbca4e0ffdb2ddf5"
+  integrity sha1-3AJSAnJ7ovM0e6qV28pOD/2y3fU=
+  dependencies:
+    "@turf/bbox" "^6.5.0"
+    "@turf/boolean-within" "^6.5.0"
+    "@turf/explode" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/nearest-point" "^6.5.0"
 
 "@turf/polygon-to-line@^6.5.0":
   version "6.5.0"
@@ -1973,6 +2714,342 @@
     "@turf/helpers" "^6.5.0"
     "@turf/invariant" "^6.5.0"
 
+"@turf/polygonize@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/polygonize/download/@turf/polygonize-6.5.0.tgz#8aa0f1e386e96c533a320c426aaf387020320fa3"
+  integrity sha1-iqDx44bpbFM6MgxCaq84cCAyD6M=
+  dependencies:
+    "@turf/boolean-point-in-polygon" "^6.5.0"
+    "@turf/envelope" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+
+"@turf/projection@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/projection/download/@turf/projection-6.5.0.tgz#d2aad862370bf03f2270701115464a8406c144b2"
+  integrity sha1-0qrYYjcL8D8icHARFUZKhAbBRLI=
+  dependencies:
+    "@turf/clone" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+
+"@turf/random@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/random/download/@turf/random-6.5.0.tgz#b19672cf4549557660034d4a303911656df7747e"
+  integrity sha1-sZZyz0VJVXZgA01KMDkRZW33dH4=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+
+"@turf/rectangle-grid@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/rectangle-grid/download/@turf/rectangle-grid-6.5.0.tgz#c3ef38e8cfdb763012beb1f22e2b77288a37a5cf"
+  integrity sha1-w+846M/bdjASvrHyLit3KIo3pc8=
+  dependencies:
+    "@turf/boolean-intersects" "^6.5.0"
+    "@turf/distance" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+
+"@turf/rewind@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/rewind/download/@turf/rewind-6.5.0.tgz#bc0088f8ec56f00c8eacd902bbe51e3786cb73a0"
+  integrity sha1-vACI+OxW8AyOrNkCu+UeN4bLc6A=
+  dependencies:
+    "@turf/boolean-clockwise" "^6.5.0"
+    "@turf/clone" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+
+"@turf/rhumb-bearing@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/rhumb-bearing/download/@turf/rhumb-bearing-6.5.0.tgz#8c41ad62b44fb4e57c14fe790488056684eee7b9"
+  integrity sha1-jEGtYrRPtOV8FP55BIgFZoTu57k=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+
+"@turf/rhumb-destination@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/rhumb-destination/download/@turf/rhumb-destination-6.5.0.tgz#12da8c85e674b182e8b0ec8ea9c5fe2186716dae"
+  integrity sha1-EtqMheZ0sYLosOyOqcX+IYZxba4=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+
+"@turf/rhumb-distance@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/rhumb-distance/download/@turf/rhumb-distance-6.5.0.tgz#ed068004b1469512b857070fbf5cb7b7eabbe592"
+  integrity sha1-7QaABLFGlRK4VwcPv1y3t+q75ZI=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+
+"@turf/sample@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/sample/download/@turf/sample-6.5.0.tgz#00cca024514989448e57fb1bf34e9a33ed3f0755"
+  integrity sha1-AMygJFFJiUSOV/sb806aM+0/B1U=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+
+"@turf/sector@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/sector/download/@turf/sector-6.5.0.tgz#599a87ebbe6ee613b4e04c5928e0ef1fc78fc16c"
+  integrity sha1-WZqH675u5hO04ExZKODvH8ePwWw=
+  dependencies:
+    "@turf/circle" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/line-arc" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+
+"@turf/shortest-path@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/shortest-path/download/@turf/shortest-path-6.5.0.tgz#e1fdf9b4758bd20caf845fdc03d0dc2eede2ff0e"
+  integrity sha1-4f35tHWL0gyvhF/cA9DcLu3i/w4=
+  dependencies:
+    "@turf/bbox" "^6.5.0"
+    "@turf/bbox-polygon" "^6.5.0"
+    "@turf/boolean-point-in-polygon" "^6.5.0"
+    "@turf/clean-coords" "^6.5.0"
+    "@turf/distance" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    "@turf/transform-scale" "^6.5.0"
+
+"@turf/simplify@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/simplify/download/@turf/simplify-6.5.0.tgz#ec435460bde0985b781618b05d97146c32c8bc16"
+  integrity sha1-7ENUYL3gmFt4FhiwXZcUbDLIvBY=
+  dependencies:
+    "@turf/clean-coords" "^6.5.0"
+    "@turf/clone" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+
+"@turf/square-grid@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/square-grid/download/@turf/square-grid-6.5.0.tgz#3a517301b42ed98aa62d727786dc5290998ddbae"
+  integrity sha1-OlFzAbQu2YqmLXJ3htxSkJmN264=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/rectangle-grid" "^6.5.0"
+
+"@turf/square@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/square/download/@turf/square-6.5.0.tgz#ab43eef99d39c36157ab5b80416bbeba1f6b2122"
+  integrity sha1-q0Pu+Z05w2FXq1uAQWu+uh9rISI=
+  dependencies:
+    "@turf/distance" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+
+"@turf/standard-deviational-ellipse@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/standard-deviational-ellipse/download/@turf/standard-deviational-ellipse-6.5.0.tgz#775c7b9a2be6546bf64ea8ac08cdcd80563f2935"
+  integrity sha1-d1x7mivmVGv2TqisCM3NgFY/KTU=
+  dependencies:
+    "@turf/center-mean" "^6.5.0"
+    "@turf/ellipse" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    "@turf/points-within-polygon" "^6.5.0"
+
+"@turf/tag@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/tag/download/@turf/tag-6.5.0.tgz#13eae85f36f9fd8c4e076714a894cb5b7716d381"
+  integrity sha1-E+roXzb5/YxOB2cUqJTLW3cW04E=
+  dependencies:
+    "@turf/boolean-point-in-polygon" "^6.5.0"
+    "@turf/clone" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+
+"@turf/tesselate@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/tesselate/download/@turf/tesselate-6.5.0.tgz#de45b778f8e6a45535d8eb2aacea06f86c6b73fb"
+  integrity sha1-3kW3ePjmpFU12OsqrOoG+Gxrc/s=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    earcut "^2.0.0"
+
+"@turf/tin@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/tin/download/@turf/tin-6.5.0.tgz#b77bebb48237e6613ac6bc0e37a6658be8c17a09"
+  integrity sha1-t3vrtII35mE6xrwON6Zli+jBegk=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+
+"@turf/transform-rotate@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/transform-rotate/download/@turf/transform-rotate-6.5.0.tgz#e50e96a8779af91d58149eedb00ffd7f6395c804"
+  integrity sha1-5Q6WqHea+R1YFJ7tsA/9f2OVyAQ=
+  dependencies:
+    "@turf/centroid" "^6.5.0"
+    "@turf/clone" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    "@turf/rhumb-bearing" "^6.5.0"
+    "@turf/rhumb-destination" "^6.5.0"
+    "@turf/rhumb-distance" "^6.5.0"
+
+"@turf/transform-scale@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/transform-scale/download/@turf/transform-scale-6.5.0.tgz#dcccd8b0f139de32e32225a29c107a1279137120"
+  integrity sha1-3MzYsPE53jLjIiWinBB6EnkTcSA=
+  dependencies:
+    "@turf/bbox" "^6.5.0"
+    "@turf/center" "^6.5.0"
+    "@turf/centroid" "^6.5.0"
+    "@turf/clone" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    "@turf/rhumb-bearing" "^6.5.0"
+    "@turf/rhumb-destination" "^6.5.0"
+    "@turf/rhumb-distance" "^6.5.0"
+
+"@turf/transform-translate@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/transform-translate/download/@turf/transform-translate-6.5.0.tgz#631b13aca6402898029e03fc2d1f4bc1c667fc3e"
+  integrity sha1-YxsTrKZAKJgCngP8LR9LwcZn/D4=
+  dependencies:
+    "@turf/clone" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    "@turf/rhumb-destination" "^6.5.0"
+
+"@turf/triangle-grid@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/triangle-grid/download/@turf/triangle-grid-6.5.0.tgz#75664e8b9d9c7ca4c845673134a1e0d82b5e6887"
+  integrity sha1-dWZOi52cfKTIRWcxNKHg2CteaIc=
+  dependencies:
+    "@turf/distance" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/intersect" "^6.5.0"
+
+"@turf/truncate@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/truncate/download/@turf/truncate-6.5.0.tgz#c3a16cad959f1be1c5156157d5555c64b19185d8"
+  integrity sha1-w6FsrZWfG+HFFWFX1VVcZLGRhdg=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+
+"@turf/turf@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/turf/download/@turf/turf-6.5.0.tgz#49cd07b942a757f3ebbdba6cb294bbb864825a83"
+  integrity sha1-Sc0HuUKnV/PrvbpsspS7uGSCWoM=
+  dependencies:
+    "@turf/along" "^6.5.0"
+    "@turf/angle" "^6.5.0"
+    "@turf/area" "^6.5.0"
+    "@turf/bbox" "^6.5.0"
+    "@turf/bbox-clip" "^6.5.0"
+    "@turf/bbox-polygon" "^6.5.0"
+    "@turf/bearing" "^6.5.0"
+    "@turf/bezier-spline" "^6.5.0"
+    "@turf/boolean-clockwise" "^6.5.0"
+    "@turf/boolean-contains" "^6.5.0"
+    "@turf/boolean-crosses" "^6.5.0"
+    "@turf/boolean-disjoint" "^6.5.0"
+    "@turf/boolean-equal" "^6.5.0"
+    "@turf/boolean-intersects" "^6.5.0"
+    "@turf/boolean-overlap" "^6.5.0"
+    "@turf/boolean-parallel" "^6.5.0"
+    "@turf/boolean-point-in-polygon" "^6.5.0"
+    "@turf/boolean-point-on-line" "^6.5.0"
+    "@turf/boolean-within" "^6.5.0"
+    "@turf/buffer" "^6.5.0"
+    "@turf/center" "^6.5.0"
+    "@turf/center-mean" "^6.5.0"
+    "@turf/center-median" "^6.5.0"
+    "@turf/center-of-mass" "^6.5.0"
+    "@turf/centroid" "^6.5.0"
+    "@turf/circle" "^6.5.0"
+    "@turf/clean-coords" "^6.5.0"
+    "@turf/clone" "^6.5.0"
+    "@turf/clusters" "^6.5.0"
+    "@turf/clusters-dbscan" "^6.5.0"
+    "@turf/clusters-kmeans" "^6.5.0"
+    "@turf/collect" "^6.5.0"
+    "@turf/combine" "^6.5.0"
+    "@turf/concave" "^6.5.0"
+    "@turf/convex" "^6.5.0"
+    "@turf/destination" "^6.5.0"
+    "@turf/difference" "^6.5.0"
+    "@turf/dissolve" "^6.5.0"
+    "@turf/distance" "^6.5.0"
+    "@turf/distance-weight" "^6.5.0"
+    "@turf/ellipse" "^6.5.0"
+    "@turf/envelope" "^6.5.0"
+    "@turf/explode" "^6.5.0"
+    "@turf/flatten" "^6.5.0"
+    "@turf/flip" "^6.5.0"
+    "@turf/great-circle" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/hex-grid" "^6.5.0"
+    "@turf/interpolate" "^6.5.0"
+    "@turf/intersect" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    "@turf/isobands" "^6.5.0"
+    "@turf/isolines" "^6.5.0"
+    "@turf/kinks" "^6.5.0"
+    "@turf/length" "^6.5.0"
+    "@turf/line-arc" "^6.5.0"
+    "@turf/line-chunk" "^6.5.0"
+    "@turf/line-intersect" "^6.5.0"
+    "@turf/line-offset" "^6.5.0"
+    "@turf/line-overlap" "^6.5.0"
+    "@turf/line-segment" "^6.5.0"
+    "@turf/line-slice" "^6.5.0"
+    "@turf/line-slice-along" "^6.5.0"
+    "@turf/line-split" "^6.5.0"
+    "@turf/line-to-polygon" "^6.5.0"
+    "@turf/mask" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    "@turf/midpoint" "^6.5.0"
+    "@turf/moran-index" "^6.5.0"
+    "@turf/nearest-point" "^6.5.0"
+    "@turf/nearest-point-on-line" "^6.5.0"
+    "@turf/nearest-point-to-line" "^6.5.0"
+    "@turf/planepoint" "^6.5.0"
+    "@turf/point-grid" "^6.5.0"
+    "@turf/point-on-feature" "^6.5.0"
+    "@turf/point-to-line-distance" "^6.5.0"
+    "@turf/points-within-polygon" "^6.5.0"
+    "@turf/polygon-smooth" "^6.5.0"
+    "@turf/polygon-tangents" "^6.5.0"
+    "@turf/polygon-to-line" "^6.5.0"
+    "@turf/polygonize" "^6.5.0"
+    "@turf/projection" "^6.5.0"
+    "@turf/random" "^6.5.0"
+    "@turf/rewind" "^6.5.0"
+    "@turf/rhumb-bearing" "^6.5.0"
+    "@turf/rhumb-destination" "^6.5.0"
+    "@turf/rhumb-distance" "^6.5.0"
+    "@turf/sample" "^6.5.0"
+    "@turf/sector" "^6.5.0"
+    "@turf/shortest-path" "^6.5.0"
+    "@turf/simplify" "^6.5.0"
+    "@turf/square" "^6.5.0"
+    "@turf/square-grid" "^6.5.0"
+    "@turf/standard-deviational-ellipse" "^6.5.0"
+    "@turf/tag" "^6.5.0"
+    "@turf/tesselate" "^6.5.0"
+    "@turf/tin" "^6.5.0"
+    "@turf/transform-rotate" "^6.5.0"
+    "@turf/transform-scale" "^6.5.0"
+    "@turf/transform-translate" "^6.5.0"
+    "@turf/triangle-grid" "^6.5.0"
+    "@turf/truncate" "^6.5.0"
+    "@turf/union" "^6.5.0"
+    "@turf/unkink-polygon" "^6.5.0"
+    "@turf/voronoi" "^6.5.0"
+
 "@turf/union@^6.5.0":
   version "6.5.0"
   resolved "https://registry.npm.alibaba-inc.com/@turf/union/download/@turf/union-6.5.0.tgz#82d28f55190608f9c7d39559b7f543393b03b82d"
@@ -1981,6 +3058,26 @@
     "@turf/helpers" "^6.5.0"
     "@turf/invariant" "^6.5.0"
     polygon-clipping "^0.15.3"
+
+"@turf/unkink-polygon@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/unkink-polygon/download/@turf/unkink-polygon-6.5.0.tgz#9e54186dcce08d7e62f608c8fa2d3f0342ebe826"
+  integrity sha1-nlQYbczgjX5i9gjI+i0/A0Lr6CY=
+  dependencies:
+    "@turf/area" "^6.5.0"
+    "@turf/boolean-point-in-polygon" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+    rbush "^2.0.1"
+
+"@turf/voronoi@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.npm.alibaba-inc.com/@turf/voronoi/download/@turf/voronoi-6.5.0.tgz#afe6715a5c7eff687434010cde45cd4822489434"
+  integrity sha1-r+ZxWlx+/2h0NAEM3kXNSCJIlDQ=
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    d3-voronoi "1.1.2"
 
 "@types/acorn@^4.0.5":
   version "4.0.6"
@@ -2073,6 +3170,11 @@
   version "7946.0.10"
   resolved "https://registry.npm.alibaba-inc.com/@types/geojson/download/@types/geojson-7946.0.10.tgz#6dfbf5ea17142f7f9a043809f1cd4c448cb68249"
   integrity sha512-Nmh0K3iWQJzniTuPRcJn5hxXkfB1T1pgB89SBig5PlJQU5yocazeu4jATJlaA0GYFKWMqDdvYemoSnF2pXgLVA==
+
+"@types/geojson@7946.0.8":
+  version "7946.0.8"
+  resolved "https://registry.npm.alibaba-inc.com/@types/geojson/download/@types/geojson-7946.0.8.tgz#30744afdb385e2945e22f3b033f897f76b1f12ca"
+  integrity sha1-MHRK/bOF4pReIvOwM/iX92sfEso=
 
 "@types/graceful-fs@^4.1.3":
   version "4.1.6"
@@ -2985,10 +4087,22 @@ array-tree-filter@^2.1.0:
   resolved "https://registry.npm.alibaba-inc.com/array-tree-filter/download/array-tree-filter-2.1.0.tgz#873ac00fec83749f255ac8dd083814b4f6329190"
   integrity sha1-hzrAD+yDdJ8lWsjdCDgUtPYykZA=
 
+array-union@^1.0.1:
+  version "1.0.2"
+  resolved "https://registry.npm.alibaba-inc.com/array-union/download/array-union-1.0.2.tgz#9a34410e4f4e3da23dea375be5be70f24778ec39"
+  integrity sha1-mjRBDk9OPaI96jdb5b5w8kd47Dk=
+  dependencies:
+    array-uniq "^1.0.1"
+
 array-union@^2.1.0:
   version "2.1.0"
   resolved "https://registry.npm.alibaba-inc.com/array-union/download/array-union-2.1.0.tgz#b798420adbeb1de828d84acd8a2e23d3efe85e8d"
   integrity sha1-t5hCCtvrHego2ErNii4j0+/oXo0=
+
+array-uniq@^1.0.1:
+  version "1.0.3"
+  resolved "https://registry.npm.alibaba-inc.com/array-uniq/download/array-uniq-1.0.3.tgz#af6ac877a25cc7f74e058894753858dfdb24fdb6"
+  integrity sha1-r2rId6Jcx/dOBYiUdThY39sk/bY=
 
 array.prototype.flatmap@^1.3.1:
   version "1.3.1"
@@ -3054,7 +4168,7 @@ async-validator@^4.1.0:
   resolved "https://registry.npm.alibaba-inc.com/async-validator/download/async-validator-4.2.5.tgz#c96ea3332a521699d0afaaceed510a54656c6339"
   integrity sha512-7HhHjtERjqlNbZtqNqy2rckN/SpOOlmDliet+lP7k+eKZEjPk3DgyeU9lIXLdeLz0uBbbVp+9Qdow9wJWgwwfg==
 
-async@^3.1.1:
+async@^3.1.1, async@^3.2.4:
   version "3.2.4"
   resolved "https://registry.npm.alibaba-inc.com/async/download/async-3.2.4.tgz#2d22e00f8cddeb5fde5dd33522b56d1cf569a81c"
   integrity sha512-iAB+JbDEGXhyIUavoDl9WP/Jj106Kz9DEn1DPgYw5ruDn0e3Wgi3sKFm55sASdGBNOQB8F59d9qQ7deqrHA8wQ==
@@ -3795,7 +4909,7 @@ comma-separated-tokens@^2.0.0:
   resolved "https://registry.npm.alibaba-inc.com/comma-separated-tokens/download/comma-separated-tokens-2.0.3.tgz#4e89c9458acb61bc8fef19f4529973b2392839ee"
   integrity sha512-Fu4hJdvzeylCfQPp9SGWidpzrMs7tTrlu6Vb8XGaRGck8QSNZJJp538Wrb60Lax4fPwR64ViY468OIUTbRlGZg==
 
-commander@2, commander@^2.19.0, commander@^2.20.0, commander@^2.9.0:
+commander@2, commander@^2.18.0, commander@^2.19.0, commander@^2.20.0, commander@^2.9.0:
   version "2.20.3"
   resolved "https://registry.npm.alibaba-inc.com/commander/download/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
   integrity sha1-/UhehMA+tIgcIHIrpIA16FMa6zM=
@@ -3819,6 +4933,11 @@ common-path-prefix@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npm.alibaba-inc.com/common-path-prefix/download/common-path-prefix-3.0.0.tgz#7d007a7e07c58c4b4d5f433131a19141b29f11e0"
   integrity sha1-fQB6fgfFjEtNX0MxMaGRQbKfEeA=
+
+commondir@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npm.alibaba-inc.com/commondir/download/commondir-1.0.1.tgz#ddd800da0c66127393cca5950ea968a3aaf1253b"
+  integrity sha1-3dgA2gxmEnOTzKWVDqloo6rxJTs=
 
 compare-func@^2.0.0:
   version "2.0.0"
@@ -3847,6 +4966,16 @@ concat-stream@^1.5.0:
     inherits "^2.0.3"
     readable-stream "^2.2.2"
     typedarray "^0.0.6"
+
+concaveman@*:
+  version "1.2.1"
+  resolved "https://registry.npm.alibaba-inc.com/concaveman/download/concaveman-1.2.1.tgz#47d20b4521125c15fabf453653c2696d9ee41e0b"
+  integrity sha1-R9ILRSESXBX6v0U2U8JpbZ7kHgs=
+  dependencies:
+    point-in-polygon "^1.1.0"
+    rbush "^3.0.1"
+    robust-predicates "^2.0.4"
+    tinyqueue "^2.0.3"
 
 configstore@^3.0.0:
   version "3.1.5"
@@ -4235,6 +5364,13 @@ d3-format@1:
   resolved "https://registry.npm.alibaba-inc.com/d3-format/download/d3-format-1.4.5.tgz#374f2ba1320e3717eb74a9356c67daee17a7edb4"
   integrity sha1-N08roTIONxfrdKk1bGfa7hen7bQ=
 
+d3-geo@1.7.1:
+  version "1.7.1"
+  resolved "https://registry.npm.alibaba-inc.com/d3-geo/download/d3-geo-1.7.1.tgz#44bbc7a218b1fd859f3d8fd7c443ca836569ce99"
+  integrity sha1-RLvHohix/YWfPY/XxEPKg2Vpzpk=
+  dependencies:
+    d3-array "1"
+
 d3-hexbin@^0.2.2:
   version "0.2.2"
   resolved "https://registry.npm.alibaba-inc.com/d3-hexbin/download/d3-hexbin-0.2.2.tgz#9c5837dacfd471ab05337a9e91ef10bfc4f98831"
@@ -4270,6 +5406,11 @@ d3-time@1:
   version "1.1.0"
   resolved "https://registry.npm.alibaba-inc.com/d3-time/download/d3-time-1.1.0.tgz#b1e19d307dae9c900b7e5b25ffc5dcc249a8a0f1"
   integrity sha1-seGdMH2unJALflsl/8XcwkmooPE=
+
+d3-voronoi@1.1.2:
+  version "1.1.2"
+  resolved "https://registry.npm.alibaba-inc.com/d3-voronoi/download/d3-voronoi-1.1.2.tgz#1687667e8f13a2d158c80c1480c5a29cb0d8973c"
+  integrity sha1-Fodmfo8TotFYyAwUgMWinLDYlzw=
 
 dargs@^7.0.0:
   version "7.0.0"
@@ -4340,6 +5481,18 @@ decode-uri-component@^0.2.0:
   resolved "https://registry.npm.alibaba-inc.com/decode-uri-component/download/decode-uri-component-0.2.2.tgz#e69dbe25d37941171dd540e024c444cd5188e1e9"
   integrity sha512-FqUYQ+8o158GyGTrMFJms9qh3CqTKvAqgqsTnkLI8sKu0028orqBhxNMFkFen0zGyg6epACD32pjVk58ngIErQ==
 
+deep-equal@1.x, deep-equal@^1.0.0:
+  version "1.1.1"
+  resolved "https://registry.npm.alibaba-inc.com/deep-equal/download/deep-equal-1.1.1.tgz#b5c98c942ceffaf7cb051e24e1434a25a2e6076a"
+  integrity sha1-tcmMlCzv+vfLBR4k4UNKJaLmB2o=
+  dependencies:
+    is-arguments "^1.0.4"
+    is-date-object "^1.0.1"
+    is-regex "^1.0.4"
+    object-is "^1.0.1"
+    object-keys "^1.1.1"
+    regexp.prototype.flags "^1.2.0"
+
 deep-extend@^0.6.0:
   version "0.6.0"
   resolved "https://registry.npm.alibaba-inc.com/deep-extend/download/deep-extend-0.6.0.tgz#c4fa7c95404a17a9c3e8ca7e1537312b736330ac"
@@ -4390,6 +5543,11 @@ define-properties@^1.1.3, define-properties@^1.1.4, define-properties@^1.2.0:
   dependencies:
     has-property-descriptors "^1.0.0"
     object-keys "^1.1.1"
+
+density-clustering@1.3.0:
+  version "1.3.0"
+  resolved "https://registry.npm.alibaba-inc.com/density-clustering/download/density-clustering-1.3.0.tgz#dc9f59c8f0ab97e1624ac64930fd3194817dcac5"
+  integrity sha1-3J9ZyPCrl+FiSsZJMP0xlIF9ysU=
 
 dequal@^2.0.0:
   version "2.0.3"
@@ -4634,7 +5792,7 @@ duplexify@^4.1.2:
     readable-stream "^3.1.1"
     stream-shift "^1.0.0"
 
-earcut@^2.1.0, earcut@^2.2.1, earcut@^2.2.2:
+earcut@^2.0.0, earcut@^2.1.0, earcut@^2.2.1, earcut@^2.2.2:
   version "2.2.4"
   resolved "https://registry.npm.alibaba-inc.com/earcut/download/earcut-2.2.4.tgz#6d02fd4d68160c114825d06890a92ecaae60343a"
   integrity sha512-/pjZsA1b4RPHbeWZQn66SWS8nZZWLQQ23oE3Eam7aroEFGEvwKAsJfZ9ytiEMycfzXWpca4FA9QIOehf7PocBQ==
@@ -4674,6 +5832,11 @@ elliptic@^6.5.3:
     inherits "^2.0.4"
     minimalistic-assert "^1.0.1"
     minimalistic-crypto-utils "^1.0.1"
+
+email-addresses@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.npm.alibaba-inc.com/email-addresses/download/email-addresses-5.0.0.tgz#7ae9e7f58eef7d5e3e2c2c2d3ea49b78dc854fa6"
+  integrity sha1-eunn9Y7vfV4+LCwtPqSbeNyFT6Y=
 
 emoji-regex@^8.0.0:
   version "8.0.0"
@@ -5351,6 +6514,20 @@ file-system-cache@^2.0.0:
     fs-extra "^11.1.0"
     ramda "^0.28.0"
 
+filename-reserved-regex@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.npm.alibaba-inc.com/filename-reserved-regex/download/filename-reserved-regex-2.0.0.tgz#abf73dfab735d045440abfea2d91f389ebbfa229"
+  integrity sha1-q/c9+rc10EVECr/qLZHzieu/oik=
+
+filenamify@^4.3.0:
+  version "4.3.0"
+  resolved "https://registry.npm.alibaba-inc.com/filenamify/download/filenamify-4.3.0.tgz#62391cb58f02b09971c9d4f9d63b3cf9aba03106"
+  integrity sha1-YjkctY8CsJlxydT51js8+augMQY=
+  dependencies:
+    filename-reserved-regex "^2.0.0"
+    strip-outer "^1.0.1"
+    trim-repeated "^1.0.0"
+
 filesize@^3.6.1:
   version "3.6.1"
   resolved "https://registry.npm.alibaba-inc.com/filesize/download/filesize-3.6.1.tgz#090bb3ee01b6f801a8a8be99d31710b3422bb317"
@@ -5376,6 +6553,15 @@ find-babel-config@^1.2.0:
     json5 "^0.5.1"
     path-exists "^3.0.0"
 
+find-cache-dir@^3.3.1:
+  version "3.3.2"
+  resolved "https://registry.npm.alibaba-inc.com/find-cache-dir/download/find-cache-dir-3.3.2.tgz#b30c5b6eff0730731aea9bbd9dbecbd80256d64b"
+  integrity sha1-swxbbv8HMHMa6pu9nb7L2AJW1ks=
+  dependencies:
+    commondir "^1.0.1"
+    make-dir "^3.0.2"
+    pkg-dir "^4.1.0"
+
 find-file-up@^0.1.2:
   version "0.1.3"
   resolved "https://registry.npm.alibaba-inc.com/find-file-up/download/find-file-up-0.1.3.tgz#cf68091bcf9f300a40da411b37da5cce5a2fbea0"
@@ -5398,7 +6584,7 @@ find-up@^3.0.0:
   dependencies:
     locate-path "^3.0.0"
 
-find-up@^4.1.0:
+find-up@^4.0.0, find-up@^4.1.0:
   version "4.1.0"
   resolved "https://registry.npm.alibaba-inc.com/find-up/download/find-up-4.1.0.tgz#97afe7d6cdc0bc5928584b7c8d7b16e8a9aa5d19"
   integrity sha1-l6/n1s3AvFkoWEt8jXsW6KmqXRk=
@@ -5543,6 +6729,15 @@ fs-extra@^3.0.1:
     jsonfile "^3.0.0"
     universalify "^0.1.0"
 
+fs-extra@^8.1.0:
+  version "8.1.0"
+  resolved "https://registry.npm.alibaba-inc.com/fs-extra/download/fs-extra-8.1.0.tgz#49d43c45a88cd9677668cb7be1b46efdb8d2e1c0"
+  integrity sha1-SdQ8RaiM2Wd2aMt74bRu/bjS4cA=
+  dependencies:
+    graceful-fs "^4.2.0"
+    jsonfile "^4.0.0"
+    universalify "^0.1.0"
+
 fs-extra@~7.0.1:
   version "7.0.1"
   resolved "https://registry.npm.alibaba-inc.com/fs-extra/download/fs-extra-7.0.1.tgz#4f189c44aa123b895f722804f55ea23eadc348e9"
@@ -5607,6 +6802,24 @@ gensync@^1.0.0-beta.2:
   resolved "https://registry.npm.alibaba-inc.com/gensync/download/gensync-1.0.0-beta.2.tgz#32a6ee76c3d7f52d46b2b1ae5d93fea8580a25e0"
   integrity sha1-MqbudsPX9S1GsrGuXZP+qFgKJeA=
 
+geojson-equality@0.1.6:
+  version "0.1.6"
+  resolved "https://registry.npm.alibaba-inc.com/geojson-equality/download/geojson-equality-0.1.6.tgz#a171374ef043e5d4797995840bae4648e0752d72"
+  integrity sha1-oXE3TvBD5dR5eZWEC65GSOB1LXI=
+  dependencies:
+    deep-equal "^1.0.0"
+
+geojson-rbush@3.x:
+  version "3.2.0"
+  resolved "https://registry.npm.alibaba-inc.com/geojson-rbush/download/geojson-rbush-3.2.0.tgz#8b543cf0d56f99b78faf1da52bb66acad6dfc290"
+  integrity sha1-i1Q88NVvmbePrx2lK7ZqytbfwpA=
+  dependencies:
+    "@turf/bbox" "*"
+    "@turf/helpers" "6.x"
+    "@turf/meta" "6.x"
+    "@types/geojson" "7946.0.8"
+    rbush "^3.0.1"
+
 geojson-vt@^3.2.1:
   version "3.2.1"
   resolved "https://registry.npm.alibaba-inc.com/geojson-vt/download/geojson-vt-3.2.1.tgz#f8adb614d2c1d3f6ee7c4265cad4bbf3ad60c8b7"
@@ -5653,6 +6866,19 @@ get-tsconfig@^4.4.0:
   version "4.5.0"
   resolved "https://registry.npm.alibaba-inc.com/get-tsconfig/download/get-tsconfig-4.5.0.tgz#6d52d1c7b299bd3ee9cd7638561653399ac77b0f"
   integrity sha512-MjhiaIWCJ1sAU4pIQ5i5OfOuHHxVo1oYeNsWTON7jxYkod8pHocXeh+SSbmu5OZZZK73B6cbJ2XADzXehLyovQ==
+
+gh-pages@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.npm.alibaba-inc.com/gh-pages/download/gh-pages-5.0.0.tgz#e0893272a0e33f0453e53a3c017c33b91ddd6394"
+  integrity sha512-Nqp1SjkPIB94Xw/3yYNTUL+G2dxlhjvv1zeN/4kMC1jfViTEqhtVz/Ba1zSXHuvXCN9ADNS1dN4r5/J/nZWEQQ==
+  dependencies:
+    async "^3.2.4"
+    commander "^2.18.0"
+    email-addresses "^5.0.0"
+    filenamify "^4.3.0"
+    find-cache-dir "^3.3.1"
+    fs-extra "^8.1.0"
+    globby "^6.1.0"
 
 git-branch@^1.0.0:
   version "1.0.0"
@@ -5730,7 +6956,7 @@ glob-parent@^6.0.1, glob-parent@^6.0.2:
   dependencies:
     is-glob "^4.0.3"
 
-glob@^7.1.2, glob@^7.1.3, glob@^7.1.4, glob@^7.1.6:
+glob@^7.0.3, glob@^7.1.2, glob@^7.1.3, glob@^7.1.4, glob@^7.1.6:
   version "7.2.3"
   resolved "https://registry.npm.alibaba-inc.com/glob/download/glob-7.2.3.tgz#b8df0fb802bbfa8e89bd1d938b4e16578ed44f2b"
   integrity sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==
@@ -5824,6 +7050,17 @@ globby@^13.1.1, globby@^13.1.2:
     ignore "^5.2.0"
     merge2 "^1.4.1"
     slash "^4.0.0"
+
+globby@^6.1.0:
+  version "6.1.0"
+  resolved "https://registry.npm.alibaba-inc.com/globby/download/globby-6.1.0.tgz#f5a6d70e8395e21c858fb0489d64df02424d506c"
+  integrity sha1-9abXDoOV4hyFj7BInWTfAkJNUGw=
+  dependencies:
+    array-union "^1.0.1"
+    glob "^7.0.3"
+    object-assign "^4.0.1"
+    pify "^2.0.0"
+    pinkie-promise "^2.0.0"
 
 globjoin@^0.1.4:
   version "0.1.4"
@@ -6486,7 +7723,7 @@ is-alphanumerical@^2.0.0:
     is-alphabetical "^2.0.0"
     is-decimal "^2.0.0"
 
-is-arguments@^1.1.1:
+is-arguments@^1.0.4, is-arguments@^1.1.1:
   version "1.1.1"
   resolved "https://registry.npm.alibaba-inc.com/is-arguments/download/is-arguments-1.1.1.tgz#15b3f88fda01f2a97fec84ca761a560f123efa9b"
   integrity sha1-FbP4j9oB8ql/7ITKdhpWDxI++ps=
@@ -6752,7 +7989,7 @@ is-redirect@^1.0.0:
   resolved "https://registry.npm.alibaba-inc.com/is-redirect/download/is-redirect-1.0.0.tgz#1d03dded53bd8db0f30c26e4f95d36fc7c87dc24"
   integrity sha1-HQPd7VO9jbDzDCbk+V02/HyH3CQ=
 
-is-regex@^1.1.4:
+is-regex@^1.0.4, is-regex@^1.1.4:
   version "1.1.4"
   resolved "https://registry.npm.alibaba-inc.com/is-regex/download/is-regex-1.1.4.tgz#eef5663cd59fa4c0ae339505323df6854bb15958"
   integrity sha1-7vVmPNWfpMCuM5UFMj32hUuxWVg=
@@ -7480,6 +8717,13 @@ make-dir@^2.1.0:
   dependencies:
     pify "^4.0.1"
     semver "^5.6.0"
+
+make-dir@^3.0.2:
+  version "3.1.0"
+  resolved "https://registry.npm.alibaba-inc.com/make-dir/download/make-dir-3.1.0.tgz#415e967046b3a7f1d185277d84aa58203726a13f"
+  integrity sha1-QV6WcEazp/HRhSd9hKpYIDcmoT8=
+  dependencies:
+    semver "^6.0.0"
 
 make-error@^1.1.1:
   version "1.3.6"
@@ -8232,6 +9476,11 @@ moo@^0.5.0, moo@^0.5.1:
   resolved "https://registry.npm.alibaba-inc.com/moo/download/moo-0.5.2.tgz#f9fe82473bc7c184b0d32e2215d3f6e67278733c"
   integrity sha512-iSAJLHYKnX41mKcJKjqvnAN9sf0LMDTXDEvFv+ffuRR9a1MIuXLjMNL6EsnDHSkKLTWNqQQ5uo61P4EbU4NU+Q==
 
+mousetrap@^1.6.5:
+  version "1.6.5"
+  resolved "https://registry.npm.alibaba-inc.com/mousetrap/download/mousetrap-1.6.5.tgz#8a766d8c272b08393d5f56074e0b5ec183485bf9"
+  integrity sha1-inZtjCcrCDk9X1YHTgtewYNIW/k=
+
 move-concurrently@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npm.alibaba-inc.com/move-concurrently/download/move-concurrently-1.0.1.tgz#be2c005fda32e0b29af1f05d7c4b33214c701f92"
@@ -8312,6 +9561,11 @@ needle@^3.1.0:
     debug "^3.2.6"
     iconv-lite "^0.6.3"
     sax "^1.2.4"
+
+next-tick@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.npm.alibaba-inc.com/next-tick/download/next-tick-1.1.0.tgz#1836ee30ad56d67ef281b22bd199f709449b35eb"
+  integrity sha1-GDbuMK1W1n7ygbIr0Zn3CUSbNes=
 
 no-case@^3.0.4:
   version "3.0.4"
@@ -8478,7 +9732,7 @@ nth-check@^2.0.1:
   dependencies:
     boolbase "^1.0.0"
 
-object-assign@^4, object-assign@^4.1.1:
+object-assign@*, object-assign@^4, object-assign@^4.0.1, object-assign@^4.1.1:
   version "4.1.1"
   resolved "https://registry.npm.alibaba-inc.com/object-assign/download/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
   integrity sha1-IQmtx5ZYh8/AXLvUQsrIv7s2CGM=
@@ -8487,6 +9741,14 @@ object-inspect@^1.12.0, object-inspect@^1.12.3, object-inspect@^1.9.0:
   version "1.12.3"
   resolved "https://registry.npm.alibaba-inc.com/object-inspect/download/object-inspect-1.12.3.tgz#ba62dffd67ee256c8c086dfae69e016cd1f198b9"
   integrity sha512-geUvdk7c+eizMNUDkRpW1wJwgfOiOeHbxBR/hLXK1aT6zmVSO0jsQcs7fj6MGw89jC/cjGfLcNOrtMYtGqm81g==
+
+object-is@^1.0.1:
+  version "1.1.5"
+  resolved "https://registry.npm.alibaba-inc.com/object-is/download/object-is-1.1.5.tgz#b9deeaa5fc7f1846a0faecdceec138e5778f53ac"
+  integrity sha1-ud7qpfx/GEag+uzc7sE45XePU6w=
+  dependencies:
+    call-bind "^1.0.2"
+    define-properties "^1.1.3"
 
 object-keys@^1.1.1:
   version "1.1.1"
@@ -8973,6 +10235,11 @@ pidtree@^0.6.0:
   resolved "https://registry.npm.alibaba-inc.com/pidtree/download/pidtree-0.6.0.tgz#90ad7b6d42d5841e69e0a2419ef38f8883aa057c"
   integrity sha512-eG2dWTVw5bzqGRztnHExczNxt5VGsE6OwTeCG3fdUf9KBsZzO3R5OIIIzWR+iZA0NtZ+RDVdaoE2dK1cn6jH4g==
 
+pify@^2.0.0:
+  version "2.3.0"
+  resolved "https://registry.npm.alibaba-inc.com/pify/download/pify-2.3.0.tgz#ed141a6ac043a849ea588498e7dca8b15330e90c"
+  integrity sha1-7RQaasBDqEnqWISY59yosVMw6Qw=
+
 pify@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npm.alibaba-inc.com/pify/download/pify-3.0.0.tgz#e5a4acd2c101fdf3d9a4d07f0dbc4db49dd28176"
@@ -8982,6 +10249,18 @@ pify@^4.0.1:
   version "4.0.1"
   resolved "https://registry.npm.alibaba-inc.com/pify/download/pify-4.0.1.tgz#4b2cd25c50d598735c50292224fd8c6df41e3231"
   integrity sha1-SyzSXFDVmHNcUCkiJP2MbfQeMjE=
+
+pinkie-promise@^2.0.0:
+  version "2.0.1"
+  resolved "https://registry.npm.alibaba-inc.com/pinkie-promise/download/pinkie-promise-2.0.1.tgz#2135d6dfa7a358c069ac9b178776288228450ffa"
+  integrity sha1-ITXW36ejWMBprJsXh3YogihFD/o=
+  dependencies:
+    pinkie "^2.0.0"
+
+pinkie@^2.0.0:
+  version "2.0.4"
+  resolved "https://registry.npm.alibaba-inc.com/pinkie/download/pinkie-2.0.4.tgz#72556b80cfa0d48a974e80e77248e80ed4f7f870"
+  integrity sha1-clVrgM+g1IqXToDnckjoDtT3+HA=
 
 pino-abstract-transport@v0.5.0:
   version "0.5.0"
@@ -9017,6 +10296,13 @@ pirates@^4.0.4:
   version "4.0.5"
   resolved "https://registry.npm.alibaba-inc.com/pirates/download/pirates-4.0.5.tgz#feec352ea5c3268fb23a37c702ab1699f35a5f3b"
   integrity sha512-8V9+HQPupnaXMA23c5hvl69zXvTwTzyAYasnkb0Tts4XvO4CliqONMOnvlq26rkhLC3nWDFBJf73LU1e1VZLaQ==
+
+pkg-dir@^4.1.0:
+  version "4.2.0"
+  resolved "https://registry.npm.alibaba-inc.com/pkg-dir/download/pkg-dir-4.2.0.tgz#f099133df7ede422e81d1d8448270eeb3e4261f3"
+  integrity sha1-8JkTPfft5CLoHR2ESCcO6z5CYfM=
+  dependencies:
+    find-up "^4.0.0"
 
 pkg-up@^3.1.0:
   version "3.1.0"
@@ -9611,6 +10897,11 @@ quick-lru@^4.0.1:
   resolved "https://registry.npm.alibaba-inc.com/quick-lru/download/quick-lru-4.0.1.tgz#5b8878f113a58217848c6482026c73e1ba57727f"
   integrity sha1-W4h48ROlgheEjGSCAmxz4bpXcn8=
 
+quickselect@^1.0.1:
+  version "1.1.1"
+  resolved "https://registry.npm.alibaba-inc.com/quickselect/download/quickselect-1.1.1.tgz#852e412ce418f237ad5b660d70cffac647ae94c2"
+  integrity sha1-hS5BLOQY8jetW2YNcM/6xkeulMI=
+
 quickselect@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npm.alibaba-inc.com/quickselect/download/quickselect-2.0.0.tgz#f19680a486a5eefb581303e023e98faaf25dd018"
@@ -9656,6 +10947,20 @@ raw-loader@^4.0.2:
   dependencies:
     loader-utils "^2.0.0"
     schema-utils "^3.0.0"
+
+rbush@2.x, rbush@^2.0.1:
+  version "2.0.2"
+  resolved "https://registry.npm.alibaba-inc.com/rbush/download/rbush-2.0.2.tgz#bb6005c2731b7ba1d5a9a035772927d16a614605"
+  integrity sha1-u2AFwnMbe6HVqaA1dykn0WphRgU=
+  dependencies:
+    quickselect "^1.0.1"
+
+rbush@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.npm.alibaba-inc.com/rbush/download/rbush-3.0.1.tgz#5fafa8a79b3b9afdfe5008403a720cc1de882ecf"
+  integrity sha1-X6+op5s7mv3+UAhAOnIMwd6ILs8=
+  dependencies:
+    quickselect "^2.0.0"
 
 rc-align@^4.0.0:
   version "4.0.15"
@@ -10163,6 +11468,14 @@ react@18.1.0:
   dependencies:
     loose-envify "^1.1.0"
 
+"react@^16.12.0 || ^17.0.0":
+  version "17.0.2"
+  resolved "https://registry.npm.alibaba-inc.com/react/download/react-17.0.2.tgz#d0b5cc516d29eb3eee383f75b62864cfb6800037"
+  integrity sha1-0LXMUW0p6z7uOD91tihkz7aAADc=
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+
 react@^18.0.0:
   version "18.2.0"
   resolved "https://registry.npm.alibaba-inc.com/react/download/react-18.2.0.tgz#555bd98592883255fa00de14f1151a917b5d77d5"
@@ -10265,7 +11578,7 @@ regenerator-runtime@0.13.11, regenerator-runtime@^0.13.11:
   resolved "https://registry.npm.alibaba-inc.com/regenerator-runtime/download/regenerator-runtime-0.13.11.tgz#f6dca3e7ceec20590d07ada785636a90cdca17f9"
   integrity sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==
 
-regexp.prototype.flags@^1.4.3:
+regexp.prototype.flags@^1.2.0, regexp.prototype.flags@^1.4.3:
   version "1.5.0"
   resolved "https://registry.npm.alibaba-inc.com/regexp.prototype.flags/download/regexp.prototype.flags-1.5.0.tgz#fe7ce25e7e4cca8db37b6634c8a2c7009199b9cb"
   integrity sha512-0SutC3pNudRKgquxGoRGIz946MZVHqbNfPjBdxeOhBrdgDKlRoXmYLQN9xRbrR09ZXWeGAdPuif7egofn6v5LA==
@@ -10557,6 +11870,11 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
     hash-base "^3.0.0"
     inherits "^2.0.1"
 
+robust-predicates@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.npm.alibaba-inc.com/robust-predicates/download/robust-predicates-2.0.4.tgz#0a2367a93abd99676d075981707f29cfb402248b"
+  integrity sha1-CiNnqTq9mWdtB1mBcH8pz7QCJIs=
+
 rollup-plugin-visualizer@5.9.0:
   version "5.9.0"
   resolved "https://registry.npm.alibaba-inc.com/rollup-plugin-visualizer/download/rollup-plugin-visualizer-5.9.0.tgz#013ac54fb6a9d7c9019e7eb77eced673399e5a0b"
@@ -10740,7 +12058,7 @@ semver@7.5.0, semver@^7.3.4, semver@^7.3.5, semver@^7.3.7:
   dependencies:
     lru-cache "^6.0.0"
 
-semver@^6.3.0:
+semver@^6.0.0, semver@^6.3.0:
   version "6.3.0"
   resolved "https://registry.npm.alibaba-inc.com/semver/download/semver-6.3.0.tgz#ee0a64c8af5e8ceea67687b133761e1becbd1d3d"
   integrity sha1-7gpkyK9ejO6mdoexM3YeG+y9HT0=
@@ -10836,6 +12154,11 @@ sitemap@^7.1.1:
     "@types/sax" "^1.2.1"
     arg "^5.0.0"
     sax "^1.2.4"
+
+skmeans@0.9.7:
+  version "0.9.7"
+  resolved "https://registry.npm.alibaba-inc.com/skmeans/download/skmeans-0.9.7.tgz#72670cebb728508f56e29c0e10d11e623529ce5d"
+  integrity sha1-cmcM67coUI9W4pwOENEeYjUpzl0=
 
 slash@^3.0.0:
   version "3.0.0"
@@ -11261,6 +12584,13 @@ strip-json-comments@~2.0.1:
   resolved "https://registry.npm.alibaba-inc.com/strip-json-comments/download/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
   integrity sha1-PFMZQukIwml8DsNEhYwobHygpgo=
 
+strip-outer@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npm.alibaba-inc.com/strip-outer/download/strip-outer-1.0.1.tgz#b2fd2abf6604b9d1e6013057195df836b8a9d631"
+  integrity sha1-sv0qv2YEudHmATBXGV34Nrip1jE=
+  dependencies:
+    escape-string-regexp "^1.0.2"
+
 style-search@^0.1.0:
   version "0.1.0"
   resolved "https://registry.npm.alibaba-inc.com/style-search/download/style-search-0.1.0.tgz#7958c793e47e32e07d2b5cafe5c0bf8e12e77902"
@@ -11540,6 +12870,13 @@ tinyqueue@^2.0.3:
   resolved "https://registry.npm.alibaba-inc.com/tinyqueue/download/tinyqueue-2.0.3.tgz#64d8492ebf39e7801d7bd34062e29b45b2035f08"
   integrity sha1-ZNhJLr8554Ade9NAYuKbRbIDXwg=
 
+tippy.js@^6.3.7:
+  version "6.3.7"
+  resolved "https://registry.npm.alibaba-inc.com/tippy.js/download/tippy.js-6.3.7.tgz#8ccfb651d642010ed9a32ff29b0e9e19c5b8c61c"
+  integrity sha1-jM+2UdZCAQ7Zoy/ymw6eGcW4xhw=
+  dependencies:
+    "@popperjs/core" "^2.9.0"
+
 titleize@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npm.alibaba-inc.com/titleize/download/titleize-3.0.0.tgz#71c12eb7fdd2558aa8a44b0be83b8a76694acd53"
@@ -11584,6 +12921,20 @@ toggle-selection@^1.0.6:
   resolved "https://registry.npm.alibaba-inc.com/toggle-selection/download/toggle-selection-1.0.6.tgz#6e45b1263f2017fa0acc7d89d78b15b8bf77da32"
   integrity sha1-bkWxJj8gF/oKzH2J14sVuL932jI=
 
+topojson-client@3.x:
+  version "3.1.0"
+  resolved "https://registry.npm.alibaba-inc.com/topojson-client/download/topojson-client-3.1.0.tgz#22e8b1ed08a2b922feeb4af6f53b6ef09a467b99"
+  integrity sha1-Iuix7QiiuSL+60r29Ttu8JpGe5k=
+  dependencies:
+    commander "2"
+
+topojson-server@3.x:
+  version "3.0.1"
+  resolved "https://registry.npm.alibaba-inc.com/topojson-server/download/topojson-server-3.0.1.tgz#d2b3ec095b6732299be76a48406111b3201a34f5"
+  integrity sha1-0rPsCVtnMimb52pIQGERsyAaNPU=
+  dependencies:
+    commander "2"
+
 tr46@~0.0.3:
   version "0.0.3"
   resolved "https://registry.npm.alibaba-inc.com/tr46/download/tr46-0.0.3.tgz#8184fd347dac9cdc185992f3a6622e14b9d9ab6a"
@@ -11603,6 +12954,13 @@ trim-newlines@^3.0.0:
   version "3.0.1"
   resolved "https://registry.npm.alibaba-inc.com/trim-newlines/download/trim-newlines-3.0.1.tgz#260a5d962d8b752425b32f3a7db0dcacd176c144"
   integrity sha1-Jgpdli2LdSQlsy86fbDcrNF2wUQ=
+
+trim-repeated@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npm.alibaba-inc.com/trim-repeated/download/trim-repeated-1.0.0.tgz#e3646a2ea4e891312bf7eace6cfb05380bc01c21"
+  integrity sha1-42RqLqTokTEr9+rObPsFOAvAHCE=
+  dependencies:
+    escape-string-regexp "^1.0.2"
 
 trough@^2.0.0:
   version "2.1.0"
@@ -11669,6 +13027,11 @@ tty-browserify@0.0.0:
   version "0.0.0"
   resolved "https://registry.npm.alibaba-inc.com/tty-browserify/download/tty-browserify-0.0.0.tgz#a157ba402da24e9bf957f9aa69d524eed42901a6"
   integrity sha1-oVe6QC2iTpv5V/mqadUk7tQpAaY=
+
+turf-jsts@*:
+  version "1.2.3"
+  resolved "https://registry.npm.alibaba-inc.com/turf-jsts/download/turf-jsts-1.2.3.tgz#59757f542afbff9a577bbf411f183b8f48d38aa4"
+  integrity sha1-WXV/VCr7/5pXe79BHxg7j0jTiqQ=
 
 type-check@^0.4.0, type-check@~0.4.0:
   version "0.4.0"

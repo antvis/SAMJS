@@ -21,11 +21,11 @@ import {
   modelData,
   modelInputProps,
   modelScaleProps,
-  onnxMaskToImage,
+  onnxMaskToPolygon,
   TileHelper,
 } from 'sam.js';
 import { EMBEDDING_URL } from '../config';
-const MODEL_DIR = 'model/sam_onnx_example.onnx';
+const MODEL_DIR = '../model/sam_onnx_example.onnx';
 
 const tileHelper = new TileHelper(256, 'google');
 
@@ -40,6 +40,7 @@ export default () => {
   const [mapClick, setMapClick] = useState<any>(null); // Array of clicks
   const [extentLayer, setExtentLayer] = useState<ILayer>();
   const [loading, setLoading] = useState<boolean>(false);
+  const [, setRawImageData] = useState<ImageData>();
   const mapZoom: number = 17;
 
   const locations = [
@@ -87,11 +88,6 @@ export default () => {
       name: '草场',
       coord: [28.725760156128445, 22.24767189005027],
       zoom: 12,
-    },
-    {
-      name: '草场2',
-      coord: [115.8162326, 36.2454426],
-      zoom: 18,
     },
   ];
 
@@ -146,12 +142,16 @@ export default () => {
       width: width, // original image width
       samScale: samScale, // scaling factor for image which has been resized to longest side 1024
     });
+
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    setRawImageData(imageData);
+
     canvas.toBlob(async (blob) => {
       // Convert the canvas to blob
-      if (EMBEDDING_URL === '') {
-        message.error('请先配置embedding计算服务地址');
-        return;
-      }
+      // if (EMBEDDING_URL === '') {
+      //   message.error('请先配置embedding计算服务地址');
+      //   return;
+      // }
       const action = EMBEDDING_URL;
       const formData = new FormData();
       formData.append('file', blob as Blob);
@@ -222,11 +222,25 @@ export default () => {
         const output = results[model.outputNames[0]];
         // The predicted mask returned from the ONNX model is an array which is
         // rendered as an HTML image using onnxMaskToImage() from maskUtils.tsx.
+        // 裁剪后的图片
+        // const image = onnxMaskClip( output.data,
+        //   output.dims[2],
+        //   output.dims[3])
 
-        const imageData = onnxMaskToImage(
+        // const image = onnxMaskToImage(output.data,
+        //   output.dims[3],
+        //   output.dims[2])
+
+        //  const image =  getImageByMask(rawImageData!, output.data,true)
+
+        // const image = getImageByMaskClip(rawImageData!, output.data, output.dims[3],
+        // output.dims[2]);
+        // downLoadImage(image)
+
+        const imageData = onnxMaskToPolygon(
           output.data,
-          output.dims[2],
           output.dims[3],
+          output.dims[2],
         );
         const coord = imageData.map((point) => {
           const px = [point.x + imageExtent![0], point.y + imageExtent![1]];
@@ -317,11 +331,11 @@ export default () => {
       },
     });
     const layer1 = new RasterLayer({
-      zIndex: 1,
+      zIndex: -2,
     }).source(layerSource);
 
     const layer2 = new RasterLayer({
-      zIndex: 2,
+      zIndex: -1,
     }).source(annotion, {
       parser: {
         type: 'rasterTile',
@@ -349,10 +363,22 @@ export default () => {
       scene.addLayer(boundsLayer);
       setExtentLayer(boundsLayer);
 
+      // const drawControl = new DrawControl(scene, {
+      //   defaultActiveType: 'point',
+      //   commonDrawOptions: {
+      //     style: {
+      //       ...getSingleColorStyle('#ff0000'),
+
+      //     }
+
+      //   },
+      // });
+
+      // // 将 Control 添加至地图中
+      // scene.addControl(drawControl);
+
       scene.on('click', (e) => {
         const lngLat = e.lngLat;
-        console.log(lngLat);
-
         const point = tileHelper.lngLatToPixels(
           lngLat.lng,
           lngLat.lat,
