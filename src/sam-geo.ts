@@ -1,5 +1,5 @@
 import { SAM } from './sam';
-import { TileHelper } from './utils/geo';
+import { MapHelper } from './utils/geo';
 import { coord2Polygon } from './utils/utils';
 
 export interface IGeoImageOption {
@@ -18,7 +18,7 @@ export class SAMGeo extends SAM {
 
   private metersPerpixelsY: number = 0;
 
-  public tileHelper = new TileHelper(256, 'google');
+  public mapHelper = new MapHelper(256, 'google');
 
   public async setGeoImage(
     image: HTMLImageElement | string,
@@ -30,8 +30,8 @@ export class SAMGeo extends SAM {
     if (extent) {
       // 经纬度范围墨卡托范围
       this.imageBounds = [
-        ...this.tileHelper.lngLatToMeters(extent![0], extent![1]),
-        ...this.tileHelper.lngLatToMeters(extent![2], extent![3]),
+        ...this.mapHelper.lngLatToMeters(extent![0], extent![1]),
+        ...this.mapHelper.lngLatToMeters(extent![2], extent![3]),
       ];
       this.metersPerpixelsX =
         (this.imageBounds[2] - this.imageBounds[0]) / width;
@@ -56,7 +56,7 @@ export class SAMGeo extends SAM {
       ];
 
       // 墨卡托转经纬度
-      const lnglat = this.tileHelper.metersToLngLat(px[0], px[1]);
+      const lnglat = this.mapHelper.metersToLngLat(px[0], px[1]);
       return lnglat;
     });
     const polygon = coord2Polygon(coord);
@@ -65,7 +65,7 @@ export class SAMGeo extends SAM {
   // 瓦片场景
   public lngLat2ImagePixel(lnglat: [number, number]) {
     if (!this.imageBounds) return;
-    const [x, y] = this.tileHelper.lngLatToMeters(lnglat[0], lnglat[1]);
+    const [x, y] = this.mapHelper.lngLatToMeters(lnglat[0], lnglat[1]);
     const dx = (x - this.imageBounds![0]) / this.metersPerpixelsX;
     let dy = (y - this.imageBounds![1]) / this.metersPerpixelsY;
     dy = this.imageOption!.height - dy;

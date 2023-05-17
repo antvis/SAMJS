@@ -97,10 +97,10 @@ export default () => {
     canvas.width = (maxX - minX + 1) * 256;
     canvas.height = (maxY - minY + 1) * 256;
     const ctx = canvas.getContext('2d')!;
-    const tileHelper = samModel.tileHelper;
+    const mapHelper = samModel.mapHelper;
     const imageExtent = [
-      ...tileHelper.tileToLngLat(minX, maxY + 1, zoom),
-      ...tileHelper.tileToLngLat(maxX + 1, minY, zoom),
+      ...mapHelper.tileToLngLat(minX, maxY + 1, zoom),
+      ...mapHelper.tileToLngLat(maxX + 1, minY, zoom),
     ];
 
     // Draw each tile on the canvas

@@ -3,6 +3,10 @@ import { defineConfig } from 'dumi';
 const CopyPlugin = require('copy-webpack-plugin');
 export default defineConfig({
   outputPath: 'docs-dist',
+  // locales: [
+  //   { id: 'en-us', name: 'English' },
+  //   { id: 'zh-cn', name: '中文' },
+  // ],
 
   chainWebpack(memo, { env, webpack }) {
     // 设置 alias
@@ -25,9 +29,9 @@ export default defineConfig({
   },
   mfsu: false,
   themeConfig: {
-    name: 'SAM.js',
+    name: 'SAM.JS',
     nav: [
-      { title: 'demo', link: '/demos' },
+      { title: 'DEMO', link: '/demos' },
       { title: 'API', link: '/api' },
     ],
   },

@@ -1,4 +1,4 @@
-export class TileHelper {
+export class MapHelper {
   private tileSize: number;
   private type: string;
   private initialResolution: number;
