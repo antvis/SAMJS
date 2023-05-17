@@ -1,86 +1,51 @@
-import {
-  ILayer,
-  ISource,
-  PolygonLayer,
-  RasterLayer,
-  Scene,
-  Source,
-} from '@antv/l7';
+import { PolygonLayer, RasterLayer, Scene, Source } from '@antv/l7';
 import { Button, message, Radio, Spin } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+// @ts-ignore
 import { SAMGeo } from 'sam.js';
-
 // @ts-ignore
 import { Map } from '@antv/l7-maps';
 
+import { useSetState } from 'ahooks';
 import { EMBEDDING_URL } from '../config';
+import { ISamState } from '../typing';
+import {
+  annotion,
+  googleSatellite,
+  locations,
+  selectionType,
+} from './contants';
+import './index.less';
+import { RightPanel } from './leftpanel';
+
 const MODEL_DIR = '../model/sam_onnx_example.onnx';
+
+const initState = {
+  samModel: null,
+  currentScene: null,
+  currentSource: null,
+  mapClick: null,
+  loading: false,
+  borderLayer: null,
+  eventType: 'click',
+  collapsed: true,
+  satelliteData: [],
+};
 
 export default () => {
   const mapZoom: number = 17;
-  const [samModel, setSamModel] = useState<SAMGeo>(null);
-  const [currentScene, setScene] = useState<Scene>();
-  const [currentSource, setSource] = useState<ISource>();
-  const [mapClick, setMapClick] = useState<any>(null); // Array of clicks
-  const [loading, setLoading] = useState<boolean>(false);
-  const [borderLayer, setBorderLayer] = useState<ILayer>();
+  const [samInfo, setSamState] = useSetState<ISamState>(initState);
 
-  const locations = [
-    {
-      name: 'A 空间',
-      coord: [120.10533489408249, 30.261061158180482],
-      zoom: 18,
-    },
-    {
-      name: '油罐',
-      coord: [-96.74674229210954, 35.935326263559816],
-      zoom: 15.5,
-    },
-    {
-      name: '农田',
-      coord: [5.000138834496795, 52.83911856295691],
-      zoom: 13.5,
-    },
-    {
-      name: '农田2',
-      coord: [-111.91603037093357, 32.91837220530866],
-      zoom: 13,
-    },
-    {
-      name: '灌溉农田',
-      coord: [38.274419546979345, 30.107721922396593],
-      zoom: 12.5,
-    },
-    {
-      name: '建筑',
-      coord: [-75.68709358840009, 45.40821167856009],
-      zoom: 18,
-    },
-    {
-      name: '建筑2',
-      coord: [-117.9375255130447, 33.809435077864805],
-      zoom: 18.2,
-    },
-    {
-      name: '机场',
-      coord: [-117.377, 34.596],
-      zoom: 15.5,
-    },
-    {
-      name: '草场',
-      coord: [28.725760156128445, 22.24767189005027],
-      zoom: 12,
-    },
-  ];
   const onLocationChange = (item) => {
     const coord = locations.find((l) => l.name === item.target.value);
-    if (coord) currentScene?.setCenter(coord!.coord as [number, number]);
-    currentScene?.setZoom((coord!.zoom as number) || 17);
+    if (coord)
+      samInfo.currentScene?.setCenter(coord!.coord as [number, number]);
+    samInfo.currentScene?.setZoom((coord!.zoom as number) || 17);
   };
   // 生成 embedding 并初始化载入模型
   const generateEmbedding = async () => {
-    setLoading(true);
-    const tiles = currentSource?.tileset?.currentTiles;
+    setSamState({ loading: true });
+    const tiles = samInfo.currentSource?.tileset?.currentTiles;
     let minX = Infinity;
     let minY = Infinity;
     let maxX = -Infinity;
@@ -91,13 +56,13 @@ export default () => {
       maxX = Math.max(maxX, tile.x);
       maxY = Math.max(maxY, tile.y);
     });
-    const zoom = Math.ceil(currentScene?.getZoom() as number);
+    const zoom = Math.ceil(samInfo.currentScene?.getZoom() as number);
 
     const canvas = document.createElement('canvas');
     canvas.width = (maxX - minX + 1) * 256;
     canvas.height = (maxY - minY + 1) * 256;
     const ctx = canvas.getContext('2d')!;
-    const mapHelper = samModel.mapHelper;
+    const mapHelper = samInfo.samModel.mapHelper;
     const imageExtent = [
       ...mapHelper.tileToLngLat(minX, maxY + 1, zoom),
       ...mapHelper.tileToLngLat(maxX + 1, minY, zoom),
@@ -118,7 +83,7 @@ export default () => {
     });
 
     // 设置模型的图片
-    samModel.setGeoImage(canvas.toDataURL(), {
+    samInfo.samModel.setGeoImage(canvas.toDataURL(), {
       extent: imageExtent,
       width: canvas.width,
       height: canvas.height,
@@ -135,29 +100,52 @@ export default () => {
           method: 'POST',
         })
       ).arrayBuffer();
-      samModel.setEmbedding(res);
-      setLoading(false);
+      samInfo.samModel.setEmbedding(res);
+      // setLoading(false);
+      setSamState({ loading: false });
       message.success('embedding计算完成');
     });
   };
 
   // 地图点击
+  useEffect(() => {
+    try {
+      if (!samInfo.mapClick) return;
+      const px = samInfo.samModel.lngLat2ImagePixel(samInfo.mapClick);
+
+      const points = [
+        {
+          x: px[0],
+          y: px[1],
+          clickType: 1,
+        },
+      ];
+      samInfo.samModel.predictByPoints(points).then(async (res) => {
+        const polygon = await samInfo.samModel.exportGeoPolygon(res, 1);
+        const image = samInfo.samModel.exportImageClip(res);
+        const newData = {
+          features: polygon.features,
+          imageUrl: image.src,
+        };
+        setSamState((pre) => ({
+          satelliteData: [...pre.satelliteData, newData],
+        }));
+      });
+    } catch (error) {
+      message.error('请先点击[生成 embedding] 按钮');
+    }
+  }, [samInfo.mapClick]);
 
   useEffect(() => {
-    if (!mapClick) return;
-    const px = samModel.lngLat2ImagePixel(mapClick);
-    const points = [
-      {
-        x: px[0],
-        y: px[1],
-        clickType: 1,
-      },
-    ];
-    samModel.predictByPoints(points).then(async (res) => {
-      const polygon = await samModel.exportGeoPolygon(res, 1);
-      borderLayer?.setData(polygon);
-    });
-  }, [mapClick]);
+    if (samInfo.borderLayer) {
+      const newFeature = samInfo.satelliteData.map((item) => item.features);
+      const newPolygon = {
+        type: 'FeatureCollection',
+        features: newFeature.flat(),
+      };
+      samInfo.borderLayer.setData(newPolygon);
+    }
+  }, [samInfo.borderLayer, samInfo.satelliteData]);
 
   // 初始化地图
   useEffect(() => {
@@ -171,10 +159,6 @@ export default () => {
       }),
     });
 
-    const googleSatellite =
-      'https://www.google.com/maps/vt?lyrs=s@820&gl=cn&x={x}&y={y}&z={z}';
-    const annotion =
-      'https://t{0-7}.tianditu.gov.cn/DataServer?T=cia_w&X={x}&Y={y}&L={z}&tk=b72aa81ac2b3cae941d1eb213499e15e';
     const layerSource = new Source(googleSatellite, {
       parser: {
         type: 'rasterTile',
@@ -210,18 +194,28 @@ export default () => {
       });
 
     scene.on('loaded', () => {
-      setScene(scene);
-      setSource(layerSource);
       scene.addLayer(layer1);
       scene.addLayer(layer2);
       scene.addLayer(boundsLayer);
-      setBorderLayer(boundsLayer);
-      scene.on('click', (e) => {
-        const lngLat = e.lngLat;
-        setMapClick([lngLat.lng, lngLat.lat]);
+      setSamState({
+        borderLayer: boundsLayer,
+        currentScene: scene,
+        currentSource: layerSource,
+      });
+      if (samInfo.eventType === 'selectend') {
+        scene.enableBoxSelect(false);
+      } else {
+        scene.disableBoxSelect();
+      }
+      scene.on(samInfo.eventType, (e) => {
+        const isArray = Array.isArray(e);
+        const coords = !isArray ? [e.lngLat.lng, e.lngLat.lat] : e;
+        setSamState({
+          mapClick: coords,
+        });
       });
     });
-  }, []);
+  }, [samInfo.eventType]);
 
   // 初始化模型
 
@@ -230,38 +224,59 @@ export default () => {
       modelUrl: MODEL_DIR,
     });
     sam.initModel().then(() => {
-      setSamModel(sam);
+      setSamState({ samModel: sam });
     });
   }, []);
 
   return (
     <>
       <Button onClick={generateEmbedding}> 生成 embedding </Button>
-      <Spin spinning={loading} tip={'embedding 生成中……'}>
-        <Radio.Group
-          style={{ margin: '15px' }}
-          onChange={onLocationChange}
-          defaultValue="A 空间"
-          buttonStyle="solid"
-        >
-          {' '}
-          {locations.map((item) => {
-            return (
-              <Radio.Button key={item.name} value={item.name}>
-                {item.name}
-              </Radio.Button>
-            );
-          })}
-        </Radio.Group>
-
-        <div
-          id="map"
-          style={{
-            height: '70vh',
-            position: 'relative',
-          }}
-        />
-      </Spin>
+      <Radio.Group
+        style={{ margin: '15px' }}
+        onChange={onLocationChange}
+        defaultValue="A 空间"
+        buttonStyle="solid"
+      >
+        {locations.map((item) => {
+          return (
+            <Radio.Button key={item.name} value={item.name}>
+              {item.name}
+            </Radio.Button>
+          );
+        })}
+      </Radio.Group>
+      <div className="mapContainer">
+        <Spin spinning={samInfo.loading} tip={'embedding 生成中……'}>
+          <div
+            id="map"
+            className="mapContainer__map"
+            style={{ width: `calc(55vw - ${!samInfo.collapsed ? 0 : 400}px)` }}
+          >
+            <Radio.Group
+              style={{ position: 'absolute', top: 15, left: 15, zIndex: 100 }}
+              onChange={(event) => {
+                setSamState({ eventType: event.target.value });
+              }}
+              value={samInfo.eventType}
+              size="small"
+              buttonStyle="solid"
+            >
+              {selectionType.map((item) => {
+                return (
+                  <Radio.Button
+                    key={item.value}
+                    value={item.value}
+                    // disabled={item?.disable}
+                  >
+                    {item.label}
+                  </Radio.Button>
+                );
+              })}
+            </Radio.Group>
+          </div>
+        </Spin>
+        <RightPanel samInfo={samInfo} setSamState={setSamState} />
+      </div>
     </>
   );
 };
