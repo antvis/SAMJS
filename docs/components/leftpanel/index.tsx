@@ -1,8 +1,8 @@
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
-import { Tabs } from 'antd';
+import { Button, Tabs } from 'antd';
 import React, { useMemo } from 'react';
 import { ISamState } from '../../typing';
-import { emptyPolygon } from '../../utils';
+import { downloadData, emptyPolygon } from '../../utils';
 import { Editor } from './editor';
 import './index.less';
 import { ShowTable } from './table';
@@ -56,7 +56,22 @@ export const RightPanel = (props: RightPanelProps) => {
           <RightOutlined className="rightContainer__collapsed__icon" />
         )}
       </div>
-      {samInfo.collapsed && <Tabs items={items} />}
+      {samInfo.collapsed && (
+        <Tabs
+          style={{ width: samInfo.collapsed ? 400 : 0 }}
+          items={items}
+          tabBarExtraContent={
+            <Button
+              size="small"
+              type="primary"
+              disabled={samInfo.satelliteData.length <= 0}
+              onClick={() => downloadData(samInfo.satelliteData)}
+            >
+              下载数据
+            </Button>
+          }
+        />
+      )}
     </div>
   );
 };

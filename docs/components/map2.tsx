@@ -110,7 +110,6 @@ export default () => {
         })
       ).arrayBuffer();
       samInfo.samModel.setEmbedding(res);
-      // setLoading(false);
       setSamState({ loading: false });
       message.success('embedding计算完成');
     });
@@ -242,7 +241,6 @@ export default () => {
       });
       scene.on('click', onMapClick);
       scene.on('selectend', onMapClick);
-      // scene.on(samInfo.eventType, (e) => {
     });
   }, []);
 
@@ -282,12 +280,12 @@ export default () => {
           );
         })}
       </Radio.Group>
-      <div className="mapContainer">
-        <Spin spinning={samInfo.loading} tip={'embedding 生成中……'}>
+      <Spin spinning={samInfo.loading} tip={'embedding 生成中……'}>
+        <div className="mapContainer">
           <div
             id="map"
             className="mapContainer__map"
-            style={{ width: `calc(55vw - ${!samInfo.collapsed ? 0 : 400}px)` }}
+            style={{ width: `calc(100vw - ${!samInfo.collapsed ? 0 : 400}px)` }}
           >
             <Radio.Group
               style={{ position: 'absolute', top: 15, left: 15, zIndex: 100 }}
@@ -311,9 +309,9 @@ export default () => {
               })}
             </Radio.Group>
           </div>
-        </Spin>
-        <RightPanel samInfo={samInfo} setSamState={setSamState} />
-      </div>
+          <RightPanel samInfo={samInfo} setSamState={setSamState} />
+        </div>
+      </Spin>
     </>
   );
 };
