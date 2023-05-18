@@ -29,6 +29,10 @@ export default defineConfig({
               from: 'docs/model',
               to: 'model',
             },
+            {
+              from: 'docs/assets',
+              to: 'assets',
+            },
           ],
         },
       ])

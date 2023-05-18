@@ -1,10 +1,9 @@
 import { useMount } from 'ahooks';
 import { editor } from 'monaco-editor';
 import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api';
-import prettier from 'prettier';
-import parserBabel from 'prettier/parser-babel';
 import React from 'react';
 import MonacoEditor from 'react-monaco-editor';
+import { prettierText } from '../../utils';
 
 interface IEditor {
   value: string;
@@ -12,20 +11,6 @@ interface IEditor {
 
 export const Editor = (props: IEditor) => {
   const { value } = props;
-
-  function prettierText(options: { content: string }) {
-    const { content } = options;
-    let newContent = content;
-    if (typeof content !== 'string') {
-      newContent = JSON.stringify(content, null, 2);
-    }
-
-    const newText = prettier.format(newContent, {
-      parser: 'json',
-      plugins: [parserBabel],
-    });
-    return newText;
-  }
 
   monacoEditor.languages.registerDocumentFormattingEditProvider('json', {
     provideDocumentFormattingEdits: (model: editor.ITextModel) => {
@@ -53,8 +38,8 @@ export const Editor = (props: IEditor) => {
 
   return (
     <MonacoEditor
-      width={380}
-      height="65vh"
+      width={400}
+      height="calc(70vh - 56px)"
       language="json"
       value={prettierText({ content: value })}
       theme="custome-theme"
