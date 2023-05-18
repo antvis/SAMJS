@@ -31,7 +31,7 @@ const initState = {
   collapsed: true,
   satelliteData: [],
 };
-
+const points: Array<any> = [];
 export default () => {
   const mapZoom: number = 17;
   const [samInfo, setSamState] = useSetState<ISamState>(initState);
@@ -42,6 +42,15 @@ export default () => {
       samInfo.currentScene?.setCenter(coord!.coord as [number, number]);
     samInfo.currentScene?.setZoom((coord!.zoom as number) || 17);
   };
+
+  const onMapClick = (e) => {
+    const isArray = Array.isArray(e);
+    const coords = !isArray ? [e.lngLat.lng, e.lngLat.lat] : e;
+    setSamState({
+      mapClick: coords,
+    });
+  };
+
   // 生成 embedding 并初始化载入模型
   const generateEmbedding = async () => {
     setSamState({ loading: true });
@@ -109,20 +118,49 @@ export default () => {
 
   // 地图点击
   useEffect(() => {
+    if (!samInfo.mapClick || !samInfo.samModel) return;
     try {
-      if (!samInfo.mapClick) return;
-      const px = samInfo.samModel.lngLat2ImagePixel(samInfo.mapClick);
-
-      const points = [
-        {
+      const coord = samInfo.mapClick;
+      if (samInfo.eventType === 'click') {
+        const px = samInfo.samModel.lngLat2ImagePixel(coord);
+        points.push({
           x: px[0],
           y: px[1],
           clickType: 1,
-        },
-      ];
+        });
+      } else if (samInfo.eventType === 'selectend') {
+        const topLeft = samInfo.samModel.lngLat2ImagePixel([
+          coord[0],
+          coord[3],
+        ]);
+        const bottomRight = samInfo.samModel.lngLat2ImagePixel([
+          coord[2],
+          coord[1],
+        ]);
+        points.push({
+          x: topLeft[0],
+          y: topLeft[1],
+          clickType: 1,
+        });
+        points.push({
+          x: bottomRight[0],
+          y: bottomRight[1],
+          clickType: 1,
+        });
+      } else if (samInfo.eventType === 'all') {
+        console.log(
+          samInfo.samModel.image.width,
+          samInfo.samModel.image.height,
+        );
+      }
+
+      if (points.length === 0) return;
+      console.time('predictByPoints');
       samInfo.samModel.predictByPoints(points).then(async (res) => {
+        console.timeEnd('predictByPoints');
         const polygon = await samInfo.samModel.exportGeoPolygon(res, 1);
         const image = samInfo.samModel.exportImageClip(res);
+
         const newData = {
           features: polygon.features,
           imageUrl: image.src,
@@ -135,7 +173,7 @@ export default () => {
       message.error('请先点击[生成 embedding] 按钮');
     }
   }, [samInfo.mapClick]);
-
+  // 地图可视化
   useEffect(() => {
     if (samInfo.borderLayer) {
       const newFeature = samInfo.satelliteData.map((item) => item.features);
@@ -202,19 +240,18 @@ export default () => {
         currentScene: scene,
         currentSource: layerSource,
       });
-      if (samInfo.eventType === 'selectend') {
-        scene.enableBoxSelect(false);
-      } else {
-        scene.disableBoxSelect();
-      }
-      scene.on(samInfo.eventType, (e) => {
-        const isArray = Array.isArray(e);
-        const coords = !isArray ? [e.lngLat.lng, e.lngLat.lat] : e;
-        setSamState({
-          mapClick: coords,
-        });
-      });
+      scene.on('click', onMapClick);
+      scene.on('selectend', onMapClick);
+      // scene.on(samInfo.eventType, (e) => {
     });
+  }, []);
+
+  useEffect(() => {
+    if (samInfo.eventType === 'selectend' && samInfo.currentScene) {
+      samInfo.currentScene.enableBoxSelect(false);
+    } else if (samInfo.currentScene) {
+      samInfo.currentScene.disableBoxSelect();
+    }
   }, [samInfo.eventType]);
 
   // 初始化模型
