@@ -1,3 +1,6 @@
+import prettier from 'prettier';
+import parserBabel from 'prettier/parser-babel';
+
 export const getEemedding = async (options: { action: string; file: File }) => {
   const { action, file } = options;
   const formData = new FormData();
@@ -57,4 +60,31 @@ export const emptyPolygon = () => {
     type: 'FeatureCollection',
     features: [],
   };
+};
+
+export function prettierText(options: { content: string }) {
+  const { content } = options;
+  let newContent = content;
+  if (typeof content !== 'string') {
+    newContent = JSON.stringify(content, null, 2);
+  }
+
+  const newText = prettier.format(newContent, {
+    parser: 'json',
+    plugins: [parserBabel],
+  });
+  return newText;
+}
+
+export const downloadData = (
+  data: any,
+  name = `data-${new Date().toLocaleString()}`,
+) => {
+  const blob = new Blob([prettierText({ content: JSON.stringify(data) })], {
+    type: 'application/json',
+  });
+  const link = document.createElement('a');
+  link.download = `${name}.json`;
+  link.href = URL.createObjectURL(blob);
+  link.click();
 };
