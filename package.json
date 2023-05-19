@@ -12,7 +12,7 @@
     "build": "father build",
     "build:watch": "father dev",
     "deploy": "dumi build && gh-pages -d docs-dist",
-    "dev": "dumi dev",
+    "dev": "dumi dev -port 8888",
     "docs:build": "dumi build",
     "doctor": "father doctor",
     "lint": "npm run lint:es && npm run lint:css",
