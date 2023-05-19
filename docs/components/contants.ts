@@ -1,5 +1,9 @@
-export const googleSatellite =
-  'https://www.google.com/maps/vt?lyrs=s@820&gl=cn&x={x}&y={y}&z={z}';
+// 'https://www.google.com/maps/vt?lyrs=s@820&gl=cn&x={x}&y={y}&z={z}';
+
+//
+const url1 =
+  'https://webst0{1-4}.is.autonavi.com/appmaptile?style=6&x={x}&y={y}&z={z}';
+export const googleSatellite = url1;
 export const annotion =
   'https://t{0-7}.tianditu.gov.cn/DataServer?T=cia_w&X={x}&Y={y}&L={z}&tk=b72aa81ac2b3cae941d1eb213499e15e';
 

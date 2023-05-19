@@ -31,7 +31,7 @@ const initState = {
   collapsed: true,
   satelliteData: [],
 };
-const points: Array<any> = [];
+
 export default () => {
   const mapZoom: number = 17;
   const [samInfo, setSamState] = useSetState<ISamState>(initState);
@@ -103,6 +103,8 @@ export default () => {
       const action = EMBEDDING_URL;
       const formData = new FormData();
       formData.append('file', blob as Blob);
+      // formData.append('image_path', blob as Blob);
+
       const res = await (
         await fetch(action, {
           body: formData,
@@ -119,6 +121,7 @@ export default () => {
   // 地图点击
   useEffect(() => {
     if (!samInfo.mapClick || !samInfo.samModel) return;
+    const points: Array<any> = [];
     try {
       const coord = samInfo.mapClick;
       if (samInfo.eventType === 'click') {
