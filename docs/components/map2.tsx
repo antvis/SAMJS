@@ -142,12 +142,12 @@ export default () => {
         points.push({
           x: topLeft[0],
           y: topLeft[1],
-          clickType: 1,
+          clickType: 2,
         });
         points.push({
           x: bottomRight[0],
           y: bottomRight[1],
-          clickType: 1,
+          clickType: 3,
         });
       } else if (samInfo.eventType === 'all') {
         console.log(
