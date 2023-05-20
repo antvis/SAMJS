@@ -2,11 +2,11 @@ import npyjs from 'npyjs';
 import { InferenceSession, Tensor } from 'onnxruntime-web';
 import { modelData, modelInputProps } from './api/onnxModel';
 import {
+  arrayToImageData,
   getImageByMask,
   getImageByMaskClip,
   imageToImageData,
   onnxMaskClip,
-  onnxMaskToImage,
   onnxMaskToPolygon,
 } from './utils/mask';
 import { handleScale, IHandleScale } from './utils/scale';
@@ -71,7 +71,7 @@ export class SAM {
   }
   /**
      *  document https://github.com/facebookresearch/segment-anything/blob/main/notebooks/onnx_model_example.ipynb
-     * 
+     *
      *  the ONNX model has a different input signature than SamPredictor.predict. The following inputs must all be supplied. Note the special cases for both point and mask inputs. All inputs are np.float32.
         image_embeddings: The image embedding from predictor.get_image_embedding(). Has a batch index of length 1.
         point_coords: Coordinates of sparse input prompts, corresponding to both point inputs and box inputs. Boxes are encoded using two points, one for the top-left corner and one for the bottom-right corner. Coordinates must already be transformed to long-side 1024. Has a batch index of length 1.
@@ -80,7 +80,7 @@ export class SAM {
         has_mask_input: An indicator for the mask input. 1 indicates a mask input, 0 indicates no mask input.
         orig_im_size: The size of the input image in (H,W) format, before any transformation.
         Additionally, the ONNX model does not threshold the output mask logits. To obtain a binary mask, threshold at sam.mask_threshold (equal to 0.0).
-  
+
      */
 
   // 执行模型/ 返回执行结果
@@ -121,8 +121,14 @@ export class SAM {
     return box; // TODO
   }
   // 导出Mask原始数据
-  public exportMaskImage(output: any): HTMLImageElement {
-    return onnxMaskToImage(output.data, output.dims[3], output.dims[2]);
+  public exportMaskImage(output: any) {
+    if (this.imageData === undefined) return;
+    return arrayToImageData(
+      this.imageData,
+      output.data,
+      output.dims[3],
+      output.dims[2],
+    );
   }
 
   // 导出Mask裁剪数据,最小外接矩形

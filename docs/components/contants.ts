@@ -60,13 +60,29 @@ export const selectionType = [
     label: '点选',
     value: 'click',
   },
+  // {
+  //   label: '框选',
+  //   value: 'selectend',
+  // },
+  // {
+  //   label: '全选',
+  //   // disable: true,
+  //   value: 'all',
+  // },
+];
+
+export const selectionImgType = [
+  {
+    label: '点选',
+    value: 'click',
+  },
   {
     label: '框选',
     value: 'selectend',
   },
-  {
-    label: '全选',
-    // disable: true,
-    value: 'all',
-  },
+  // {
+  //   label: '全选',
+  //   // disable: true,
+  //   value: 'all',
+  // },
 ];

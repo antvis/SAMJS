@@ -32,7 +32,7 @@
 
   &__tool {
     box-shadow: @boxShadow;
-    width: 120px;
+    width: 100px;
     padding: 8px;
     border-radius: 10px;
     margin-right: 24px;
@@ -41,6 +41,17 @@
   &__preview {
     overflow: auto;
     width: 100%;
+
+    &__maskImg {
+      width: 100%;
+      position: absolute;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    &__img {
+      width: 100%;
+    }
   }
 
   &__preview::-webkit-scrollbar {
@@ -60,7 +71,11 @@
   box-shadow: @boxShadow;
   max-height: 400px;
   overflow: scroll;
-  margin-top: 16px;
+
+  &__clipImg {
+    width: 50px;
+    height: 50px;
+  }
 }
 
 .clipImgContent::-webkit-scrollbar {
