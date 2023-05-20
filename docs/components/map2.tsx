@@ -101,6 +101,7 @@ export default () => {
     // 生成 embedding
     canvas.toBlob(async (blob) => {
       const action = EMBEDDING_URL;
+      // const action = 'http://localhost:3001/api'
       const formData = new FormData();
       formData.append('file', blob as Blob);
       // formData.append('image_path', blob as Blob);

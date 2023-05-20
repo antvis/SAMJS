@@ -3,7 +3,7 @@ title: SAM
 order: 0
 ---
 
-图片分割 JSSDK、前端交互式分割
+SAM 图像分割 JSSDK、前端交互式分割
 
 ## 使用
 
