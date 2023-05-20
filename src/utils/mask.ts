@@ -6,28 +6,49 @@
 import * as d3 from 'd3-contour';
 import simplify from 'simplify-js';
 
+// Canvas elements can be created from ImageData
+function imageDataToCanvas(imageData: ImageData) {
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = imageData.width;
+  canvas.height = imageData.height;
+
+  ctx?.putImageData(imageData, 0, 0);
+
+  return canvas;
+}
+
+// Use a Canvas element to produce an image from ImageData
+export function imageDataToImage(imageData: ImageData) {
+  const canvas = imageDataToCanvas(imageData);
+  const image = new Image();
+  image.src = canvas.toDataURL();
+
+  return image;
+}
+
 // Convert the onnx model mask prediction to ImageData
 // @ts-ignore
-export function arrayToImageData(input: any, width: number, height: number) {
-  // const [r, g, b, a] = [0, 114, 189, 255]; // the masks's blue color
-  const [r, g, b, a] = [255, 0, 0, 255]; // the masks's blue color
-  const arr = new Uint8ClampedArray(4 * width * height).fill(0);
+export function arrayToImageData(
+  imageData: ImageData,
+  input: any,
+  width: number,
+  height: number,
+) {
+  const uintImageData = new Uint8ClampedArray(imageData.data); // 转换为 Uint8ClampedArray 类型
+  const arr = new Uint8ClampedArray(4 * width * height);
 
   for (let i = 0; i < input.length; i++) {
-    // Threshold the onnx model mask prediction at 0.0
-    // This is equivalent to thresholding the mask using predictor.model.mask_threshold
-    // in python
-
     if (input[i] > 0.0) {
-      arr[4 * i + 0] = r;
-      arr[4 * i + 1] = g;
-      arr[4 * i + 2] = b;
-      arr[4 * i + 3] = a;
+      const index = 4 * i;
+      arr[index + 0] = uintImageData[index + 0]; // R
+      arr[index + 1] = uintImageData[index + 1]; // G
+      // TODO 暂时设置不同颜色，期待加描边或者发光
+      arr[index + 2] = Math.max(uintImageData[index + 2], 200); // B
+      arr[index + 3] = uintImageData[index + 3]; // A
     }
   }
-  // const res = getImageDataByRegion(minx, miny, maxx, maxy, input);
-
-  return new ImageData(arr, width, height);
+  return imageDataToImage(new ImageData(arr, width, height));
 }
 
 function getImageExtent(
@@ -76,26 +97,6 @@ function getImageDataByRegion(
   return data;
 }
 
-// Canvas elements can be created from ImageData
-function imageDataToCanvas(imageData: ImageData) {
-  const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d');
-  canvas.width = imageData.width;
-  canvas.height = imageData.height;
-  ctx?.putImageData(imageData, 0, 0);
-
-  return canvas;
-}
-
-// Use a Canvas element to produce an image from ImageData
-export function imageDataToImage(imageData: ImageData) {
-  const canvas = imageDataToCanvas(imageData);
-  const image = new Image();
-  image.src = canvas.toDataURL();
-
-  return image;
-}
-
 export function simplifyLine(
   points: number[][],
   minX: number,
@@ -121,13 +122,13 @@ export const getBase64 = (file: Blob): Promise<string> =>
   });
 
 // Convert the onnx model mask output to an HTMLImageElement
-export function onnxMaskToImage(
-  input: any,
-  width: number,
-  height: number,
-): any {
-  return imageDataToImage(arrayToImageData(input, width, height));
-}
+// export function onnxMaskToImage(
+//   input: any,
+//   width: number,
+//   height: number,
+// ): any {
+//   return imageDataToImage(arrayToImageData(input, width, height));
+// }
 
 // 裁剪后的Mask
 export function onnxMaskClip(input: any, width: number, height: number) {
