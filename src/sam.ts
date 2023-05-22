@@ -85,7 +85,7 @@ export class SAM {
 
   // 执行模型/ 返回执行结果
   // 平面坐标
-  public async predictByPoints(
+  public async predict(
     points: Array<modelInputProps>,
   ): Promise<Tensor | undefined> {
     try {

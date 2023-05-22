@@ -1,6 +1,6 @@
 ---
-title: 图片
+title: 瓦片地图
 order: 3
 ---
 
-<code src="../components/pic.tsx"></code>
+<code src="../components/map2.tsx"></code>

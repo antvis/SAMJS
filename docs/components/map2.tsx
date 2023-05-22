@@ -158,9 +158,9 @@ export default () => {
       }
 
       if (points.length === 0) return;
-      console.time('predictByPoints');
-      samInfo.samModel.predictByPoints(points).then(async (res) => {
-        console.timeEnd('predictByPoints');
+      console.time('predict');
+      samInfo.samModel.predict(points).then(async (res) => {
+        console.timeEnd('predict');
         const polygon = await samInfo.samModel.exportGeoPolygon(res, 1);
         const image = samInfo.samModel.exportImageClip(res);
 

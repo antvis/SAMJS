@@ -1,6 +1,6 @@
 ---
 title: SAM-GEO
-order: 0
+order: 3
 ---
 
 地理图像分割 JSSDK、前端交互式分割

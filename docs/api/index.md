@@ -1,6 +1,6 @@
 ---
 title: SAM
-order: 0
+order: 2
 ---
 
 SAM 图像分割 JSSDK、前端交互式分割
@@ -26,7 +26,7 @@ const samModel = new SAM({
 
 ### setEmbedding
 
-### predictByPoints
+### predict
 
 ### predictByBox
 
