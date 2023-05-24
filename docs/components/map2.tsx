@@ -15,6 +15,7 @@ import {
   locations,
   Model_URL,
   selectionType,
+  WasmPaths,
 } from './contants';
 import './index.less';
 import { RightPanel } from './leftpanel';
@@ -259,6 +260,7 @@ export default () => {
   useEffect(() => {
     const sam = new SAMGeo({
       modelUrl: Model_URL,
+      wasmPaths: WasmPaths,
     });
     sam.initModel().then(() => {
       setSamState({ samModel: sam });

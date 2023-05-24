@@ -1,5 +1,5 @@
 import npyjs from 'npyjs';
-import { InferenceSession, Tensor } from 'onnxruntime-web';
+import { env, InferenceSession, Tensor } from 'onnxruntime-web';
 import { MODEL_URL } from './api/contanst';
 import { modelData, modelInputProps } from './api/onnxModel';
 import {
@@ -14,6 +14,7 @@ import { handleScale, IHandleScale } from './utils/scale';
 const ort = require('onnxruntime-web');
 export interface ISAMOptions {
   modelUrl?: string;
+  wasmPaths?: string;
 }
 export class SAM {
   // 模型地址 ONNX model
@@ -31,6 +32,8 @@ export class SAM {
 
   constructor(options: ISAMOptions) {
     if (options?.modelUrl) this.modelUrl = options.modelUrl;
+    if (options?.wasmPaths) this.setWasmUrl(options.wasmPaths);
+    // env.wasm.wasmPaths = 'https://npm.elemecdn.com/onnxruntime-web/dist/';
   }
 
   public async initModel() {
@@ -171,6 +174,10 @@ export class SAM {
       output.dims[2],
       simplifyThreshold,
     );
+  }
+
+  public setWasmUrl(url: string) {
+    env.wasm.wasmPaths = url;
   }
 
   private getImageScale(image: HTMLImageElement) {

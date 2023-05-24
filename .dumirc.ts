@@ -4,6 +4,7 @@ import MonacoWebpackPlugin from 'monaco-editor-webpack-plugin';
 const CopyPlugin = require('copy-webpack-plugin');
 export default defineConfig({
   outputPath: 'docs-dist',
+  // publicPath: '/',
   // locales: [
   //   { id: 'en-us', name: 'English' },
   //   { id: 'zh-cn', name: '中文' },
@@ -42,11 +43,11 @@ export default defineConfig({
     name: 'SAM.JS',
     logo: 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*O5X-S6e--NEAAAAAAAAAAAAADmJ7AQ/original',
     nav: [
-      { title: 'DEMO', link: '/demos' },
-      { title: 'API', link: '/api' },
+      { title: 'DEMO', link: 'demos' },
+      { title: 'API', link: 'api' },
     ],
     socialLinks: {
-      github: 'https://github.com/lzxue/SAM.JS',
+      github: 'https://github.com/lzxue/SAM',
     },
   },
 });

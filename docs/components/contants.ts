@@ -11,6 +11,7 @@ export const annotion =
 export const Model_URL =
   'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/file/A*eRf_QauRmqoAAAAAAAAAAAAADmJ7AQ/sam_onnx_example.glb';
 
+export const WasmPaths = 'https://npm.elemecdn.com/onnxruntime-web/dist/';
 export const locations = [
   {
     name: 'A 空间',
