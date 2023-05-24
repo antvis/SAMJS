@@ -4,7 +4,7 @@ import { Button, Divider, message, Radio, Spin, Upload } from 'antd';
 import React, { useEffect, useMemo } from 'react';
 import './index.less';
 // @ts-ignore
-import { getBase64, SAM } from 'sam.js';
+import { getBase64, SAM } from '@antv/sam';
 import { EMBEDDING_URL } from '../config';
 import { ISamStateImg } from '../typing';
 import { downloadData } from '../utils';
@@ -140,7 +140,7 @@ export default () => {
   };
 
   // 鼠标松开时停止框选，并根据框选起点和终点计算出选中的区域
-  const handleMouseUp = () => {
+  const handleMouseUp = (e) => {
     if (imgState.clipType === 'click') return;
     setImgState({ isSelecting: false });
     const start = imgState.startPoint;
@@ -155,15 +155,24 @@ export default () => {
       endPoint: { x: 0, y: 0 },
       startPoint: { x: 0, y: 0 },
     });
-    const topLeft = [selectedArea.x, selectedArea.y];
-    const topBottom = [selectedArea.x, selectedArea.y + selectedArea.height];
-    const leftTop = [selectedArea.x + selectedArea.width, selectedArea.y];
-    const leftBottom = [
-      selectedArea.x + selectedArea.width,
-      selectedArea.y + selectedArea.height,
+    const imageScaleX = imgState.originImg
+      ? imgState.originImg.width / e.nativeEvent.target.offsetWidth
+      : 1;
+
+    const imageScaleY = imgState.originImg
+      ? imgState.originImg.height / e.nativeEvent.target.offsetHeight
+      : 1;
+
+    const topLeft = [
+      selectedArea.x * imageScaleX,
+      selectedArea.y * imageScaleY,
     ];
-    const coordinates = [topLeft, leftTop, leftBottom, topBottom];
-    message.info('框选功能暂未实现');
+
+    const bottomRight = [
+      selectedArea.x * imageScaleX + selectedArea.width * imageScaleX,
+      selectedArea.y * imageScaleY + selectedArea.height * imageScaleY,
+    ];
+    const coordinates = [...topLeft, ...bottomRight];
     setImgState({ eventPoint: coordinates });
   };
 
@@ -201,13 +210,24 @@ export default () => {
   useEffect(() => {
     if (!imgState.samModel) return;
     if (imgState.eventPoint.length === 0) return;
-    if (imgState.clipType !== 'click') return;
-    //  TODO  框选 没处理
+    console.log(imgState.clipType);
+    // imgState.clipType
     const newEventPoint = imgState.eventPoint;
-    const position = [
-      { x: newEventPoint[0], y: newEventPoint[1], clickType: 1 },
-    ];
-    imgState.samModel.predictByPoints(position).then((output) => {
+    let position;
+    if (imgState.clipType === 'click') {
+      position = [{ x: newEventPoint[0], y: newEventPoint[1], clickType: 1 }];
+    }
+    if (imgState.clipType === 'selectend') {
+      position = [
+        { x: newEventPoint[0], y: newEventPoint[1], clickType: 2 },
+        { x: newEventPoint[2], y: newEventPoint[3], clickType: 3 },
+      ];
+    }
+    console.log(position);
+
+    //  TODO  框选 没处理
+
+    imgState.samModel.predict(position).then((output) => {
       const image = imgState.samModel.exportImageClip(output);
       const maskImag = imgState.samModel.exportMaskImage(output);
       setImgState((pre) => ({

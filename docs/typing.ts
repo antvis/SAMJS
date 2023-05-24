@@ -1,6 +1,6 @@
 import { ILayer, ISource, Scene } from '@antv/l7';
 // @ts-ignore
-import { SAM, SAMGeo } from 'sam.js';
+import { SAM, SAMGeo } from '@antv/sam';
 
 export interface SatelliteData {
   features: any;

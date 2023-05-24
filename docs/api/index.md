@@ -1,16 +1,17 @@
 ---
 title: SAM
-order: 0
+order: 2
 ---
 
-图片分割 JSSDK、前端交互式分割
+SAM 图像分割 JSSDK、前端交互式分割
 
 ## 使用
 
 ```ts pure
-import { SAM } from 'sam.js';
-const samModel = new SAM({
-  modelUrl: '',
+import { SAM } from '@antv/sam';
+import { SAMGeo, MODEL_URL } from '@antv/sam';
+const samGeoModel = new SAMGeo({
+  modelUrl: MODEL_URL, // antv/sam 提供的了默认的 onnx 服务
 });
 ```
 
@@ -26,7 +27,7 @@ const samModel = new SAM({
 
 ### setEmbedding
 
-### predictByPoints
+### predict
 
 ### predictByBox
 

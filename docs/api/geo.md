@@ -1,6 +1,6 @@
 ---
 title: SAM-GEO
-order: 0
+order: 3
 ---
 
 地理图像分割 JSSDK、前端交互式分割
@@ -8,9 +8,9 @@ order: 0
 ## 使用
 
 ```ts pure
-import { SAMGeo } from 'sam.js';
+import { SAMGeo, MODEL_URL } from '@antv/sam';
 const samGeoModel = new SAMGeo({
-  modelUrl: '',
+  modelUrl: MODEL_URL, // antv/sam 提供的了默认的 onnx 服务
 });
 ```
 

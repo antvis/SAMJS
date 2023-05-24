@@ -1,5 +1,5 @@
 {
-  "name": "sam.js",
+  "name": "@antv/sam",
   "version": "0.0.1",
   "description": "JS SDK for SAM",
   "license": "MIT",
@@ -12,7 +12,7 @@
     "build": "father build",
     "build:watch": "father dev",
     "deploy": "dumi build && gh-pages -d docs-dist",
-    "dev": "dumi dev -port 8888",
+    "dev": "dumi dev",
     "docs:build": "dumi build",
     "doctor": "father doctor",
     "lint": "npm run lint:es && npm run lint:css",
