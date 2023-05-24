@@ -8,7 +8,7 @@ import { getBase64, SAM } from '@antv/sam';
 import { EMBEDDING_URL } from '../config';
 import { ISamStateImg } from '../typing';
 import { downloadData } from '../utils';
-import { Model_URL, selectionImgType } from './contants';
+import { Model_URL, selectionImgType, WasmPaths } from './contants';
 
 const { Dragger } = Upload;
 
@@ -32,6 +32,7 @@ export default () => {
   useEffect(() => {
     const sam = new SAM({
       modelUrl: Model_URL,
+      WasmPaths,
     });
     sam.initModel().then(() => {
       setImgState({ samModel: sam });
