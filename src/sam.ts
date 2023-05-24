@@ -1,5 +1,6 @@
 import npyjs from 'npyjs';
 import { InferenceSession, Tensor } from 'onnxruntime-web';
+import { MODEL_URL } from './api/contanst';
 import { modelData, modelInputProps } from './api/onnxModel';
 import {
   arrayToImageData,
@@ -12,11 +13,11 @@ import {
 import { handleScale, IHandleScale } from './utils/scale';
 const ort = require('onnxruntime-web');
 export interface ISAMOptions {
-  modelUrl: string;
+  modelUrl?: string;
 }
 export class SAM {
   // 模型地址 ONNX model
-  private modelUrl: string;
+  private modelUrl: string = MODEL_URL;
 
   public model!: InferenceSession;
 
@@ -29,7 +30,7 @@ export class SAM {
   public tensor!: Tensor;
 
   constructor(options: ISAMOptions) {
-    this.modelUrl = options.modelUrl;
+    if (options?.modelUrl) this.modelUrl = options.modelUrl;
   }
 
   public async initModel() {

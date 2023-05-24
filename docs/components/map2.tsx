@@ -2,7 +2,7 @@ import { PolygonLayer, RasterLayer, Scene, Source } from '@antv/l7';
 import { Button, message, Radio, Spin } from 'antd';
 import React, { useEffect } from 'react';
 // @ts-ignore
-import { SAMGeo } from 'sam.js';
+import { SAMGeo } from '@antv/sam';
 // @ts-ignore
 import { Map } from '@antv/l7-maps';
 
@@ -13,13 +13,11 @@ import {
   annotion,
   googleSatellite,
   locations,
+  Model_URL,
   selectionType,
 } from './contants';
 import './index.less';
 import { RightPanel } from './leftpanel';
-
-const MODEL_DIR = '../model/sam_onnx_example.onnx';
-
 const initState = {
   samModel: null,
   currentScene: null,
@@ -99,23 +97,23 @@ export default () => {
     });
 
     // 生成 embedding
-    canvas.toBlob(async (blob) => {
-      const action = EMBEDDING_URL;
-      // const action = 'http://localhost:3001/api'
-      const formData = new FormData();
-      formData.append('file', blob as Blob);
-      // formData.append('image_path', blob as Blob);
+    const base64 = canvas.toDataURL('image/jpeg');
+    const index = (base64 as string).indexOf(',');
+    const strBaseImg = (base64 as string)?.substring(index + 1);
+    const action = EMBEDDING_URL;
+    const formData = new FormData();
+    formData.append('image_path', strBaseImg);
 
-      const res = await (
-        await fetch(action, {
-          body: formData,
-          method: 'POST',
-        })
-      ).arrayBuffer();
-      samInfo.samModel.setEmbedding(res);
-      setSamState({ loading: false });
-      message.success('embedding计算完成');
-    });
+    const res = await (
+      await fetch(action, {
+        body: formData,
+        method: 'post',
+      })
+    ).arrayBuffer();
+
+    samInfo.samModel.setEmbedding(res);
+    setSamState({ loading: false });
+    message.success('embedding计算完成');
   };
 
   // 地图点击
@@ -260,7 +258,7 @@ export default () => {
 
   useEffect(() => {
     const sam = new SAMGeo({
-      modelUrl: MODEL_DIR,
+      modelUrl: Model_URL,
     });
     sam.initModel().then(() => {
       setSamState({ samModel: sam });

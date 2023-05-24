@@ -1,5 +1,5 @@
 {
-  "name": "sam.js",
+  "name": "@antv/sam",
   "version": "0.0.1",
   "description": "JS SDK for SAM",
   "license": "MIT",

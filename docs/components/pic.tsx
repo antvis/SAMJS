@@ -4,7 +4,7 @@ import { Button, Divider, message, Radio, Spin, Upload } from 'antd';
 import React, { useEffect, useMemo } from 'react';
 import './index.less';
 // @ts-ignore
-import { getBase64, SAM } from 'sam.js';
+import { getBase64, SAM } from '@antv/sam';
 import { EMBEDDING_URL } from '../config';
 import { ISamStateImg } from '../typing';
 import { downloadData } from '../utils';

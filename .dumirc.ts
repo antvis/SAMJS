@@ -25,14 +25,6 @@ export default defineConfig({
               from: 'node_modules/onnxruntime-web/dist/*.wasm',
               to: '[name][ext]',
             },
-            {
-              from: 'docs/model',
-              to: 'model',
-            },
-            {
-              from: 'docs/assets',
-              to: 'assets',
-            },
           ],
         },
       ])
@@ -41,6 +33,7 @@ export default defineConfig({
   mfsu: false,
   theme: {
     '@c-primary': '#0F54FF',
+    '@s-content-width': '100%',
   },
   favicons: [
     'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*O5X-S6e--NEAAAAAAAAAAAAADmJ7AQ/original',

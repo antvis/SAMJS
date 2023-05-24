@@ -29,7 +29,7 @@ Usage
 #### import SAM
 
 ```ts
-import { SAM } from 'sam.js';
+import { SAM } from '@antv/sam';
 ```
 
 #### 1.new a SAM instance
