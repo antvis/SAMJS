@@ -8,6 +8,7 @@ const server = http.createServer((req, res) => {
     'Access-Control-Allow-Headers',
     'Origin, X-Requested-With, Content-Type, Accept',
   );
+  res.setHeader('Content-Length', 5 * 1024 * 1024);
   // 转发请求的目标URL
   const targetUrl =
     'http://1664081855183111.cn-shanghai.pai-eas.aliyuncs.com/api/predict/sam_annotator';
