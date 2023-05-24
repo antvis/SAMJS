@@ -8,10 +8,9 @@ import { getBase64, SAM } from '@antv/sam';
 import { EMBEDDING_URL } from '../config';
 import { ISamStateImg } from '../typing';
 import { downloadData } from '../utils';
-import { selectionImgType, WasmPaths } from './contants';
+import { Model_URL, selectionImgType, WasmPaths } from './contants';
 
 const { Dragger } = Upload;
-const MODEL_DIR = '../model/sam_onnx_example.onnx';
 
 const initState = {
   imageUrl: '',
@@ -32,7 +31,7 @@ export default () => {
 
   useEffect(() => {
     const sam = new SAM({
-      modelUrl: MODEL_DIR,
+      modelUrl: Model_URL,
       WasmPaths,
     });
     sam.initModel().then(() => {
@@ -41,24 +40,29 @@ export default () => {
   }, []);
 
   const parserFile = async (file: any, imageUrl: string) => {
-    const action = EMBEDDING_URL;
-    const formData = new FormData();
-    formData.append('file', file);
-    const buffer = await (
-      await fetch(action, {
-        body: formData,
-        method: 'POST',
-      })
-    ).arrayBuffer();
-    imgState.samModel.setEmbedding(buffer);
-    const orImg = new Image();
-    orImg.src = imageUrl;
-    orImg.onload = () => {
-      imgState.samModel.setImage(imageUrl);
-      setImgState({ originImg: orImg });
-    };
-    setImgState({ imageUrl, loading: false });
-    message.success('embedding计算完成');
+    try {
+      const action = EMBEDDING_URL;
+      const formData = new FormData();
+      formData.append('image_path', file);
+      const buffer = await (
+        await fetch(action, {
+          body: formData,
+          method: 'post',
+        })
+      ).arrayBuffer();
+      imgState.samModel.setEmbedding(buffer);
+      const orImg = new Image();
+      orImg.src = imageUrl;
+      orImg.onload = () => {
+        imgState.samModel.setImage(imageUrl);
+        setImgState({ originImg: orImg });
+      };
+      setImgState({ imageUrl, loading: false });
+      message.success('embedding计算完成');
+    } catch (error) {
+      setImgState({ loading: false });
+      message.success('embedding计算失败');
+    }
   };
 
   const onChange = async ({ file }) => {
@@ -66,7 +70,9 @@ export default () => {
       setImgState({ clipImg: [], originMaskImg: [], loading: true });
       if (file.status === 'done') {
         const imageUrl = await getBase64(file.originFileObj);
-        parserFile(file.originFileObj, imageUrl);
+        const index = (imageUrl as string).indexOf(',');
+        const strBaseImg = (imageUrl as string)?.substring(index + 1);
+        parserFile(strBaseImg, imageUrl);
       }
     } catch {
       setImgState({ loading: false });
@@ -74,12 +80,21 @@ export default () => {
     }
   };
 
+  function beforeUpload(file) {
+    const isLt1M = file.size / 1024 / 1024 < 1.1; // 判断文件大小是否小于1.1MB
+    if (!isLt1M) {
+      message.error('上传文件大小不能超过1.1MB!');
+      setImgState({ loading: false });
+      return;
+    }
+  }
+
   // 示例demo
   useEffect(() => {
     if (!EMBEDDING_URL) return;
     try {
       const image = new Image();
-      image.src = '../assets/demo.jpg';
+      image.src = '../assets/demo1.jpg';
       image.onload = () => {
         setImgState({ loading: true });
         const canvas = document.createElement('canvas');
@@ -87,11 +102,12 @@ export default () => {
         canvas.height = image.height;
         const ctx = canvas.getContext('2d')!;
         ctx.drawImage(image, 0, 0);
-        canvas.toBlob(async (newBlob) => {
-          if (imgState.samModel) {
-            parserFile(newBlob, image.src);
-          }
-        }, 'image/jpeg');
+        const base64 = canvas.toDataURL('image/jpeg');
+        const index = (base64 as string).indexOf(',');
+        const strBaseImg = (base64 as string)?.substring(index + 1);
+        if (imgState.samModel) {
+          parserFile(strBaseImg, image.src);
+        }
       };
     } catch {
       setImgState({ loading: false });
@@ -211,8 +227,6 @@ export default () => {
   useEffect(() => {
     if (!imgState.samModel) return;
     if (imgState.eventPoint.length === 0) return;
-    console.log(imgState.clipType);
-    // imgState.clipType
     const newEventPoint = imgState.eventPoint;
     let position;
     if (imgState.clipType === 'click') {
@@ -224,9 +238,6 @@ export default () => {
         { x: newEventPoint[2], y: newEventPoint[3], clickType: 3 },
       ];
     }
-    console.log(position);
-
-    //  TODO  框选 没处理
 
     imgState.samModel.predict(position).then((output) => {
       const image = imgState.samModel.exportImageClip(output);
@@ -250,6 +261,7 @@ export default () => {
             showUploadList={false}
             onChange={onChange}
             accept="image/*"
+            beforeUpload={beforeUpload}
           >
             <p className="ant-upload-drag-icon">
               <InboxOutlined />
