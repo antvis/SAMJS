@@ -52,6 +52,8 @@ sam.initModel().then(() => {
 
 #### 3. setEmbedding
 
+get imageEmbedding from sam service.
+
 ```ts
 sam.setEmbedding(imageEmbedding);
 ```

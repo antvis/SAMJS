@@ -8,7 +8,7 @@ import { getBase64, SAM } from '@antv/sam';
 import { EMBEDDING_URL } from '../config';
 import { ISamStateImg } from '../typing';
 import { downloadData } from '../utils';
-import { selectionImgType } from './contants';
+import { selectionImgType, WasmPaths } from './contants';
 
 const { Dragger } = Upload;
 const MODEL_DIR = '../model/sam_onnx_example.onnx';
@@ -33,6 +33,7 @@ export default () => {
   useEffect(() => {
     const sam = new SAM({
       modelUrl: MODEL_DIR,
+      WasmPaths,
     });
     sam.initModel().then(() => {
       setImgState({ samModel: sam });
