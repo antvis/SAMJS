@@ -25,6 +25,10 @@ export default defineConfig({
               from: 'node_modules/onnxruntime-web/dist/*.wasm',
               to: '[name][ext]',
             },
+            {
+              from: 'docs/assets',
+              to: 'assets',
+            },
           ],
         },
       ])

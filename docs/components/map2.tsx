@@ -10,7 +10,6 @@ import { useSetState } from 'ahooks';
 import { EMBEDDING_URL } from '../config';
 import { ISamState } from '../typing';
 import {
-  annotion,
   googleSatellite,
   locations,
   Model_URL,
@@ -18,6 +17,7 @@ import {
 } from './contants';
 import './index.less';
 import { RightPanel } from './leftpanel';
+
 const initState = {
   samModel: null,
   currentScene: null,
@@ -166,9 +166,17 @@ export default () => {
           features: polygon.features,
           imageUrl: image.src,
         };
-        setSamState((pre) => ({
-          satelliteData: [...pre.satelliteData, newData],
-        }));
+        setSamState((pre) => {
+          const hasData = pre.satelliteData.find(
+            (item) => item.imageUrl === newData.imageUrl,
+          );
+          if (hasData) {
+            return { satelliteData: [...pre.satelliteData] };
+          }
+          return {
+            satelliteData: [...pre.satelliteData, newData],
+          };
+        });
       });
     } catch (error) {
       message.error('请先点击[生成 embedding] 按钮');
@@ -208,15 +216,15 @@ export default () => {
       zIndex: -2,
     }).source(layerSource);
 
-    const layer2 = new RasterLayer({
-      zIndex: -1,
-    }).source(annotion, {
-      parser: {
-        type: 'rasterTile',
-        tileSize: 256,
-        zoomOffset: 0,
-      },
-    });
+    // const layer2 = new RasterLayer({
+    //   zIndex: -1,
+    // }).source(annotion, {
+    //   parser: {
+    //     type: 'rasterTile',
+    //     tileSize: 256,
+    //     zoomOffset: 0,
+    //   },
+    // });
 
     const boundsLayer = new PolygonLayer({
       zIndex: 10,
@@ -234,7 +242,7 @@ export default () => {
 
     scene.on('loaded', () => {
       scene.addLayer(layer1);
-      scene.addLayer(layer2);
+      // scene.addLayer(layer2);
       scene.addLayer(boundsLayer);
       setSamState({
         borderLayer: boundsLayer,
