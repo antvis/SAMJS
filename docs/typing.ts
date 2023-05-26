@@ -25,13 +25,19 @@ export type CoordsPS = {
   y: number;
 };
 
+export type ClipImage = {
+  clipSrc: string;
+  maskSrc: string;
+  // 标记
+  mark: string;
+};
+
 export interface ISamStateImg {
   imageUrl: string;
   samModel: SAM | null;
   loading: boolean;
-  clipImg: string[];
   originImg: HTMLImageElement | null;
-  originMaskImg: string[];
+  clipImg: ClipImage[];
   isSelecting: boolean;
   startPoint: CoordsPS;
   endPoint: CoordsPS;

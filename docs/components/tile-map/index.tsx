@@ -7,15 +7,15 @@ import { SAMGeo } from '@antv/sam';
 import { Map } from '@antv/l7-maps';
 
 import { useSetState } from 'ahooks';
-import { EMBEDDING_URL } from '../config';
-import { ISamState } from '../typing';
+import { EMBEDDING_URL } from '../../config';
+import { ISamState } from '../../typing';
 import {
   googleSatellite,
   locations,
   Model_URL,
   selectionType,
   WasmPaths,
-} from './contants';
+} from '../contants';
 import './index.less';
 import { RightPanel } from './leftpanel';
 

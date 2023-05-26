@@ -163,6 +163,24 @@ export function onnxMaskToPolygon(
   );
 }
 
+export function getImageByColor(
+  imageData: ImageData,
+  input: any,
+  colorArr: number[] = [255, 0, 0, 255],
+) {
+  const [r, g, b, a] = colorArr;
+  for (let i = 0; i < input.length; i++) {
+    if (input[i] <= 0.0) {
+      imageData.data[4 * i + 0] = r;
+      imageData.data[4 * i + 1] = g;
+      imageData.data[4 * i + 2] = b;
+      imageData.data[4 * i + 3] = a;
+    }
+  }
+
+  return imageDataToImage(imageData);
+}
+
 // 获取 Mask 后的数据
 export function getImageByMask(
   imageData: ImageData,

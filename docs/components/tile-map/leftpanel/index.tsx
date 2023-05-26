@@ -1,8 +1,8 @@
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { Button, Tabs } from 'antd';
 import React, { useMemo } from 'react';
-import { ISamState } from '../../typing';
-import { downloadData, emptyPolygon } from '../../utils';
+import { ISamState } from '../../../typing';
+import { downloadData, emptyPolygon } from '../../../utils';
 import { Editor } from './editor';
 import './index.less';
 import { ShowTable } from './table';

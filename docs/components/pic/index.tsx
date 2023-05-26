@@ -1,14 +1,14 @@
-import { InboxOutlined } from '@ant-design/icons';
+import { DeleteOutlined, InboxOutlined } from '@ant-design/icons';
 import { useSetState } from 'ahooks';
 import { Button, Divider, message, Radio, Spin, Upload } from 'antd';
 import React, { useEffect, useMemo } from 'react';
 import './index.less';
 // @ts-ignore
 import { getBase64, SAM } from '@antv/sam';
-import { EMBEDDING_URL } from '../config';
-import { ISamStateImg } from '../typing';
-import { downloadData } from '../utils';
-import { Model_URL, selectionImgType, WasmPaths } from './contants';
+import { EMBEDDING_URL } from '../../config';
+import { ISamStateImg } from '../../typing';
+import { downloadData } from '../../utils';
+import { Model_URL, selectionImgType, WasmPaths } from '../contants';
 
 const { Dragger } = Upload;
 
@@ -39,11 +39,11 @@ export default () => {
     });
   }, []);
 
-  const parserFile = async (file: any, imageUrl: string) => {
+  const parserFile = async (base64Url: string, imageUrl: string) => {
     try {
       const action = EMBEDDING_URL;
       const formData = new FormData();
-      formData.append('image_path', file);
+      formData.append('image_path', base64Url);
       const buffer = await (
         await fetch(action, {
           body: formData,
@@ -67,7 +67,7 @@ export default () => {
 
   const onChange = async ({ file }) => {
     try {
-      setImgState({ clipImg: [], originMaskImg: [], loading: true });
+      setImgState({ clipImg: [], loading: true });
       if (file.status === 'done') {
         const imageUrl = await getBase64(file.originFileObj);
         const index = (imageUrl as string).indexOf(',');
@@ -94,7 +94,7 @@ export default () => {
     if (!EMBEDDING_URL) return;
     try {
       const image = new Image();
-      image.src = '../assets/demo1.jpg';
+      image.src = '../../assets/demo1.jpg';
       image.onload = () => {
         setImgState({ loading: true });
         const canvas = document.createElement('canvas');
@@ -132,8 +132,8 @@ export default () => {
 
   // 鼠标按下时记录框选的起点
   const handleMouseDown = (e) => {
-    if (imgState.clipType === 'click') return;
     e.preventDefault();
+    if (imgState.clipType === 'click') return;
     const rect = e.nativeEvent.target.getBoundingClientRect();
     let x = Math.round(e.pageX - rect.left);
     let y = Math.round(e.pageY - rect.top);
@@ -194,6 +194,7 @@ export default () => {
   };
 
   const handleMouseOut = () => {
+    if (imgState.clipType === 'click') return;
     // 清除状态
     setImgState({
       endPoint: { x: 0, y: 0 },
@@ -239,13 +240,20 @@ export default () => {
       ];
     }
 
-    imgState.samModel.predict(position).then((output) => {
+    const predictImage = (output) => {
       const image = imgState.samModel.exportImageClip(output);
       const maskImag = imgState.samModel.exportMaskImage(output);
+      const keys = String(new Date().getTime());
       setImgState((pre) => ({
-        clipImg: [...pre.clipImg, image.src],
-        originMaskImg: [...pre.originMaskImg, maskImag.src],
+        clipImg: [
+          ...pre.clipImg,
+          { clipSrc: image.src, maskSrc: maskImag.src, mark: keys },
+        ],
       }));
+    };
+    // 防止阻塞UI更新,把执行操作放在队列中(Promise.race([xxx,xxx])也行)
+    setTimeout(() => {
+      imgState.samModel.predict(position).then(predictImage);
     });
   }, [imgState.eventPoint, imgState.samModel, imgState.clipType]);
 
@@ -255,7 +263,6 @@ export default () => {
         <div className="samPic__tool">
           <Dragger
             className="samPic__upload"
-            name="file"
             multiple={false}
             maxCount={1}
             showUploadList={false}
@@ -303,10 +310,22 @@ export default () => {
           </Button>
           {imgState.clipImg.length > 0 && (
             <div className="clipImgContent">
-              {imgState.clipImg.map((src, index) => {
+              {imgState.clipImg.map(({ clipSrc, mark }, index) => {
                 return (
-                  <div key={index}>
-                    <img src={src} style={{ width: 50, height: 50 }} />
+                  <div key={index} style={{ position: 'relative' }}>
+                    <img src={clipSrc} style={{ width: 50 }} />
+                    <div className="tools">
+                      <DeleteOutlined
+                        style={{ opacity: 0.8 }}
+                        onClick={() => {
+                          setImgState((pre) => ({
+                            clipImg: pre.clipImg.filter(
+                              (item) => item.mark !== mark,
+                            ),
+                          }));
+                        }}
+                      />
+                    </div>
                     <Divider style={{ margin: '8px 0' }} />
                   </div>
                 );
@@ -317,12 +336,12 @@ export default () => {
         <div className="samPic__preview">
           {imgState.imageUrl && (
             <div style={{ position: 'relative' }}>
-              {imgState.originMaskImg.length
-                ? imgState.originMaskImg.map((url, index) => (
+              {imgState.clipImg.length
+                ? imgState.clipImg.map((url, index) => (
                     <img
                       key={index}
                       className="samPic__preview__maskImg"
-                      src={url}
+                      src={url.maskSrc}
                     />
                   ))
                 : null}

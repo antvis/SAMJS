@@ -51,6 +51,7 @@
     "d3-contour": "^4.0.2",
     "monaco-editor": "^0.38.0",
     "monaco-editor-webpack-plugin": "^7.0.1",
+    "react-color": "^2.19.3",
     "react-monaco-editor": "^0.52.0",
     "simplify-js": "^1.2.4"
   },

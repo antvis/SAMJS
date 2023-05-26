@@ -1,22 +1,20 @@
 import { Button, message, Table, Tooltip } from 'antd';
 import React from 'react';
-import { ISamState } from '../../typing';
+import { ISamState } from '../../../typing';
 
 interface ITable {
-  samInfo: ISamState;
-  setSamState: (samInfo: ISamState) => void;
+  satelliteData: ISamState['satelliteData'];
+  setSatelliteData: (samInfo: ISamState['satelliteData']) => void;
 }
 
 export const ShowTable = (props: ITable) => {
-  const { samInfo, setSamState } = props;
+  const { satelliteData, setSatelliteData } = props;
 
   const deleteData = (record: Record<string, any>) => {
     // @ts-ignore
-    setSamState((pre) => ({
-      satelliteData: pre.satelliteData.filter(
-        (item) => item.imageUrl !== record.image,
-      ),
-    }));
+    setSatelliteData((pre) => {
+      return [...pre.filter((item) => item.imageUrl !== record.image)];
+    });
     message.success('删除成功');
   };
 
@@ -67,7 +65,7 @@ export const ShowTable = (props: ITable) => {
       },
     },
   ];
-  const dataSource = samInfo.satelliteData.map((item, index) => {
+  const dataSource = satelliteData.map((item, index) => {
     const geometry = item.features[0]?.geometry;
     return {
       key: index,
