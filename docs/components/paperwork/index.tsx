@@ -15,7 +15,9 @@ export default () => {
   const [loading, setLoading] = useState(false);
   const [samModel, setSamModel] = useState<SAM>(null);
   const [originImg, setOriginImg] = useState<HTMLImageElement | null>(null);
-  const [analyzeImg, setAnalyzeImg] = useState('');
+  const [analyzeImg, setAnalyzeImg] = useState(
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*SQtMRJNXDXkAAAAAAAAAAAAADmJ7AQ/original',
+  );
   const [color, setColor] = useState('#fff');
 
   useEffect(() => {
@@ -24,6 +26,7 @@ export default () => {
       WasmPaths,
     });
     sam.initModel().then(() => setSamModel(sam));
+    //
   }, []);
 
   const embedding = async (base64Url: string, imageUrl: string) => {
@@ -89,7 +92,7 @@ export default () => {
       //   );
       //   setAnalyzeImg(maskImg.src);
       // });
-      console.log('color', color);
+
       const rect = e.nativeEvent.target.getBoundingClientRect();
       let x = Math.round(e.pageX - rect.left);
       let y = Math.round(e.pageY - rect.top);
@@ -145,14 +148,38 @@ export default () => {
       </Card>
       <Spin spinning={loading} tip="embedding...">
         {analyzeImg ? (
-          <Card style={{ width: 284, marginLeft: 24 }} hoverable>
-            <img
-              src={analyzeImg}
-              width={'100%'}
-              ref={ref as any}
-              onClick={generateImg}
-            />
-          </Card>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Card
+              style={{ width: '50%', maxWidth: '500px' }}
+              title="处理前"
+              hoverable
+            >
+              <img
+                src={analyzeImg}
+                width={'100%'}
+                ref={ref as any}
+                onClick={generateImg}
+              />
+            </Card>
+            <Card
+              style={{ width: '50%', maxWidth: '500px', marginLeft: '20px' }}
+              title="处理后"
+              hoverable
+            >
+              <img
+                src={analyzeImg}
+                width={'100%'}
+                ref={ref as any}
+                onClick={generateImg}
+              />
+            </Card>
+          </div>
         ) : null}
       </Spin>
     </div>
