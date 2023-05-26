@@ -18,6 +18,19 @@ function imageDataToCanvas(imageData: ImageData) {
   return canvas;
 }
 
+export function image2Base64(
+  image: HTMLImageElement,
+  type: string = 'image/png',
+) {
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d')!;
+  canvas.width = image.width;
+  canvas.height = image.height;
+  ctx.drawImage(image, 0, 0, image.width, image.height);
+
+  return canvas.toDataURL(type);
+}
+
 // Use a Canvas element to produce an image from ImageData
 export function imageDataToImage(imageData: ImageData) {
   const canvas = imageDataToCanvas(imageData);

@@ -8,7 +8,7 @@ import { getBase64, SAM } from '@antv/sam';
 import { EMBEDDING_URL } from '../../config';
 import { ISamStateImg } from '../../typing';
 import { downloadData } from '../../utils';
-import { Model_URL, selectionImgType, WasmPaths } from '../contants';
+import { Model_URL, selectionImgType, WasmPaths } from '../constant';
 
 const { Dragger } = Upload;
 

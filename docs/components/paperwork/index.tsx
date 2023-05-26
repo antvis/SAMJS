@@ -6,7 +6,7 @@ import { getBase64, SAM } from '@antv/sam';
 import { SketchPicker } from 'react-color';
 import { EMBEDDING_URL } from '../../config';
 import { downloadData, hexToRgbaArray } from '../../utils';
-import { Model_URL, WasmPaths } from '../contants';
+import { Model_URL, WasmPaths } from '../constant';
 import './index.less';
 
 const { Dragger } = Upload;

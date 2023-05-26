@@ -3,9 +3,10 @@ import React, { useEffect, useState } from 'react';
 
 import { InboxOutlined } from '@ant-design/icons';
 // @ts-ignore
-import { getBase64, SAMGeo } from '@antv/sam';
+import { getBase64, image2Base64, SAMGeo } from '@antv/sam';
 import { EMBEDDING_URL } from '../../config';
-import { Model_URL, WasmPaths } from '../contants';
+import { Model_URL, WasmPaths } from '../constant';
+import { locations } from './constant';
 import './index.less';
 import { RightPanel } from './leftpanel';
 
@@ -15,10 +16,11 @@ export default () => {
   const [loading, setLoading] = useState(false);
   const [samModel, setSamModel] = useState<SAMGeo>(null);
   const [originImg, setOriginImg] = useState<HTMLImageElement | null>(null);
-  const [analyzeImg, setAnalyzeImg] = useState('');
+  const [analyzeImg, setAnalyzeImg] = useState(locations[0].url);
+  const [imageExtent, setImageExtent] = useState(locations[0].extent);
 
   // 生成 embedding 并初始化载入模型
-  const embedding = async (base64Url: string, imageUrl: string) => {
+  const embedding = async (base64Url: string) => {
     setLoading(true);
     try {
       const action = EMBEDDING_URL;
@@ -30,14 +32,8 @@ export default () => {
           method: 'post',
         })
       ).arrayBuffer();
+
       samModel.setEmbedding(buffer);
-      const orImg = new Image();
-      orImg.src = imageUrl;
-      orImg.onload = async () => {
-        samModel.setImage(imageUrl);
-        setOriginImg(orImg);
-        setAnalyzeImg(imageUrl);
-      };
       setLoading(false);
       message.success('embedding计算完成');
     } catch (error) {
@@ -58,11 +54,31 @@ export default () => {
     });
   }, []);
 
+  useEffect(() => {
+    if (samModel && analyzeImg) {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => {
+        const base64Url = image2Base64(img, 'image/jpeg');
+        const index = (base64Url as string).indexOf(',');
+        const strBaseImg = (base64Url as string)?.substring(index + 1);
+        embedding(strBaseImg, base64Url);
+        // 初始化图片
+        samModel.setGeoImage(img, {
+          width: img.width,
+          height: img.height,
+          extent: imageExtent,
+        });
+        setOriginImg(img);
+      };
+      img.src = locations[0].url;
+    }
+  }, [samModel, analyzeImg]);
+
   const onChange = async ({ file }) => {
     const base64Url = await getBase64(file.originFileObj);
-    const index = (base64Url as string).indexOf(',');
-    const strBaseImg = (base64Url as string)?.substring(index + 1);
-    embedding(strBaseImg, base64Url);
+    setAnalyzeImg(base64Url);
+    setImageExtent(locations[1].extent);
   };
 
   const onMapClick = (e) => {
@@ -81,11 +97,8 @@ export default () => {
     const position = [{ x, y, clickType: 1 }];
     samModel.predict(position).then((output) => {
       const image = samModel.exportImageClip(output);
-      const maskImag = samModel.exportMaskImage(output);
-      const keys = String(new Date().getTime());
-      document.body.appendChild(image);
-      document.body.appendChild(maskImag);
-      console.log('image', image, maskImag, keys);
+      console.log(image.src);
+      // 导出 polygon
     });
   };
 
@@ -112,7 +125,7 @@ export default () => {
           >
             <img
               src={analyzeImg}
-              style={{ width: ' 100%', height: '100%' }}
+              style={{ width: ' 100%' }}
               onClick={onMapClick}
             />
           </div>
