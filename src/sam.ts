@@ -1,9 +1,11 @@
+// @ts-ignore
 import npyjs from 'npyjs';
 import { env, InferenceSession, Tensor } from 'onnxruntime-web';
 import { MODEL_URL } from './api/contanst';
 import { modelData, modelInputProps } from './api/onnxModel';
 import {
   arrayToImageData,
+  getImageByColor,
   getImageByMask,
   getImageByMaskClip,
   imageToImageData,
@@ -92,6 +94,7 @@ export class SAM {
   public async predict(
     points: Array<modelInputProps>,
   ): Promise<Tensor | undefined> {
+    console.log('predict.modelScale', this.modelScale);
     try {
       if (
         this.model === null ||
@@ -183,5 +186,10 @@ export class SAM {
   private getImageScale(image: HTMLImageElement) {
     const { width, height } = image;
     this.modelScale = handleScale(width, height);
+  }
+
+  public exportWithBackgroundColor(output: any, color: number[]) {
+    if (this.imageData === undefined) return;
+    return getImageByColor(this.imageData, output.data, color);
   }
 }

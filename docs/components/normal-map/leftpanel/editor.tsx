@@ -3,7 +3,7 @@ import { editor } from 'monaco-editor';
 import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api';
 import React from 'react';
 import MonacoEditor from 'react-monaco-editor';
-import { prettierText } from '../../utils';
+import { prettierText } from '../../../utils';
 
 interface IEditor {
   value: string;
