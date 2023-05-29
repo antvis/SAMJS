@@ -1,10 +1,12 @@
 import { Button, message, Table, Tooltip } from 'antd';
 import React from 'react';
-import { ISamState } from '../../../typing';
+import { ISamState, SatelliteData } from '../../../typing';
 
 interface ITable {
   satelliteData: ISamState['satelliteData'];
-  setSatelliteData: (samInfo: ISamState['satelliteData']) => void;
+  setSatelliteData: (
+    samInfo: (SatelliteData & { maskImg: string; key: string })[],
+  ) => void;
 }
 
 export const ShowTable = (props: ITable) => {
@@ -73,5 +75,13 @@ export const ShowTable = (props: ITable) => {
       image: item.imageUrl,
     };
   });
-  return <Table size="small" columns={columns} dataSource={dataSource} />;
+  return (
+    <Table
+      size="small"
+      columns={columns}
+      dataSource={[...dataSource].reverse()}
+      scroll={{ y: 400 }}
+      pagination={false}
+    />
+  );
 };

@@ -1,5 +1,6 @@
 import prettier from 'prettier';
 import parserBabel from 'prettier/parser-babel';
+// @ts-ignore
 
 export const getEemedding = async (options: { action: string; file: File }) => {
   const { action, file } = options;
@@ -95,3 +96,35 @@ export function hexToRgbaArray(hex) {
   const b = parseInt(hex.slice(5, 7), 16);
   return [r, g, b, 255];
 }
+
+export function getImageByColor(
+  imageData: ImageData,
+  input: any,
+  colorArr: number[] = [255, 0, 0, 255],
+) {
+  const [r, g, b, a] = colorArr;
+  for (let i = 0; i < input.length; i++) {
+    if (input[i] <= 0.0) {
+      imageData.data[4 * i + 0] = r;
+      imageData.data[4 * i + 1] = g;
+      imageData.data[4 * i + 2] = b;
+      imageData.data[4 * i + 3] = a;
+    }
+  }
+  const canvas = document.createElement('canvas');
+  canvas.width = imageData.width;
+  canvas.height = imageData.height;
+  const context = canvas.getContext('2d')!;
+  context.putImageData(imageData, 0, 0);
+  return canvas.toDataURL('image/png');
+}
+
+export const exportImg = (src: string) => {
+  const a = document.createElement('a');
+  const image = new Image();
+  image.src = src;
+  a.download = `img.png`;
+  a.target = '_blank';
+  a.href = image.src;
+  a.click();
+};

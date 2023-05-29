@@ -48,12 +48,13 @@
     "@ant-design/icons": "^5.0.1",
     "@types/d3-contour": "^3.0.2",
     "ahooks": "^3.7.7",
+    "antd": "^5.5.1",
     "d3-contour": "^4.0.2",
     "monaco-editor": "^0.38.0",
     "monaco-editor-webpack-plugin": "^7.0.1",
-    "react-color": "^2.19.3",
     "react-monaco-editor": "^0.52.0",
-    "simplify-js": "^1.2.4"
+    "simplify-js": "^1.2.4",
+    "sphericalmercator": "^1.0.5"
   },
   "devDependencies": {
     "@antv/l7": "^2.15.4",
@@ -63,7 +64,6 @@
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@umijs/lint": "^4.0.0",
-    "antd": "^5.4.7",
     "copy-webpack-plugin": "^11.0.0",
     "dumi": "^2.1.22",
     "eslint": "^8.23.0",

@@ -1,11 +1,19 @@
-.mapContainer {
+.normalMapContainer {
   display: flex;
-  align-items: center;
-  height: 40vh;
+  height: 40vh !important;
+  justify-content: space-between;
   width: 100%;
-  margin-bottom: 24px;
+  margin-top: 24px;
+
+  .ant-card-body {
+    padding: 4px;
+  }
 }
 
-.upload {
-  height: 200px;
+.normalMaskImg {
+  width: 68%;
+  height: 100%;
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
 }

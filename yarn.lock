@@ -12413,6 +12413,11 @@ spdy@^4.0.2:
     select-hose "^2.0.0"
     spdy-transport "^3.0.0"
 
+sphericalmercator@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/sphericalmercator/-/sphericalmercator-1.0.5.tgz#ddc5a049e360e000d0fad9fc22c4071882584980"
+  integrity sha512-3YpbhilnWV4kp2xuFkpCat+kg2NcK7aa82rHfYU8MgwvSUug4vrWf+4AlA9f08Ae4hoe4W6DethROG4kTMepKg==
+
 splaytree@^3.1.0:
   version "3.1.2"
   resolved "https://registry.npm.alibaba-inc.com/splaytree/download/splaytree-3.1.2.tgz#d1db2691665a3c69d630de98d55145a6546dc166"
