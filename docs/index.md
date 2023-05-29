@@ -1,22 +1,22 @@
 ---
 hero:
-  title: SAM.JS
+  title: SAMJS
   description: JS SDK for SAM, 帮助你快速构建 SAM 图像分割应用。
   actions:
     - text: 开始
-      link: /demo
+      link: /demos
     - text: API
       link: /api
 features:
-  - title: 简单易用
+  - title: 简单
     emoji: 💎
-    description: Put hello description here
+    description: 几个方法的调用实现图像分割
   - title: 高效
-    emoji: 💎
-    description: Put hello description here
+    emoji: 🔥
+    description: Web 端交互式图像分割
   - title: 支持地图应用
-    emoji: 🌈
-    description: Put world description here
+    emoji: 🗺️
+    description: 地理图像支持，经纬度数据导出
 ---
 
-sam.js
+SAMJS
