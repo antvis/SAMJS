@@ -1,19 +1,24 @@
-import { Button, Tabs } from 'antd';
-import React, { useMemo } from 'react';
-import { ISamState } from '../../../typing';
-import { downloadData, emptyPolygon } from '../../../utils';
+import { useSize } from 'ahooks';
+import { Card } from 'antd';
+import React, { useMemo, useRef, useState } from 'react';
+import { ISamState, SatelliteData } from '../../../typing';
+import { emptyPolygon } from '../../../utils';
 import { Editor } from './editor';
 import './index.less';
 import { ShowTable } from './table';
 
 interface RightPanelProps {
   satelliteData: ISamState['satelliteData'];
-  setSatelliteData: (value: ISamState['satelliteData']) => void;
+  setSatelliteData: (
+    value: (SatelliteData & { maskImg: string; key: string })[],
+  ) => void;
 }
 
 export const RightPanel = (props: RightPanelProps) => {
+  const cardRef = useRef();
+  const size = useSize(cardRef);
   const { satelliteData, setSatelliteData } = props;
-
+  const [activeTabKey, setActiveTabKey] = useState<string>('text');
   const newValue = useMemo(() => {
     const newFeature = satelliteData.map((item) => item.features);
     return {
@@ -25,39 +30,39 @@ export const RightPanel = (props: RightPanelProps) => {
   const items = [
     {
       key: 'text',
-      label: `编辑器展示`,
-      children: (
-        <Editor value={JSON.stringify(newValue ?? emptyPolygon(), null, 2)} />
-      ),
+      tab: `编辑器展示`,
     },
     {
       key: 'table',
-      label: `表格展示`,
-      children: (
-        <ShowTable
-          satelliteData={satelliteData}
-          setSatelliteData={setSatelliteData}
-        />
-      ),
+      tab: `表格展示`,
     },
   ];
 
-  return (
-    <div className="rightContainer" style={{ width: 400 }}>
-      <Tabs
-        style={{ width: 400 }}
-        items={items}
-        tabBarExtraContent={
-          <Button
-            size="small"
-            type="primary"
-            disabled={satelliteData.length <= 0}
-            onClick={() => downloadData(satelliteData)}
-          >
-            下载数据
-          </Button>
-        }
+  const contentList: Record<string, React.ReactNode> = {
+    text: (
+      <Editor
+        width={size?.width as number}
+        value={JSON.stringify(newValue ?? emptyPolygon(), null, 2)}
       />
-    </div>
+    ),
+    table: (
+      <ShowTable
+        satelliteData={satelliteData}
+        setSatelliteData={setSatelliteData}
+      />
+    ),
+  };
+
+  return (
+    <Card
+      ref={cardRef as any}
+      hoverable
+      style={{ width: '32%' }}
+      tabList={items}
+      activeTabKey={activeTabKey}
+      onTabChange={setActiveTabKey}
+    >
+      {contentList[activeTabKey]}
+    </Card>
   );
 };

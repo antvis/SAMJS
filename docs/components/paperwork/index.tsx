@@ -1,24 +1,19 @@
-import { InboxOutlined } from '@ant-design/icons';
-import { Button, Card, message, Spin, Tooltip, Upload } from 'antd';
+import { Button, Card, ColorPicker, message, Spin, Upload } from 'antd';
 import React, { useEffect, useRef, useState } from 'react';
 // @ts-ignore
 import { getBase64, SAM } from '@antv/sam';
-import { SketchPicker } from 'react-color';
 import { EMBEDDING_URL } from '../../config';
-import { downloadData, hexToRgbaArray } from '../../utils';
+import { exportImg, getImageByColor, hexToRgbaArray } from '../../utils';
 import { Model_URL, WasmPaths } from '../constant';
 import './index.less';
 
-const { Dragger } = Upload;
 export default () => {
   const ref = useRef<HTMLImageElement>();
   const [loading, setLoading] = useState(false);
   const [samModel, setSamModel] = useState<SAM>(null);
   const [originImg, setOriginImg] = useState<HTMLImageElement | null>(null);
-  const [analyzeImg, setAnalyzeImg] = useState(
-    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*SQtMRJNXDXkAAAAAAAAAAAAADmJ7AQ/original',
-  );
-  const [color, setColor] = useState('#fff');
+  const [analyzeImg, setAnalyzeImg] = useState('');
+  const [color, setColor] = useState<string>('#ad0404');
 
   useEffect(() => {
     const sam = new SAM({
@@ -26,7 +21,6 @@ export default () => {
       WasmPaths,
     });
     sam.initModel().then(() => setSamModel(sam));
-    //
   }, []);
 
   const embedding = async (base64Url: string, imageUrl: string) => {
@@ -68,31 +62,6 @@ export default () => {
 
   const generateImg = (e) => {
     if (samModel && originImg) {
-      // const offsetWidth = ref.current?.offsetWidth;
-      // const offsetHeight = ref.current?.offsetHeight;
-      // const imageScaleX = originImg
-      //   ? originImg.width / (offsetWidth as number)
-      //   : 1;
-      // const imageScaleY = originImg
-      //   ? originImg.height / (offsetHeight as number)
-      //   : 1;
-      // const position = [
-      //   { x: 0, y: 0, clickType: 2 },
-      //   {
-      //     x: originImg.width * imageScaleX,
-      //     y: originImg.height * imageScaleY,
-      //     clickType: 3,
-      //   },
-      // ];
-
-      // samModel.predict(position).then((output) => {
-      //   const maskImg = samModel.exportWithBackgroundColor(
-      //     output,
-      //     hexToRgbaArray(color),
-      //   );
-      //   setAnalyzeImg(maskImg.src);
-      // });
-
       const rect = e.nativeEvent.target.getBoundingClientRect();
       let x = Math.round(e.pageX - rect.left);
       let y = Math.round(e.pageY - rect.top);
@@ -104,83 +73,95 @@ export default () => {
       y *= imageScale;
       const position = [{ x, y, clickType: 1 }];
       samModel.predict(position).then((output) => {
-        const maskImg = samModel.exportWithBackgroundColor(
-          output,
-          hexToRgbaArray(color),
-        );
-        setAnalyzeImg(maskImg.src);
+        const maskImg = samModel.exportImageClip(output);
+        maskImg.onload = function () {
+          const newImg = getImageByColor(
+            samModel.imageData,
+            output.data,
+            hexToRgbaArray(color),
+          );
+          setAnalyzeImg(newImg);
+        };
       });
     }
   };
 
   return (
     <div className="content">
-      <Card className="configArea" hoverable>
-        <Dragger
-          showUploadList={false}
-          onChange={onChange}
-          maxCount={1}
-          accept="image/*"
-          multiple={false}
-          style={{ height: 150 }}
-        >
-          <p className="ant-upload-drag-icon">
-            <InboxOutlined />
-          </p>
-          <p className="ant-upload-text">点击上传</p>
-        </Dragger>
-        <Tooltip
-          color="#fff"
-          title={
-            <SketchPicker color={color} onChange={({ hex }) => setColor(hex)} />
-          }
-        >
-          <Button block style={{ backgroundColor: color, margin: '24px 0' }} />
-        </Tooltip>
-        <Button
-          type="primary"
-          block
-          disabled={!analyzeImg}
-          onClick={() => downloadData(analyzeImg, 'paperwork')}
-        >
-          下载
-        </Button>
-      </Card>
       <Spin spinning={loading} tip="embedding...">
-        {analyzeImg ? (
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
+        <div className="configArea">
+          <Card
+            style={{ width: '50%', maxWidth: '500px' }}
+            title="处理前"
+            hoverable
+            extra={
+              <ColorPicker
+                value={color}
+                format="hex"
+                onChange={(color, hex) => setColor(hex)}
+              />
+            }
           >
-            <Card
-              style={{ width: '50%', maxWidth: '500px' }}
-              title="处理前"
-              hoverable
-            >
+            {originImg ? (
+              <img
+                src={originImg.src}
+                width={'100%'}
+                ref={ref as any}
+                onClick={generateImg}
+              />
+            ) : (
+              <Upload
+                showUploadList={false}
+                onChange={onChange}
+                maxCount={1}
+                accept="image/*"
+                multiple={false}
+                style={{ height: 150 }}
+              >
+                <img
+                  src="https://mdn.alipayobjects.com/huamei_juqv6t/afts/img/A*2QADT69gLtwAAAAAAAAAAAAADiaPAQ/original"
+                  style={{ width: 400, height: 210, filter: 'opacity(0.25)' }}
+                />
+                <p className="ant-upload-text" style={{ textAlign: 'center' }}>
+                  点击上传
+                </p>
+              </Upload>
+            )}
+          </Card>
+          <Card
+            style={{ width: '50%', maxWidth: '500px', marginLeft: '20px' }}
+            title="处理后"
+            hoverable
+            extra={
+              <Button
+                type="primary"
+                disabled={!analyzeImg}
+                onClick={() => exportImg(analyzeImg)}
+              >
+                下载
+              </Button>
+            }
+          >
+            {analyzeImg ? (
               <img
                 src={analyzeImg}
                 width={'100%'}
                 ref={ref as any}
                 onClick={generateImg}
               />
-            </Card>
-            <Card
-              style={{ width: '50%', maxWidth: '500px', marginLeft: '20px' }}
-              title="处理后"
-              hoverable
-            >
-              <img
-                src={analyzeImg}
-                width={'100%'}
-                ref={ref as any}
-                onClick={generateImg}
-              />
-            </Card>
-          </div>
-        ) : null}
+            ) : (
+              <div>
+                <img
+                  src="https://mdn.alipayobjects.com/huamei_juqv6t/afts/img/A*2QADT69gLtwAAAAAAAAAAAAADiaPAQ/original"
+                  style={{ width: 400, height: 210, filter: 'opacity(0.25)' }}
+                />
+                <p className="ant-upload-text" style={{ textAlign: 'center' }}>
+                  暂无图片生成
+                </p>
+              </div>
+            )}
+          </Card>
+        </div>
       </Spin>
     </div>
   );

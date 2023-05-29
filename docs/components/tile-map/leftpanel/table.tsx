@@ -75,5 +75,11 @@ export const ShowTable = (props: ITable) => {
       image: item.imageUrl,
     };
   });
-  return <Table size="small" columns={columns} dataSource={dataSource} />;
+  return (
+    <Table
+      size="small"
+      columns={columns}
+      dataSource={[...dataSource].reverse()}
+    />
+  );
 };

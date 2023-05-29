@@ -43,6 +43,7 @@ export default () => {
   };
 
   const onMapClick = (e) => {
+    console.log(e);
     const isArray = Array.isArray(e);
     const coords = !isArray ? [e.lngLat.lng, e.lngLat.lat] : e;
     setSamState({
