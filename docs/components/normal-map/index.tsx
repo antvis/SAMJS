@@ -189,7 +189,7 @@ export default () => {
           </Radio.Group>
         </Form.Item>
         <Form.Item
-          label="上传"
+          label="上传图片: (支持 3857 坐标系)"
           name="upload"
           valuePropName="fileList"
           getValueFromEvent={normFile}
@@ -203,7 +203,7 @@ export default () => {
 
         <Form.Item
           name="coordinate"
-          label="地理坐标"
+          label="输入地理坐标"
           rules={[
             {
               required: true,

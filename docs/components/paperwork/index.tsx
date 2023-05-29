@@ -40,6 +40,12 @@ export default () => {
 
   const embedding = async (base64Url: string, imageUrl: string) => {
     setLoading(true);
+    const orImg = new Image();
+    orImg.src = imageUrl;
+    orImg.onload = () => {
+      samModel.setImage(imageUrl);
+      setOriginImg(orImg);
+    };
     try {
       const action = EMBEDDING_URL;
       const formData = new FormData();
@@ -51,12 +57,7 @@ export default () => {
         })
       ).arrayBuffer();
       samModel.setEmbedding(buffer);
-      const orImg = new Image();
-      orImg.src = imageUrl;
-      orImg.onload = () => {
-        samModel.setImage(imageUrl);
-        setOriginImg(orImg);
-      };
+
       // setAnalyzeImg(imageUrl);
       setLoading(false);
       message.success('embedding计算完成');
@@ -132,7 +133,7 @@ export default () => {
     samModel.predict(clickPoints).then((output) => {
       const maskImg = samModel.exportImageClip(output);
       setAnalyzeImg(maskImg.src);
-      document.body.appendChild(maskImg);
+      // document.body.appendChild(maskImg);
       maskImg.onload = function () {
         const newImg = getImageByColor(
           samModel.imageData,
@@ -165,7 +166,7 @@ export default () => {
                   style={{ marginLeft: 8 }}
                   onClick={() => produceImg()}
                 >
-                  生成证件照
+                  更改背景色
                 </Button>
               </Space>
             }

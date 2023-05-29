@@ -1,6 +1,6 @@
 {
   "name": "@antv/sam",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "JS SDK for SAM",
   "license": "MIT",
   "module": "dist/index.js",

@@ -287,7 +287,7 @@ export default () => {
           accept="image/*"
           beforeUpload={beforeUpload}
         >
-          <Button type="primary">点击或拖拽上传。</Button>
+          <Button type="primary">点击或拖拽上传</Button>
         </Upload>
         <Radio.Group
           style={{ margin: '10px 0' }}
@@ -322,34 +322,6 @@ export default () => {
         </Button>
       </Space>
       <div className="samPic">
-        <div className="samPic__tool">
-          {imgState.clipImg.length > 0 ? (
-            <div className="clipImgContent">
-              {imgState.clipImg.map(({ clipSrc, mark }, index) => {
-                return (
-                  <div key={index} style={{ position: 'relative' }}>
-                    <img src={clipSrc} style={{ width: 50 }} />
-                    <div className="tools">
-                      <DeleteOutlined
-                        style={{ opacity: 0.8 }}
-                        onClick={() => {
-                          setImgState((pre) => ({
-                            clipImg: pre.clipImg.filter(
-                              (item) => item.mark !== mark,
-                            ),
-                          }));
-                        }}
-                      />
-                    </div>
-                    <Divider style={{ margin: '8px 0' }} />
-                  </div>
-                );
-              })}
-            </div>
-          ) : (
-            <Empty description="暂无图片" />
-          )}
-        </div>
         <div className="samPic__preview">
           {imgState.imageUrl && (
             <div style={{ position: 'relative' }}>
@@ -377,6 +349,34 @@ export default () => {
               />
               {imgState.clipType !== 'click' && box}
             </div>
+          )}
+        </div>
+        <div className="samPic__tool">
+          {imgState.clipImg.length > 0 ? (
+            <div className="clipImgContent">
+              {imgState.clipImg.map(({ clipSrc, mark }, index) => {
+                return (
+                  <div key={index} style={{ position: 'relative' }}>
+                    <img src={clipSrc} style={{ width: 50 }} />
+                    <div className="tools">
+                      <DeleteOutlined
+                        style={{ opacity: 0.8 }}
+                        onClick={() => {
+                          setImgState((pre) => ({
+                            clipImg: pre.clipImg.filter(
+                              (item) => item.mark !== mark,
+                            ),
+                          }));
+                        }}
+                      />
+                    </div>
+                    <Divider style={{ margin: '8px 0' }} />
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <Empty description="暂无图片" />
           )}
         </div>
       </div>
