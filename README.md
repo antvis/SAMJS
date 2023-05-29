@@ -6,6 +6,8 @@
 
 - [API](http://samjs.antv.vision/api)
 
+- [Map lib](https://github.com/antvis/l7)
+
 ### Installation
 
 #### Using npm or yarn
