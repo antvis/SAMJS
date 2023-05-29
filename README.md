@@ -1,38 +1,69 @@
-# sam.js JS SDK for SAM
+# SAM JS SDK for SAM
 
-[![NPM version](https://img.shields.io/npm/v/sam.js.svg?style=flat)](https://npmjs.org/package/sam.js)
-[![NPM downloads](http://img.shields.io/npm/dm/sam.js.svg?style=flat)](https://npmjs.org/package/sam.js)
+![demo](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*6rjpTIjg4cUAAAAAAAAAAAAADmJ7AQ/original)
 
-## Usage
+- [Document](http://samjs.antv.vision/demos)
 
-TODO
+- [API](http://samjs.antv.vision/api)
 
-## Options
+### Installation
 
-TODO
+#### Using npm or yarn
 
-## Development
+We recommend using npm or yarn to install, it not only makes development easier, but also allow you to take advantage of the rich ecosystem of Javascript packages and tooling.
 
 ```bash
-# install dependencies
-$ yarn install
+npm install @antv/sam
 
-# develop library by docs demo
-$ yarn start
+# or
 
-# build library source code
-$ yarn run build
+yarn add @antv/sam
 
-# build library source code in watch mode
-$ yarn run build:watch
 
-# build docs
-$ yarn run docs:build
-
-# check your project for potential problems
-$ yarn run doctor
 ```
 
-## LICENSE
+### Usage
 
-MIT
+#### import SAM
+
+```ts
+import { SAM } from '@antv/sam';
+```
+
+#### 1.new a SAM instance
+
+```ts
+const sam = new SAM({
+  modelUrl: MODEL_DIR, // the ONNX model
+});
+```
+
+#### 2. 初始化 Model，
+
+```ts
+await sam.initModel(); // async method
+// or
+sam.initModel().then(() => {
+  // do something
+});
+```
+
+#### 3. setEmbedding
+
+get imageEmbedding from sam service.
+
+```ts
+sam.setEmbedding(imageEmbedding);
+```
+
+#### 4. set image
+
+```ts
+sam.setImage(imageUrl | HTMLImageElement); // use to clip image
+```
+
+#### 5. predict by promopts points or box
+
+```ts
+sam.predict(position); //  async method
+```

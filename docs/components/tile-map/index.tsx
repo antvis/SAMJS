@@ -2,7 +2,7 @@ import { PolygonLayer, RasterLayer, Scene, Source } from '@antv/l7';
 import { Button, message, Radio, Spin } from 'antd';
 import React, { useEffect } from 'react';
 // @ts-ignore
-import { downLoadCanvas, SAMGeo } from '@antv/sam';
+import { SAMGeo } from '@antv/sam';
 // @ts-ignore
 import { Map } from '@antv/l7-maps';
 
@@ -77,7 +77,7 @@ export default () => {
       ...mapHelper.tileToLngLat(maxX + 1, minY, zoom),
     ];
 
-    console.log('imageExtent', imageExtent);
+    // console.log('imageExtent', imageExtent);
 
     // Draw each tile on the canvas
 
@@ -93,7 +93,7 @@ export default () => {
       }
     });
 
-    downLoadCanvas(canvas);
+    // downLoadCanvas(canvas);
 
     // 设置模型的图片
     samInfo.samModel.setGeoImage(canvas.toDataURL(), {
