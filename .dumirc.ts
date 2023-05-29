@@ -2,8 +2,10 @@ import { defineConfig } from 'dumi';
 import MonacoWebpackPlugin from 'monaco-editor-webpack-plugin';
 // const FriendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin");
 const CopyPlugin = require('copy-webpack-plugin');
+const isProduction = process.env.NODE_ENV === 'production';
 export default defineConfig({
   outputPath: 'docs-dist',
+  copy: isProduction ? ['docs/CNAME'] : [],
   // publicPath: '/',
   // locales: [
   //   { id: 'en-us', name: 'English' },
