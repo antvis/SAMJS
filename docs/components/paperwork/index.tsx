@@ -1,19 +1,34 @@
-import { Button, Card, ColorPicker, message, Spin, Upload } from 'antd';
+import { Button, Card, ColorPicker, message, Space, Spin, Upload } from 'antd';
 import React, { useEffect, useRef, useState } from 'react';
 // @ts-ignore
 import { getBase64, SAM } from '@antv/sam';
+import { useSize } from 'ahooks';
 import { EMBEDDING_URL } from '../../config';
-import { exportImg, getImageByColor, hexToRgbaArray } from '../../utils';
+import {
+  exportImg,
+  getAbsoluteXy,
+  getImageByColor,
+  hexToRgbaArray,
+} from '../../utils';
 import { Model_URL, WasmPaths } from '../constant';
 import './index.less';
 
+interface ClickPoints {
+  x: number;
+  y: number;
+  clickType: number;
+}
+
 export default () => {
+  const canvasRef = useRef();
   const ref = useRef<HTMLImageElement>();
+  const size = useSize(ref);
   const [loading, setLoading] = useState(false);
   const [samModel, setSamModel] = useState<SAM>(null);
   const [originImg, setOriginImg] = useState<HTMLImageElement | null>(null);
   const [analyzeImg, setAnalyzeImg] = useState('');
   const [color, setColor] = useState<string>('#ad0404');
+  const [clickPoints, setClickPoints] = useState<ClickPoints[]>([]);
 
   useEffect(() => {
     const sam = new SAM({
@@ -38,11 +53,11 @@ export default () => {
       samModel.setEmbedding(buffer);
       const orImg = new Image();
       orImg.src = imageUrl;
-      orImg.onload = async () => {
+      orImg.onload = () => {
         samModel.setImage(imageUrl);
         setOriginImg(orImg);
-        setAnalyzeImg(imageUrl);
       };
+      // setAnalyzeImg(imageUrl);
       setLoading(false);
       message.success('embedding计算完成');
     } catch (error) {
@@ -50,6 +65,30 @@ export default () => {
       message.success('embedding计算失败');
     }
   };
+
+  useEffect(() => {
+    if (!EMBEDDING_URL) return;
+    try {
+      const image = new Image();
+      image.src = '../../assets/2.png';
+      image.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = image.width;
+        canvas.height = image.height;
+        const ctx = canvas.getContext('2d')!;
+        ctx.drawImage(image, 0, 0);
+        const base64 = canvas.toDataURL('image/jpeg');
+        const index = (base64 as string).indexOf(',');
+        const strBaseImg = (base64 as string)?.substring(index + 1);
+        if (samModel) {
+          embedding(strBaseImg, image.src);
+        }
+      };
+    } catch {
+      setLoading(false);
+      message.success('embedding计算失败');
+    }
+  }, [samModel]);
 
   const onChange = async ({ file }) => {
     if (file.status === 'done') {
@@ -61,29 +100,49 @@ export default () => {
   };
 
   const generateImg = (e) => {
-    if (samModel && originImg) {
-      const rect = e.nativeEvent.target.getBoundingClientRect();
-      let x = Math.round(e.pageX - rect.left);
-      let y = Math.round(e.pageY - rect.top);
-      // 获取渲染图片与原图片的缩放比
-      const imageScale = originImg
-        ? originImg.width / e.nativeEvent.target.offsetWidth
-        : 1;
-      x *= imageScale;
-      y *= imageScale;
-      const position = [{ x, y, clickType: 1 }];
-      samModel.predict(position).then((output) => {
-        const maskImg = samModel.exportImageClip(output);
-        maskImg.onload = function () {
-          const newImg = getImageByColor(
-            samModel.imageData,
-            output.data,
-            hexToRgbaArray(color),
-          );
-          setAnalyzeImg(newImg);
-        };
+    const { x, y } = getAbsoluteXy(e, originImg);
+
+    const position = { x, y, clickType: 1 };
+    setClickPoints((pre) => {
+      return [...pre, position];
+    });
+  };
+
+  useEffect(() => {
+    const canvas = canvasRef.current as any;
+    if (clickPoints.length !== 0 && originImg) {
+      canvas.width = size?.width;
+      canvas.height = size?.height;
+      const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
+      // @ts-ignore
+      const scaleX = size?.width / originImg?.width;
+      // @ts-ignore
+      const scaleY = size?.height / originImg?.height;
+      clickPoints.forEach(({ x, y }) => {
+        // 绘制圆形
+        ctx.fillStyle = 'red';
+        ctx.beginPath();
+        ctx.arc(x * scaleX, y * scaleY, 6, 0, 2 * Math.PI);
+        ctx.fill();
       });
     }
+  }, [clickPoints, canvasRef.current, originImg]);
+
+  const produceImg = () => {
+    samModel.predict(clickPoints).then((output) => {
+      const maskImg = samModel.exportImageClip(output);
+      setAnalyzeImg(maskImg.src);
+      document.body.appendChild(maskImg);
+      maskImg.onload = function () {
+        const newImg = getImageByColor(
+          samModel.imageData,
+          output.data,
+          hexToRgbaArray(color),
+        );
+        setAnalyzeImg(newImg);
+      };
+    });
+    setClickPoints([]);
   };
 
   return (
@@ -95,17 +154,36 @@ export default () => {
             title="处理前"
             hoverable
             extra={
-              <ColorPicker
-                value={color}
-                format="hex"
-                onChange={(color, hex) => setColor(hex)}
-              />
+              <Space>
+                <ColorPicker
+                  value={color}
+                  format="hex"
+                  onChange={(color, hex) => setColor(hex)}
+                />
+                <Button
+                  type="primary"
+                  style={{ marginLeft: 8 }}
+                  onClick={() => produceImg()}
+                >
+                  生成证件照
+                </Button>
+              </Space>
             }
           >
+            <canvas
+              id="maskCircle"
+              ref={canvasRef as any}
+              style={{
+                zIndex: 10,
+                position: 'absolute',
+                pointerEvents: 'none',
+              }}
+            />
             {originImg ? (
               <img
                 src={originImg.src}
                 width={'100%'}
+                style={{ position: 'relative' }}
                 ref={ref as any}
                 onClick={generateImg}
               />
@@ -122,6 +200,7 @@ export default () => {
                   src="https://mdn.alipayobjects.com/huamei_juqv6t/afts/img/A*2QADT69gLtwAAAAAAAAAAAAADiaPAQ/original"
                   style={{ width: 400, height: 210, filter: 'opacity(0.25)' }}
                 />
+
                 <p className="ant-upload-text" style={{ textAlign: 'center' }}>
                   点击上传
                 </p>

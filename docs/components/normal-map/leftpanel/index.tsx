@@ -12,12 +12,13 @@ interface RightPanelProps {
   setSatelliteData: (
     value: (SatelliteData & { maskImg: string; key: string })[],
   ) => void;
+  height: number;
 }
 
 export const RightPanel = (props: RightPanelProps) => {
   const cardRef = useRef();
   const size = useSize(cardRef);
-  const { satelliteData, setSatelliteData } = props;
+  const { satelliteData, setSatelliteData, height } = props;
   const [activeTabKey, setActiveTabKey] = useState<string>('text');
   const newValue = useMemo(() => {
     const newFeature = satelliteData.map((item) => item.features);
@@ -42,6 +43,7 @@ export const RightPanel = (props: RightPanelProps) => {
     text: (
       <Editor
         width={size?.width as number}
+        height={height}
         value={JSON.stringify(newValue ?? emptyPolygon(), null, 2)}
       />
     ),

@@ -8,10 +8,11 @@ import { prettierText } from '../../../utils';
 interface IEditor {
   value: string;
   width: number;
+  height: number;
 }
 
 export const Editor = (props: IEditor) => {
-  const { value, width } = props;
+  const { value, width, height } = props;
 
   monacoEditor.languages.registerDocumentFormattingEditProvider('json', {
     provideDocumentFormattingEdits: (model: editor.ITextModel) => {
@@ -40,7 +41,7 @@ export const Editor = (props: IEditor) => {
   return (
     <MonacoEditor
       width={width - 20}
-      height="400"
+      height={height - 60}
       language="json"
       value={prettierText({ content: value })}
       theme="custome-theme"

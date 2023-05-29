@@ -1,6 +1,15 @@
-import { DeleteOutlined, InboxOutlined } from '@ant-design/icons';
+import { DeleteOutlined } from '@ant-design/icons';
 import { useSetState } from 'ahooks';
-import { Button, Divider, message, Radio, Spin, Upload } from 'antd';
+import {
+  Button,
+  Divider,
+  Empty,
+  message,
+  Radio,
+  Space,
+  Spin,
+  Upload,
+} from 'antd';
 import React, { useEffect, useMemo } from 'react';
 import './index.less';
 // @ts-ignore
@@ -9,8 +18,6 @@ import { EMBEDDING_URL } from '../../config';
 import { ISamStateImg } from '../../typing';
 import { downloadData } from '../../utils';
 import { Model_URL, selectionImgType, WasmPaths } from '../constant';
-
-const { Dragger } = Upload;
 
 const initState = {
   imageUrl: '',
@@ -118,8 +125,13 @@ export default () => {
   const onImageClick = (e) => {
     if (imgState.clipType === 'click') {
       const rect = e.nativeEvent.target.getBoundingClientRect();
-      let x = Math.round(e.pageX - rect.left);
-      let y = Math.round(e.pageY - rect.top);
+      const scrollTop =
+        window.pageYOffset || document.documentElement.scrollTop;
+      const scrollLeft =
+        window.pageXOffset || document.documentElement.scrollLeft;
+      let x = Math.round(e.pageX - rect.left - scrollLeft);
+      let y = Math.round(e.pageY - rect.top - scrollTop);
+
       // 获取渲染图片与原图片的缩放比
       const imageScale = imgState.originImg
         ? imgState.originImg.width / e.nativeEvent.target.offsetWidth
@@ -135,8 +147,11 @@ export default () => {
     e.preventDefault();
     if (imgState.clipType === 'click') return;
     const rect = e.nativeEvent.target.getBoundingClientRect();
-    let x = Math.round(e.pageX - rect.left);
-    let y = Math.round(e.pageY - rect.top);
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollLeft =
+      window.pageXOffset || document.documentElement.scrollLeft;
+    let x = Math.round(e.pageX - rect.left - scrollLeft);
+    let y = Math.round(e.pageY - rect.top - scrollTop);
 
     setImgState({
       isSelecting: true,
@@ -149,8 +164,11 @@ export default () => {
     e.preventDefault();
     if (imgState.clipType === 'click') return;
     const rect = e.nativeEvent.target.getBoundingClientRect();
-    let x = Math.round(e.pageX - rect.left);
-    let y = Math.round(e.pageY - rect.top);
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollLeft =
+      window.pageXOffset || document.documentElement.scrollLeft;
+    let x = Math.round(e.pageX - rect.left - scrollLeft);
+    let y = Math.round(e.pageY - rect.top - scrollTop);
     setImgState({
       endPoint: { x, y },
     });
@@ -259,56 +277,53 @@ export default () => {
 
   return (
     <Spin spinning={imgState.loading} tip={'embedding 生成中……'}>
+      <Space style={{ marginBottom: 16 }}>
+        <Upload
+          className="samPic__upload"
+          multiple={false}
+          maxCount={1}
+          showUploadList={false}
+          onChange={onChange}
+          accept="image/*"
+          beforeUpload={beforeUpload}
+        >
+          <Button type="primary">点击或拖拽上传。</Button>
+        </Upload>
+        <Radio.Group
+          style={{ margin: '10px 0' }}
+          onChange={(event) => {
+            setImgState({
+              clipType: event.target.value,
+              endPoint: { x: 0, y: 0 },
+              startPoint: { x: 0, y: 0 },
+              isSelecting: false,
+              eventPoint: [],
+            });
+          }}
+          value={imgState.clipType}
+          buttonStyle="solid"
+        >
+          {selectionImgType.map((item) => {
+            return (
+              <Radio.Button key={item.value} value={item.value}>
+                {item.label}
+              </Radio.Button>
+            );
+          })}
+        </Radio.Group>
+        <Button
+          block
+          type="primary"
+          disabled={imgState.clipImg.length <= 0}
+          onClick={() => downloadData(imgState.clipImg, 'clipImages')}
+          style={{ margin: '10px 0' }}
+        >
+          下载数据
+        </Button>
+      </Space>
       <div className="samPic">
         <div className="samPic__tool">
-          <Dragger
-            className="samPic__upload"
-            multiple={false}
-            maxCount={1}
-            showUploadList={false}
-            onChange={onChange}
-            accept="image/*"
-            beforeUpload={beforeUpload}
-          >
-            <p className="ant-upload-drag-icon">
-              <InboxOutlined />
-            </p>
-            <p className="ant-upload-hint">点击或拖拽上传。</p>
-          </Dragger>
-          <Radio.Group
-            style={{ margin: '10px 0' }}
-            onChange={(event) => {
-              setImgState({
-                clipType: event.target.value,
-                endPoint: { x: 0, y: 0 },
-                startPoint: { x: 0, y: 0 },
-                isSelecting: false,
-                eventPoint: [],
-              });
-            }}
-            value={imgState.clipType}
-            size="small"
-            buttonStyle="solid"
-          >
-            {selectionImgType.map((item) => {
-              return (
-                <Radio.Button key={item.value} value={item.value}>
-                  {item.label}
-                </Radio.Button>
-              );
-            })}
-          </Radio.Group>
-          <Button
-            block
-            size="small"
-            type="primary"
-            disabled={imgState.clipImg.length <= 0}
-            onClick={() => downloadData(imgState.clipImg, 'clipImages')}
-            style={{ margin: '10px 0' }}
-          >
-            下载数据
-          </Button>
-          {imgState.clipImg.length > 0 && (
+          {imgState.clipImg.length > 0 ? (
             <div className="clipImgContent">
               {imgState.clipImg.map(({ clipSrc, mark }, index) => {
                 return (
@@ -331,6 +346,8 @@ export default () => {
                 );
               })}
             </div>
+          ) : (
+            <Empty description="暂无图片" />
           )}
         </div>
         <div className="samPic__preview">

@@ -128,3 +128,21 @@ export const exportImg = (src: string) => {
   a.href = image.src;
   a.click();
 };
+
+export const getAbsoluteXy = (event: any, origin: any) => {
+  const rect = event.nativeEvent.target.getBoundingClientRect();
+  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+  let x = Math.round(event.pageX - rect.left - scrollLeft);
+  let y = Math.round(event.pageY - rect.top - scrollTop);
+  // 获取渲染图片与原图片的缩放比
+  const imageScaleX = origin
+    ? origin.width / event.nativeEvent.target.offsetWidth
+    : 1;
+  const imageScaleY = origin
+    ? origin.height / event.nativeEvent.target.offsetHeight
+    : 1;
+  x *= imageScaleX;
+  y *= imageScaleY;
+  return { x, y };
+};
