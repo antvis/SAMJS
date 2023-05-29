@@ -1,4 +1,4 @@
-# SAM JS SDK for SAM
+# JS SDK for SAM
 
 ![demo](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*6rjpTIjg4cUAAAAAAAAAAAAADmJ7AQ/original)
 
