@@ -10,19 +10,14 @@ order: 0
 We recommend using npm or yarn to install, it not only makes development easier, but also allow you to take advantage of the rich ecosystem of Javascript packages and tooling.
 
 ```bash
-npm install sam.js
+npm install @antv/sam
 
 # or
 
-yarn add sam.js
+yarn add @antv/sam
 
 
 ```
-
-If you are in a bad network environment, you can try other registries and tools like cnpm.
-Usage
-
-#### Import in Browser
 
 ### Usage
 
