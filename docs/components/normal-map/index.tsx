@@ -160,6 +160,7 @@ export default () => {
     if (newCoordinate.length === 0) {
       return Promise.reject('请正确输入');
     }
+    return Promise.resolve(value);
   };
 
   return (
@@ -257,4 +258,3 @@ export default () => {
     </>
   );
 };
-//'120.129644638902,30.270126210814027;120.13863248466771,30.26570057971226'

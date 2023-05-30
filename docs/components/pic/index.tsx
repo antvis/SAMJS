@@ -287,7 +287,7 @@ export default () => {
           accept="image/*"
           beforeUpload={beforeUpload}
         >
-          <Button type="primary">点击或拖拽上传。</Button>
+          <Button type="primary">点击上传。</Button>
         </Upload>
         <Radio.Group
           style={{ margin: '10px 0' }}
@@ -328,7 +328,7 @@ export default () => {
               {imgState.clipImg.map(({ clipSrc, mark }, index) => {
                 return (
                   <div key={index} style={{ position: 'relative' }}>
-                    <img src={clipSrc} style={{ width: 50 }} />
+                    <img src={clipSrc} style={{ width: 100 }} />
                     <div className="tools">
                       <DeleteOutlined
                         style={{ opacity: 0.8 }}
