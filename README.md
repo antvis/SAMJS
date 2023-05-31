@@ -9,7 +9,7 @@ this enhanced front-end library provides a seamless solution for loading fixed i
 - easy to use
 - JS library support Multiple Front-End Frameworks，react/vue/angular
 - worker in browser
-- RS Image segment
+- support RS Image segment
 - support export vector
 - support export GeoJSON Polygon
 
