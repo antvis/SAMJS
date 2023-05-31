@@ -43,7 +43,6 @@ export default () => {
   };
 
   const onMapClick = (e) => {
-    console.log(e);
     const isArray = Array.isArray(e);
     const coords = !isArray ? [e.lngLat.lng, e.lngLat.lat] : e;
     setSamState({
@@ -76,8 +75,6 @@ export default () => {
       ...mapHelper.tileToLngLat(minX, maxY + 1, zoom),
       ...mapHelper.tileToLngLat(maxX + 1, minY, zoom),
     ];
-
-    // console.log('imageExtent', imageExtent);
 
     // Draw each tile on the canvas
 
@@ -162,9 +159,7 @@ export default () => {
       }
 
       if (points.length === 0) return;
-      console.time('predict');
       samInfo.samModel.predict(points).then(async (res) => {
-        console.timeEnd('predict');
         const polygon = await samInfo.samModel.exportGeoPolygon(res, 1);
         const image = samInfo.samModel.exportImageClip(res);
 
