@@ -1,4 +1,17 @@
-# SAM JS SDK for SAM
+# JS SDK for SAM
+
+Rapid development of image segmentation front-end applications inspired by [SAM DEMO](https://github.com/facebookresearch/segment-anything/tree/main/demo)
+
+this enhanced front-end library provides a seamless solution for loading fixed image or geoImages and their corresponding .npy file embeddings. It empowers you to run the SAM ONNX model in the browser using Web Assembly, while leveraging multi-threading capabilities, SharedArrayBuffer, Web Worker, and SIMD128 to achieve optimal performance.
+
+### Features
+
+- easy to use
+- JS library support Multiple Front-End Frameworks，react/vue/angular
+- worker in browser
+- support RS Image segment
+- support export vector
+- support export GeoJSON Polygon
 
 ![demo](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*6rjpTIjg4cUAAAAAAAAAAAAADmJ7AQ/original)
 
