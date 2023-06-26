@@ -70,6 +70,7 @@ export default () => {
     canvas.width = (maxX - minX + 1) * 256;
     canvas.height = (maxY - minY + 1) * 256;
     const ctx = canvas.getContext('2d')!;
+    // console.log(samInfo.samModel)
     const mapHelper = samInfo.samModel.mapHelper;
     const imageExtent = [
       ...mapHelper.tileToLngLat(minX, maxY + 1, zoom),
