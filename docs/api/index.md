@@ -19,8 +19,6 @@ const samGeoModel = new SAMGeo({
 
 - modelUrl Onnx 模型地址 可选，SAM 内置 Model service
 
-- wasmPaths 设置 Wasm 服务地址： 'https://npm.elemecdn.com/onnxruntime-web/dist/';
-
 或者通过 Webpack 来配置。
 
 ```ts
@@ -42,12 +40,6 @@ plugins: [
     ],
   }),
 ];
-```
-
-```ts
-const sam = new SAM({
-  wasmPaths:'https://npm.elemecdn.com/onnxruntime-web/dist/';
-})
 ```
 
 ## 方法
