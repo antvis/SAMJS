@@ -12,6 +12,7 @@ import {
   onnxMaskToPolygon,
 } from './utils/mask';
 import { handleScale, IHandleScale } from './utils/scale';
+// env.wasm.wasmPaths = 'https://npm.elemecdn.com/onnxruntime-web/dist/';
 const ort = require('onnxruntime-web');
 export interface ISAMOptions {
   modelUrl?: string;
@@ -34,7 +35,6 @@ export class SAM {
   constructor(options: ISAMOptions) {
     if (options?.modelUrl) this.modelUrl = options.modelUrl;
     if (options?.wasmPaths) this.setWasmUrl(options.wasmPaths);
-    // env.wasm.wasmPaths = 'https://npm.elemecdn.com/onnxruntime-web/dist/';
   }
 
   public async initModel() {
