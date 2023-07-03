@@ -8,7 +8,7 @@ import { useSize } from 'ahooks';
 import { EMBEDDING_URL } from '../../config';
 import { SatelliteData } from '../../typing';
 import { getAbsoluteXy } from '../../utils';
-import { Model_URL, WasmPaths } from '../constant';
+import { Model_URL } from '../constant';
 import { locations } from './constant';
 import './index.less';
 import { RightPanel } from './leftpanel';
@@ -54,7 +54,7 @@ export default () => {
   useEffect(() => {
     const sam = new SAMGeo({
       modelUrl: Model_URL,
-      wasmPaths: WasmPaths,
+      // wasmPaths: WasmPaths,
     });
     sam.initModel().then(() => {
       setSamModel(sam);

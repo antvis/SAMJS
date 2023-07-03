@@ -12,7 +12,6 @@ import {
   onnxMaskToPolygon,
 } from './utils/mask';
 import { handleScale, IHandleScale } from './utils/scale';
-// env.wasm.wasmPaths = 'https://npm.elemecdn.com/onnxruntime-web/dist/';
 const ort = require('onnxruntime-web');
 export interface ISAMOptions {
   modelUrl?: string;

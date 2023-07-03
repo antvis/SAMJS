@@ -10,7 +10,7 @@ import {
   getImageByColor,
   hexToRgbaArray,
 } from '../../utils';
-import { Model_URL, WasmPaths } from '../constant';
+import { Model_URL } from '../constant';
 import './index.less';
 
 interface ClickPoints {
@@ -33,7 +33,7 @@ export default () => {
   useEffect(() => {
     const sam = new SAM({
       modelUrl: Model_URL,
-      WasmPaths,
+      // WasmPaths,
     });
     sam.initModel().then(() => setSamModel(sam));
   }, []);
