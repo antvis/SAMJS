@@ -12,7 +12,6 @@ import {
   onnxMaskToPolygon,
 } from './utils/mask';
 import { handleScale, IHandleScale } from './utils/scale';
-const ort = require('onnxruntime-web');
 export interface ISAMOptions {
   modelUrl?: string;
   wasmPaths?: string;
@@ -70,7 +69,7 @@ export class SAM {
       typeof tensorFile === 'string'
         ? npLoader.load(tensorFile)
         : await npLoader.parse(tensorFile);
-    const tensor = new ort.Tensor(dType, npArray.data, npArray.shape);
+    const tensor = new Tensor(dType, npArray.data, npArray.shape);
     this.tensor = tensor;
   }
   /**
