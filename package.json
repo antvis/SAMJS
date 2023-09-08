@@ -45,18 +45,12 @@
     ]
   },
   "dependencies": {
-    "@ant-design/icons": "^5.0.1",
     "@types/d3-contour": "^3.0.2",
-    "ahooks": "^3.7.7",
-    "antd": "^5.5.1",
     "d3-contour": "^4.0.2",
-    "monaco-editor": "^0.38.0",
-    "monaco-editor-webpack-plugin": "^7.0.1",
-    "react-monaco-editor": "^0.52.0",
-    "simplify-js": "^1.2.4",
-    "sphericalmercator": "^1.0.5"
+    "simplify-js": "^1.2.4"
   },
   "devDependencies": {
+    "@ant-design/icons": "^5.0.1",
     "@antv/l7": "^2.15.4",
     "@antv/l7-draw": "^3.0.25",
     "@commitlint/cli": "^17.1.2",
@@ -64,6 +58,8 @@
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@umijs/lint": "^4.0.0",
+    "ahooks": "^3.7.7",
+    "antd": "^5.5.1",
     "copy-webpack-plugin": "^11.0.0",
     "dumi": "^2.1.22",
     "eslint": "^8.23.0",
@@ -72,6 +68,8 @@
     "gh-pages": "^5.0.0",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
+    "monaco-editor": "^0.38.0",
+    "monaco-editor-webpack-plugin": "^7.0.1",
     "npyjs": "^0.4.0",
     "onnxruntime-web": "^1.15.1",
     "prettier": "^2.7.1",
@@ -79,6 +77,7 @@
     "prettier-plugin-packagejson": "^2.2.18",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
+    "react-monaco-editor": "^0.52.0",
     "stylelint": "^14.9.1"
   },
   "peerDependencies": {
