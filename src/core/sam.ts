@@ -1,8 +1,8 @@
 // @ts-ignore
 import npyjs from 'npyjs';
 import { env, InferenceSession, Tensor } from 'onnxruntime-web';
-import { MODEL_URL } from './api/contanst';
-import { modelData, modelInputProps } from './api/onnxModel';
+import { MODEL_URL } from '../api/contanst';
+import { modelData, modelInputProps } from '../api/onnxModel';
 import {
   arrayToImageData,
   getImageByMask,
@@ -10,8 +10,8 @@ import {
   imageToImageData,
   onnxMaskClip,
   onnxMaskToPolygon,
-} from './utils/mask';
-import { handleScale, IHandleScale } from './utils/scale';
+} from '../utils/mask';
+import { handleScale, IHandleScale } from '../utils/scale';
 export interface ISAMOptions {
   modelUrl?: string;
   wasmPaths?: string;

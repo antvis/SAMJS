@@ -1,6 +1,6 @@
+import { MapHelper } from '../utils/geo';
+import { offsetPolygon } from '../utils/vector';
 import { SAM } from './sam';
-import { MapHelper } from './utils/geo';
-import { offsetPolygon } from './utils/vector';
 
 export interface IGeoImageOption {
   extent: [number, number, number, number] | undefined;
