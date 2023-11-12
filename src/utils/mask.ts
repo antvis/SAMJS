@@ -5,6 +5,7 @@
 // LICENSE file in the root directory of this source tree.
 import * as d3 from 'd3-contour';
 import simplify from 'simplify-js';
+import { offsetPolygon, simplifyPolygon } from './vector';
 
 // Canvas elements can be created from ImageData
 function imageDataToCanvas(imageData: ImageData) {
@@ -43,12 +44,12 @@ export function imageDataToImage(imageData: ImageData) {
 // Convert the onnx model mask prediction to ImageData
 // @ts-ignore
 export function arrayToImageData(
-  imageData: ImageData,
+  imageDataArray: number[],
   input: any,
   width: number,
   height: number,
 ) {
-  const uintImageData = new Uint8ClampedArray(imageData.data); // 转换为 Uint8ClampedArray 类型
+  const uintImageData = new Uint8ClampedArray(imageDataArray); // 转换为 Uint8ClampedArray 类型
   const arr = new Uint8ClampedArray(4 * width * height);
 
   for (let i = 0; i < input.length; i++) {
@@ -143,12 +144,12 @@ export const getBase64 = (file: Blob): Promise<string> =>
 //   return imageDataToImage(arrayToImageData(input, width, height));
 // }
 
-// 裁剪后的Mask
+// 裁剪后的Mask 图片
 export function onnxMaskClip(input: any, width: number, height: number) {
   const [minx, maxx, miny, maxy] = getImageExtent(input, width, height);
   const bboxData = getImageDataByRegion(minx, miny, maxx, maxy, input, width);
-  const imageData = arrayToImageData(bboxData, maxx - minx, maxy - miny);
-  return imageDataToImage(imageData);
+  const image = arrayToImageData(bboxData, input, maxx - minx, maxy - miny);
+  return image;
 }
 // Mask 转为 矢量多边形
 export function onnxMaskToPolygon(
@@ -168,12 +169,8 @@ export function onnxMaskToPolygon(
     .smooth(false)
     .thresholds(2);
   const lines = contours(bboxData);
-  return simplifyLine(
-    lines[1].coordinates[0][0],
-    minx,
-    miny,
-    simplifyThreshold,
-  );
+  const newPolgon = offsetPolygon(lines[1], [minx, miny]);
+  return simplifyPolygon(newPolgon, simplifyThreshold);
 }
 
 // 获取 Mask 后的数据

@@ -1,6 +1,6 @@
 import { SAM } from './sam';
 import { MapHelper } from './utils/geo';
-import { coord2Polygon } from './utils/utils';
+import { offsetPolygon } from './utils/vector';
 
 export interface IGeoImageOption {
   extent: [number, number, number, number] | undefined;
@@ -44,23 +44,26 @@ export class SAMGeo extends SAM {
     const vector = await this.exportVector(output, simplifyThreshold);
     const bounds = this.imageBounds;
 
+    const polygon = offsetPolygon(
+      vector.geometry,
+      ([x, y]: [number, number]) => {
+        const px = [
+          x * this.metersPerpixelsX + bounds![0],
+          (this.imageOption!.height - y) * this.metersPerpixelsY + bounds![1],
+        ];
+
+        // 墨卡托转经纬度
+        const lnglat = this.mapHelper.metersToLngLat(px[0], px[1]);
+        return lnglat as [number, number];
+      },
+    );
     // 图片像素坐标转经纬度坐标;
     // 图表像素坐标->墨卡托->经纬度
-
-    const coord = vector.map((point: { x: number; y: number }) => {
-      // 像素坐标转墨卡托坐标
-      const px = [
-        point.x * this.metersPerpixelsX + bounds![0],
-        (this.imageOption!.height - point.y) * this.metersPerpixelsY +
-          bounds![1],
-      ];
-
-      // 墨卡托转经纬度
-      const lnglat = this.mapHelper.metersToLngLat(px[0], px[1]);
-      return lnglat;
-    });
-    const polygon = coord2Polygon(coord);
-    return polygon;
+    console.log(polygon);
+    return {
+      type: 'FeatureCollection',
+      features: [polygon],
+    };
   }
   // 瓦片场景
   public lngLat2ImagePixel(lnglat: [number, number]) {

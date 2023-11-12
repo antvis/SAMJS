@@ -126,8 +126,10 @@ export class SAM {
   // 导出Mask原始数据
   public exportMaskImage(output: any) {
     if (this.imageData === undefined) return;
+
     return arrayToImageData(
-      this.imageData,
+      // @ts-ignore
+      this.imageData.data,
       output.data,
       output.dims[3],
       output.dims[2],
