@@ -69,6 +69,7 @@ export class SAM {
       typeof tensorFile === 'string'
         ? npLoader.load(tensorFile)
         : await npLoader.parse(tensorFile);
+    // @ts-ignore
     const tensor = new Tensor(dType, npArray.data, npArray.shape);
     this.tensor = tensor;
   }
