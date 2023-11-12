@@ -45,7 +45,9 @@
     ]
   },
   "dependencies": {
+    "@turf/simplify": "^6.5.0",
     "@types/d3-contour": "^3.0.2",
+    "d3": "^7.8.5",
     "d3-contour": "^4.0.2",
     "simplify-js": "^1.2.4"
   },

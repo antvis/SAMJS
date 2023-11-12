@@ -5,3 +5,4 @@ export * from './sam-geo';
 export * from './utils/geo';
 export * from './utils/mask';
 export * from './utils/scale';
+export * from './utils/vector';
