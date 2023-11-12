@@ -4,7 +4,6 @@
 // This source code is licensed under the license found in the
 // LICENSE file in the root directory of this source tree.
 import * as d3 from 'd3-contour';
-import simplify from 'simplify-js';
 import { offsetPolygon, simplifyPolygon } from './vector';
 
 // Canvas elements can be created from ImageData
@@ -100,7 +99,7 @@ function getImageDataByRegion(
   imageData: number[],
   width: number,
 ) {
-  const data = [];
+  const data: number[] = [];
   let destIndex = 0;
   for (let y = miny; y < maxy; y++) {
     for (let x = minx; x < maxx; x++) {
@@ -109,22 +108,6 @@ function getImageDataByRegion(
     }
   }
   return data;
-}
-
-export function simplifyLine(
-  points: number[][],
-  minX: number,
-  minY: number,
-  tolerance: number = 5,
-): any {
-  // 局部坐标转全局坐标
-  const pointArray = points.map((p) => {
-    return { x: p[0] + minX, y: p[1] + minY };
-  });
-  if (tolerance === 0) return pointArray;
-  const simplifyData = simplify(pointArray, tolerance, true);
-
-  return simplifyData;
 }
 
 export const getBase64 = (file: Blob): Promise<string> =>

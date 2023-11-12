@@ -1,6 +1,6 @@
 {
   "name": "@antv/sam",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "JS SDK for SAM",
   "license": "MIT",
   "module": "dist/index.js",
@@ -48,8 +48,7 @@
     "@turf/simplify": "^6.5.0",
     "@types/d3-contour": "^3.0.2",
     "d3": "^7.8.5",
-    "d3-contour": "^4.0.2",
-    "simplify-js": "^1.2.4"
+    "d3-contour": "^4.0.2"
   },
   "devDependencies": {
     "@ant-design/icons": "^5.0.1",
