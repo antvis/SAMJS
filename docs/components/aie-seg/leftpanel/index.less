@@ -1,0 +1,30 @@
+.rightContainer {
+  height: 100%;
+  z-index: 9;
+  position: relative;
+  padding: 10px;
+
+  &__collapsed {
+    position: absolute;
+    top: 50%;
+    left: -14px;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 84px;
+    margin-top: -52px;
+    color: #ccc;
+    background: url('https://gw.alipayobjects.com/mdn/rms_e7d168/afts/img/A*yeewQqbmr6QAAAAAAAAAAAAAARQnAQ');
+    background-size: 14px 84px;
+    cursor: pointer;
+    transform: rotate(180deg);
+
+    &__icon {
+      margin-right: 4px;
+      font-size: 12px;
+      color: #666;
+    }
+  }
+}
