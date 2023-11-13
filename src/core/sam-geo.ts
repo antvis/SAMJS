@@ -1,6 +1,6 @@
+import { MapHelper } from '../utils/geo';
+import { offsetPolygon } from '../utils/vector';
 import { SAM } from './sam';
-import { MapHelper } from './utils/geo';
-import { offsetPolygon } from './utils/vector';
 
 export interface IGeoImageOption {
   extent: [number, number, number, number] | undefined;
@@ -9,14 +9,14 @@ export interface IGeoImageOption {
 }
 
 export class SAMGeo extends SAM {
-  private imageOption: IGeoImageOption | undefined;
+  protected imageOption: IGeoImageOption | undefined;
 
   // 墨卡托范围
-  private imageBounds: [number, number, number, number] | undefined;
+  protected imageBounds: [number, number, number, number] | undefined;
 
-  private metersPerpixelsX: number = 0;
+  protected metersPerpixelsX: number = 0;
 
-  private metersPerpixelsY: number = 0;
+  protected metersPerpixelsY: number = 0;
 
   public mapHelper = new MapHelper(256, 'google');
 

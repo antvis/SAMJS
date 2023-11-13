@@ -6,6 +6,13 @@ const isProduction = process.env.NODE_ENV === 'production';
 export default defineConfig({
   outputPath: 'docs-dist',
   copy: isProduction ? ['docs/CNAME'] : [],
+  proxy: {
+    '/app-hub': {
+      target: 'https://pre-engine-aiearth.aliyun.com',
+      changeOrigin: true,
+      // pathRewrite: { '^/api': '' },
+    },
+  },
   // publicPath: '/',
   // locales: [
   //   { id: 'en-us', name: 'English' },
